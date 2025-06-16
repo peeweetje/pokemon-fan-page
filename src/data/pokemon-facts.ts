@@ -1,5 +1,5 @@
 // Pokemon facts that will be shown when the Pokeball is clicked
-export const pokemonFacts = [
+export const pokemonFacts: readonly string[] = [
   'There are over 900 different species of Pokémon!',
   'Pikachu was originally going to be a second evolution of Raichu.',
   'Pokémon Red and Green were the first Pokémon games released in Japan.',
