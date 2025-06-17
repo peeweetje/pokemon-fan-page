@@ -3,7 +3,6 @@ name: Actions Test
 on:
   push:
     branches:
-      - main
       - add-workflow-using-github-actions
   pull_request:
 
