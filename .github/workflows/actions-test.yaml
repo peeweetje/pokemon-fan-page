@@ -27,7 +27,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Push changes using PAT
+      - name: Push changes using token
         if: github.ref == 'refs/heads/add-workflow-using-github-actions'
         env:
           token: ${{ secrets.GITHUB_TOKEN }}
