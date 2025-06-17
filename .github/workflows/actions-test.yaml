@@ -30,9 +30,9 @@ jobs:
       - name: Push changes using PAT
         if: github.ref == 'refs/heads/add-workflow-using-github-actions'
         env:
-          Personal: ${{ secrets.Personal }}
+          token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git remote set-url origin https://x-access-token:${Personal}@github.com/${{ github.repository }}.git
+          git remote set-url origin https://x-access-token:${token}@github.com/${{ github.repository }}.git
           # Example git commands (uncomment and modify as needed):
           # git add .
           # git commit -m "Automated commit"
