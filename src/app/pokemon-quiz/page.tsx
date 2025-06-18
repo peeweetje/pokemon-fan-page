@@ -163,8 +163,7 @@ export default function PokemonQuiz() {
         {/* Header */}
         <div className='flex justify-between items-center mb-8'>
           <Link
-            className={buttonVariants({ variant: 'outline' })}
-            size='lg'
+            className={buttonVariants({ variant: 'outline', size: 'lg' })}
             href='/'
           >
             <ChevronLeft className='h-4 w-4' />

@@ -1,7 +1,7 @@
 'use client';
 
 import { PokemonMemoryGame } from '@/components/pokemon-memory-game';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -18,8 +18,7 @@ export default function GamePage() {
         className='mb-6'
       >
         <Link
-          className={buttonVariants({ variant: 'outline' })}
-          size='lg'
+          className={buttonVariants({ variant: 'outline', size: 'lg' })}
           href='/'
         >
           <ChevronLeft className='h-4 w-4' />

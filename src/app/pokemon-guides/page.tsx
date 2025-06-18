@@ -14,7 +14,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Loading } from '@/components/ui/loading';
 import {
   Sidebar,
   SidebarContent,
@@ -28,7 +27,7 @@ import SecretPokeball from '@/components/secret-pokeball';
 
 export default function PokemonGuides() {
   const [activeSection, setActiveSection] = useState('tips');
-  const [isNavigating, setIsNavigating] = useState(false);
+  const [, setIsNavigating] = useState(false);
   const router = useRouter();
 
   // if (isNavigating) {

@@ -1,11 +1,12 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, Search } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
@@ -75,7 +76,6 @@ interface BattleState {
 
 export default function BattleSimulator() {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [battleState, setBattleState] = useState<BattleState>({
     playerPokemon: null,
     opponentPokemon: null,
@@ -177,12 +177,12 @@ export default function BattleSimulator() {
     });
   };
 
-  const useMove = (move: {
-    name: string;
-    type: string;
-    power: number;
-    accuracy: number;
-  }) => {
+  function handleMove(
+    move: { name: string; type: string; power: number; accuracy: number },
+    battleState: BattleState,
+    setBattleState: React.Dispatch<React.SetStateAction<BattleState>>,
+    resetBattle: () => void
+  ) {
     if (
       !battleState.isPlayerTurn ||
       !battleState.playerPokemon ||
@@ -202,7 +202,7 @@ export default function BattleSimulator() {
       opponentHP: newOpponentHP,
       battleLog: [
         ...prev.battleLog,
-        `${prev.playerPokemon.name} used ${move.name}!`,
+        `${prev.playerPokemon!.name} used ${move.name}!`,
       ],
       isPlayerTurn: false,
     }));
@@ -214,7 +214,7 @@ export default function BattleSimulator() {
           ...prev,
           battleLog: [
             ...prev.battleLog,
-            `${prev.opponentPokemon.name} fainted!`,
+            `${prev.opponentPokemon!.name} fainted!`,
             'Battle finished!',
           ],
         }));
@@ -225,12 +225,12 @@ export default function BattleSimulator() {
 
       // Opponent uses a random move
       const opponentMove =
-        battleState.opponentPokemon.moves[
-          Math.floor(Math.random() * battleState.opponentPokemon.moves.length)
+        battleState.opponentPokemon!.moves[
+          Math.floor(Math.random() * battleState.opponentPokemon!.moves.length)
         ];
       const opponentDamage = Math.floor(
-        (opponentMove.power * battleState.opponentPokemon.stats.attack) /
-          battleState.playerPokemon.stats.defense
+        (opponentMove.power * battleState.opponentPokemon!.stats.attack) /
+          battleState.playerPokemon!.stats.defense
       );
       const newPlayerHP = Math.max(0, battleState.playerHP - opponentDamage);
 
@@ -239,7 +239,7 @@ export default function BattleSimulator() {
         playerHP: newPlayerHP,
         battleLog: [
           ...prev.battleLog,
-          `${prev.opponentPokemon.name} used ${opponentMove.name}!`,
+          `${prev.opponentPokemon!.name} used ${opponentMove.name}!`,
         ],
         isPlayerTurn: true,
       }));
@@ -249,7 +249,7 @@ export default function BattleSimulator() {
           ...prev,
           battleLog: [
             ...prev.battleLog,
-            `${prev.playerPokemon.name} fainted!`,
+            `${prev.playerPokemon!.name} fainted!`,
             'Battle finished!',
           ],
         }));
@@ -257,7 +257,7 @@ export default function BattleSimulator() {
         setTimeout(resetBattle, 8000);
       }
     }, 1000);
-  };
+  }
 
   // Filter Pokemon based on search query
   const filteredPokemon = pokemonList.filter((pokemon) =>
@@ -285,8 +285,7 @@ export default function BattleSimulator() {
         {/* Header */}
         <div className='flex justify-between items-center mb-8'>
           <Link
-            className={buttonVariants({ variant: 'outline' })}
-            size='lg'
+            className={buttonVariants({ variant: 'outline', size: 'lg' })}
             href='/'
           >
             <ChevronLeft className='h-4 w-4' />
@@ -483,15 +482,15 @@ export default function BattleSimulator() {
                   <div className='absolute top-0 right-0'>
                     <div className='relative w-32 h-32'>
                       <Image
-                        src={battleState.opponentPokemon.sprite}
-                        alt={battleState.opponentPokemon.name}
+                        src={battleState.opponentPokemon?.sprite || ''}
+                        alt={battleState.opponentPokemon?.name || ''}
                         fill
                         className='object-contain'
                       />
                     </div>
                     <div className='text-right'>
                       <h3 className='font-semibold capitalize'>
-                        {battleState.opponentPokemon.name}
+                        {battleState.opponentPokemon?.name || ''}
                       </h3>
                       <Progress
                         value={battleState.opponentHP}
@@ -547,7 +546,10 @@ export default function BattleSimulator() {
                       typeColors[move.type as keyof typeof typeColors] ||
                       typeColors.default,
                   }}
-                  onClick={() => battleState.isPlayerTurn && useMove(move)}
+                  onClick={() =>
+                    battleState.isPlayerTurn &&
+                    handleMove(move, battleState, setBattleState, resetBattle)
+                  }
                   disabled={!battleState.isPlayerTurn}
                 >
                   <div className='text-sm'>{move.name}</div>

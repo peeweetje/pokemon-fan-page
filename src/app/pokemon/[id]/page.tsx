@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -77,13 +79,21 @@ async function getPokemonSpecies(id: string) {
   }
 }
 
+export async function generateStaticParams() {
+  // Generate static params for the first 100 Pokémon
+  const pokemonIds = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
+
+  return pokemonIds.map((id) => ({ id }));
+}
+
 export default async function PokemonDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const pokemon = await getPokemonData(params.id);
-  const species = await getPokemonSpecies(params.id);
+  const { id } = await params;
+  const pokemon = await getPokemonData(id);
+  const species = await getPokemonSpecies(id);
 
   if (!pokemon) {
     notFound();
@@ -146,7 +156,7 @@ export default async function PokemonDetailPage({
               </div>
             </div>
             <Image
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${params.id}.png`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
               alt={pokemon.name}
               width={200}
               height={200}

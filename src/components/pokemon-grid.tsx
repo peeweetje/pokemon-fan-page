@@ -14,7 +14,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Pokemon {
   name: string;
@@ -147,7 +146,7 @@ export function PokemonGrid({ initialPokemon }: PokemonGridProps) {
       ) : filteredPokemon.length === 0 ? (
         <div className='text-center py-8'>
           <p className='text-gray-500'>
-            No Pokémon found matching "{searchQuery}"
+            No Pokémon found matching {searchQuery}
           </p>
         </div>
       ) : (

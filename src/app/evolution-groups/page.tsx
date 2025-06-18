@@ -1,11 +1,12 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import {
@@ -211,8 +212,7 @@ export default function EvolutionGroups() {
         {/* Header */}
         <div className='flex justify-between items-center mb-8'>
           <Link
-            className={buttonVariants({ variant: 'outline' })}
-            size='lg'
+            className={buttonVariants({ variant: 'outline', size: 'lg' })}
             href='/'
           >
             <ChevronLeft className='h-4 w-4' />
