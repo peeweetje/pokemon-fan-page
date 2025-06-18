@@ -29,19 +29,3 @@ jobs:
 
       - name: Build Next.js app
         run: pnpm build
-
-      - name: Set up Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Push changes using token
-        if: github.ref == 'refs/heads/add-workflow-using-github-actions'
-        env:
-          token: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git remote set-url origin https://x-access-token:${token}@github.com/${{ github.repository }}.git
-          # Example git commands (uncomment and modify as needed):
-          # git add .
-          # git commit -m "Automated commit"
-          # git push origin add-workflow-using-github-actions
