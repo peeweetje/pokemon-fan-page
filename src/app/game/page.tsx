@@ -1,7 +1,7 @@
 'use client';
 
 import { PokemonMemoryGame } from '@/components/pokemon-memory-game';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';

@@ -1,5 +1,5 @@
 import { PokemonGrid } from '@/components/pokemon-grid';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import SecretPokeball from '@/components/secret-pokeball';
@@ -7,10 +7,6 @@ import SecretPokeball from '@/components/secret-pokeball';
 interface Pokemon {
   name: string;
   url: string;
-}
-
-interface PokemonResponse {
-  results: Pokemon[];
 }
 
 // Server Component for data fetching

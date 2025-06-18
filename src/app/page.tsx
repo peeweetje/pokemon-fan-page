@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Star, Swords, BookOpen } from 'lucide-react';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import Enhanced3DPokeball from '@/components/pokeball-three';
 
@@ -44,9 +43,7 @@ function BackgroundPokeballs() {
 
 export default function Home() {
   const [rotation, setRotation] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
+  const [isLoading] = useState(false);
 
   // Slowly rotate the pokeball
   useEffect(() => {
