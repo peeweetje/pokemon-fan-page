@@ -68,7 +68,7 @@ jobs:
         run: pnpm --version
 
       - name: Install dependencies
-        run: pnpm install
+        run: ${{ steps.detect-package-manager.outputs.runner }} ${{ steps.detect-package-manager.outputs.command }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
