@@ -115,14 +115,12 @@ export default function BattleSimulator() {
         const data = await response.json();
 
         const pokemonDetails = await Promise.all(
-          // eslint-disable @typescript-eslint/no-explicit-any
           data.results.map(async (pokemon: any) => {
             const detailsResponse = await fetch(pokemon.url);
             const details = await detailsResponse.json();
 
             // Get moves (limit to 4)
             const moves = await Promise.all(
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               details.moves.slice(0, 4).map(async (move: any) => {
                 const moveResponse = await fetch(move.move.url);
                 const moveData = await moveResponse.json();

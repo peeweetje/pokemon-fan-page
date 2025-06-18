@@ -141,14 +141,14 @@ export function PokemonMemoryGame() {
   };
 
   // Generate random Pokemon IDs for the game
-  const generatePokemonIds = () => {
+  const generatePokemonIds = useCallback(() => {
     const ids = new Set<number>();
     const { pairs } = difficultySettings[difficulty];
     while (ids.size < pairs) {
-      ids.add(Math.floor(Math.random() * 100) + 1); // All Pokémon up to Generation 8 (898 total => we use 100)
+      ids.add(Math.floor(Math.random() * 100) + 1);
     }
     return Array.from(ids);
-  };
+  }, [difficulty]);
 
   // Initialize game
   const initializeGame = useCallback(() => {
@@ -174,7 +174,7 @@ export function PokemonMemoryGame() {
     setIsLoading(false);
     setTimer(0);
     setIsTimerRunning(true);
-  }, [difficulty]);
+  }, [generatePokemonIds]);
 
   useEffect(() => {
     initializeGame();
@@ -182,7 +182,6 @@ export function PokemonMemoryGame() {
 
   // Timer effect
   useEffect(() => {
-    /* eslint-disable-line react-hooks/exhaustive-deps */
     let interval: NodeJS.Timeout;
     if (isTimerRunning) {
       interval = setInterval(() => {
