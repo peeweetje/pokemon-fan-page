@@ -25,6 +25,11 @@ import {
 } from '@/components/ui/sidebar';
 import SecretPokeball from '@/components/secret-pokeball';
 
+/**
+ * Renders an interactive multi-section Pokémon gameplay guide with animated UI and dynamic content.
+ *
+ * Provides categorized tips, walkthroughs, training advice, competitive strategies, and shiny hunting guides. Users can navigate between sections using a sidebar, with each section displaying animated cards and quick tips relevant to the selected topic.
+ */
 export default function PokemonGuides() {
   const [activeSection, setActiveSection] = useState('tips');
   const [, setIsNavigating] = useState(false);

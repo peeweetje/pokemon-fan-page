@@ -59,6 +59,12 @@ async function getPokemonData(id: string) {
   }
 }
 
+/**
+ * Fetches species data for a given Pokémon from the PokeAPI.
+ *
+ * @param id - The Pokémon's identifier as a string
+ * @returns The parsed species data object, or `null` if the fetch fails
+ */
 async function getPokemonSpecies(id: string) {
   try {
     const response = await fetch(
@@ -79,6 +85,11 @@ async function getPokemonSpecies(id: string) {
   }
 }
 
+/**
+ * Generates static route parameters for the first 100 Pokémon.
+ *
+ * @returns An array of objects each containing an `id` string from "1" to "100" for static page generation.
+ */
 export async function generateStaticParams() {
   // Generate static params for the first 100 Pokémon
   const pokemonIds = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
@@ -86,6 +97,13 @@ export async function generateStaticParams() {
   return pokemonIds.map((id) => ({ id }));
 }
 
+/**
+ * Displays a detailed page for a specific Pokémon, including its image, types, stats, abilities, moves, and descriptive information.
+ *
+ * Fetches Pokémon and species data based on the provided ID, and renders a styled UI with dynamic coloring and animations. If the Pokémon is not found, triggers a 404 page.
+ *
+ * @param params - A promise resolving to an object containing the Pokémon's `id` as a string.
+ */
 export default async function PokemonDetailPage({
   params,
 }: {

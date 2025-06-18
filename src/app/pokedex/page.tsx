@@ -4,7 +4,13 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import SecretPokeball from '@/components/secret-pokeball';
 
-// Server Component for data fetching
+/**
+ * Displays a Pokédex page that fetches and lists 100 Pokémon from the public PokéAPI.
+ *
+ * Fetches Pokémon data on the server, handles loading errors, and renders a styled layout with navigation, heading, a Pokémon grid, and a decorative component.
+ *
+ * @returns The JSX layout for the Pokédex page with fetched Pokémon data.
+ */
 export default async function PokeDex() {
   // Fetch all Pokémon (898 total)
   const pokemonResponse = await fetch(

@@ -12,6 +12,13 @@ import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import * as THREE from 'three';
 
+/**
+ * Renders an animated 3D Pokéball with interactive click support.
+ *
+ * The Pokéball features detailed geometry, realistic materials, and continuous rotation and floating animation. Clicking the Pokéball triggers the provided callback.
+ *
+ * @param onClick - Callback invoked when the Pokéball is clicked
+ */
 function PokeBallThree({ onClick }: { onClick: () => void }) {
   const ballRef = useRef<THREE.Group>(null);
 
@@ -95,6 +102,13 @@ function PokeBallThree({ onClick }: { onClick: () => void }) {
   );
 }
 
+/**
+ * Renders an interactive 3D Pokéball with animated effects and a rotating sparkle icon.
+ *
+ * When clicked, displays a popup with a randomly selected Pokémon fact for 5 seconds. The Pokéball can be rotated using orbit controls, and is visually enhanced with realistic lighting, environment reflections, and contact shadows.
+ *
+ * @returns The enhanced 3D Pokéball React component with interactive fact popup.
+ */
 export default function Enhanced3DPokeball() {
   const [, setClicked] = useState(false);
   const [showFact, setShowFact] = useState(false);

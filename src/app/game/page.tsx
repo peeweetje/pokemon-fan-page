@@ -7,6 +7,13 @@ import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import SecretPokeball from '@/components/secret-pokeball';
 
+/**
+ * Renders the main game page with a memory game, a secret Pokéball, and a back-to-home navigation button.
+ *
+ * The page includes an animated entrance for the navigation button, respecting the user's reduced motion preference for accessibility.
+ *
+ * @returns The game page React element.
+ */
 export default function GamePage() {
   const prefersReducedMotion = useReducedMotion();
 

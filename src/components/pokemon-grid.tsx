@@ -32,6 +32,13 @@ const fetcher = (url: string) =>
 
 const ITEMS_PER_PAGE = 20;
 
+/**
+ * Displays a searchable and paginated grid of Pokémon cards.
+ *
+ * Fetches Pokémon data from the PokéAPI, allows users to search by name or number, and provides pagination controls for browsing results. Shows loading skeletons while fetching data and displays a message if no Pokémon match the search query.
+ *
+ * @param initialPokemon - The initial list of Pokémon to display before client-side data is loaded
+ */
 export function PokemonGrid({ initialPokemon }: PokemonGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);

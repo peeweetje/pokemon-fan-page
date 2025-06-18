@@ -62,6 +62,13 @@ const difficultySettings = {
   hard: { pairs: 12, gridCols: 6 },
 };
 
+/**
+ * Renders a Pokémon-themed memory matching game with multiple difficulty levels, sound effects, animations, and persistent high scores.
+ *
+ * The game allows users to flip cards to find matching Pokémon pairs, tracks moves and elapsed time, and displays a celebratory modal with high scores upon completion. Users can adjust difficulty, toggle sound and animations, and view their best performances for each difficulty level.
+ *
+ * @returns The rendered memory game component.
+ */
 export function PokemonMemoryGame() {
   const prefersReducedMotion: boolean | undefined =
     useReducedMotion() ?? undefined;

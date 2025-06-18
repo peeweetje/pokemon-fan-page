@@ -19,6 +19,11 @@ interface Question {
   category: string;
 }
 
+/**
+ * Renders an interactive Pokémon-themed quiz application.
+ *
+ * Presents users with 10 randomly selected multiple-choice questions about Pokémon, tracks their progress and score, provides immediate feedback and explanations after each answer, and displays themed visuals. Upon completion, shows the final score and allows users to retake the quiz with a new set of questions.
+ */
 export default function PokemonQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);

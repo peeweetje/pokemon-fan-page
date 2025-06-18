@@ -66,6 +66,13 @@ const getTypeColor = (types: string[]) => {
   }15`; // 15 is hex for 10% opacity
 };
 
+/**
+ * Displays a paginated and searchable list of Pokémon evolution groups with animated UI elements.
+ *
+ * Fetches Pokémon data from the PokéAPI, groups them into evolution chains, and renders each group with type-based styling, search filtering, and pagination controls. Includes animated loading and interactive elements for enhanced user experience.
+ *
+ * @returns The rendered React component for viewing Pokémon evolution groups.
+ */
 export default function EvolutionGroups() {
   const [evolutionGroups, setEvolutionGroups] = useState<EvolutionGroup[]>([]);
   const [isLoading, setIsLoading] = useState(true);

@@ -74,6 +74,13 @@ interface BattleState {
   isPlayerTurn: boolean;
 }
 
+/**
+ * Renders the Pokémon Battle Simulator interface, allowing users to search, browse, and select Pokémon to initiate a simulated battle with turn-based move mechanics.
+ *
+ * The component fetches the first 151 Pokémon from the PokéAPI, supports search and pagination, and manages battle state including move selection, HP tracking, and battle logs. Users can select a Pokémon to battle a randomly chosen opponent, execute moves, and view the outcome in a dynamic UI.
+ *
+ * @returns The rendered battle simulator React component.
+ */
 export default function BattleSimulator() {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [battleState, setBattleState] = useState<BattleState>({

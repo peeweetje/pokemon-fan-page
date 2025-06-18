@@ -15,7 +15,11 @@ type Pokeball = {
   opacity: number;
 };
 
-// Client-side only component for background pokeballs
+/**
+ * Renders a decorative background of randomly positioned, semi-transparent pokeball elements.
+ *
+ * Generates 20 pokeball shapes with random positions and opacity on the client side, creating a dynamic visual effect behind the main content.
+ */
 function BackgroundPokeballs() {
   const [pokeballs, setPokeballs] = useState<Pokeball[]>([]);
 
@@ -48,6 +52,13 @@ function BackgroundPokeballs() {
   );
 }
 
+/**
+ * Renders the Pokémon Explorer homepage with animated backgrounds, interactive feature cards, and call-to-action sections.
+ *
+ * The page includes a decorative background of animated pokeballs, a rotating central pokeball graphic, and animated cards highlighting various Pokémon-related features. Users can navigate to different sections such as the Pokédex, memory game, evolution groups, battle simulator, quiz, and guides. The layout is fully responsive and uses Framer Motion for smooth animations.
+ *
+ * @returns The complete homepage React component for Pokémon Explorer.
+ */
 export default function Home() {
   const [rotation, setRotation] = useState(0);
   const [isLoading] = useState(false);
