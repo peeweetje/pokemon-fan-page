@@ -79,6 +79,13 @@ async function getPokemonSpecies(id: string) {
   }
 }
 
+export async function generateStaticParams() {
+  // Generate static params for the first 100 Pokémon
+  const pokemonIds = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
+
+  return pokemonIds.map((id) => ({ id }));
+}
+
 export default async function PokemonDetailPage({
   params,
 }: {
