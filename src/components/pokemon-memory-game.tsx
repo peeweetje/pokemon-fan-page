@@ -63,7 +63,8 @@ const difficultySettings = {
 };
 
 export function PokemonMemoryGame() {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion: boolean | undefined =
+    useReducedMotion() ?? undefined;
   const [cards, setCards] = useState<CardState[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
@@ -485,9 +486,9 @@ export function PokemonMemoryGame() {
                 {card.isFlipped || card.isMatched ? (
                   <motion.div
                     key='front'
-                    initial={shouldAnimate ? { rotateY: 90 } : false}
-                    animate={shouldAnimate ? { rotateY: 0 } : false}
-                    exit={shouldAnimate ? { rotateY: 90 } : false}
+                    initial={shouldAnimate ? { rotateY: 90 } : undefined}
+                    animate={shouldAnimate ? { rotateY: 0 } : undefined}
+                    exit={shouldAnimate ? { rotateY: 90 } : undefined}
                     className='w-full h-full flex items-center justify-center p-2 bg-white'
                   >
                     <Image
@@ -501,9 +502,9 @@ export function PokemonMemoryGame() {
                 ) : (
                   <motion.div
                     key='back'
-                    initial={shouldAnimate ? { rotateY: 90 } : false}
-                    animate={shouldAnimate ? { rotateY: 0 } : false}
-                    exit={shouldAnimate ? { rotateY: 90 } : false}
+                    initial={shouldAnimate ? { rotateY: 90 } : undefined}
+                    animate={shouldAnimate ? { rotateY: 0 } : undefined}
+                    exit={shouldAnimate ? { rotateY: 90 } : undefined}
                     className={`w-full h-full ${cardBacks[difficulty][selectedCardBack]} rounded-3xl flex items-center justify-center relative overflow-hidden`}
                   >
                     {/* Fun star pattern */}
@@ -624,8 +625,10 @@ export function PokemonMemoryGame() {
       {gameOver && (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center p-4'>
           <motion.div
-            initial={shouldAnimate ? { scale: 0.9, opacity: 0, y: 20 } : false}
-            animate={shouldAnimate ? { scale: 1, opacity: 1, y: 0 } : false}
+            initial={
+              shouldAnimate ? { scale: 0.9, opacity: 0, y: 20 } : undefined
+            }
+            animate={shouldAnimate ? { scale: 1, opacity: 1, y: 0 } : undefined}
             transition={{ type: 'spring', duration: 0.5 }}
             className='bg-white p-8 rounded-2xl text-center max-w-md w-full shadow-2xl relative overflow-hidden'
           >
@@ -672,16 +675,16 @@ export function PokemonMemoryGame() {
               </div>
             )}
             <motion.h3
-              initial={shouldAnimate ? { scale: 0.5, opacity: 0 } : false}
-              animate={shouldAnimate ? { scale: 1, opacity: 1 } : false}
+              initial={shouldAnimate ? { scale: 0.5, opacity: 0 } : undefined}
+              animate={shouldAnimate ? { scale: 1, opacity: 1 } : undefined}
               transition={{ delay: 0.2, type: 'spring' }}
               className='text-3xl font-bold mb-6 text-blue-600 flex justify-center relative z-10'
             >
               {'Congratulations!'.split('').map((char, index) => (
                 <motion.span
                   key={index}
-                  initial={shouldAnimate ? { y: 0 } : false}
-                  animate={shouldAnimate ? { y: [0, -10, 0] } : false}
+                  initial={shouldAnimate ? { y: 0 } : undefined}
+                  animate={shouldAnimate ? { y: [0, -10, 0] } : undefined}
                   transition={{
                     duration: 0.5,
                     delay: 0.2 + index * 0.05,
@@ -695,8 +698,8 @@ export function PokemonMemoryGame() {
               ))}
             </motion.h3>
             <motion.div
-              initial={shouldAnimate ? { y: 20, opacity: 0 } : false}
-              animate={shouldAnimate ? { y: 0, opacity: 1 } : false}
+              initial={shouldAnimate ? { y: 20, opacity: 0 } : undefined}
+              animate={shouldAnimate ? { y: 0, opacity: 1 } : undefined}
               transition={{ delay: 0.3 }}
               className='space-y-4 mb-8'
             >
@@ -707,8 +710,8 @@ export function PokemonMemoryGame() {
             </motion.div>
 
             <motion.div
-              initial={shouldAnimate ? { y: 20, opacity: 0 } : false}
-              animate={shouldAnimate ? { y: 0, opacity: 1 } : false}
+              initial={shouldAnimate ? { y: 20, opacity: 0 } : undefined}
+              animate={shouldAnimate ? { y: 0, opacity: 1 } : undefined}
               transition={{ delay: 0.4 }}
               className='mb-8'
             >
@@ -718,8 +721,8 @@ export function PokemonMemoryGame() {
               </h4>
               <div className='space-y-3 bg-gray-50 p-4 rounded-xl'>
                 <motion.div
-                  initial={shouldAnimate ? { x: -20, opacity: 0 } : false}
-                  animate={shouldAnimate ? { x: 0, opacity: 1 } : false}
+                  initial={shouldAnimate ? { x: -20, opacity: 0 } : undefined}
+                  animate={shouldAnimate ? { x: 0, opacity: 1 } : undefined}
                   transition={{ delay: 0.5 }}
                   className='grid grid-cols-4 gap-2 text-sm font-medium text-gray-500 mb-2'
                 >
@@ -735,15 +738,19 @@ export function PokemonMemoryGame() {
                     .map((score, index) => (
                       <motion.div
                         key={`${score.difficulty}-${index}`}
-                        initial={shouldAnimate ? { x: -20, opacity: 0 } : false}
-                        animate={shouldAnimate ? { x: 0, opacity: 1 } : false}
-                        exit={shouldAnimate ? { x: 20, opacity: 0 } : false}
+                        initial={
+                          shouldAnimate ? { x: -20, opacity: 0 } : undefined
+                        }
+                        animate={
+                          shouldAnimate ? { x: 0, opacity: 1 } : undefined
+                        }
+                        exit={shouldAnimate ? { x: 20, opacity: 0 } : undefined}
                         transition={{ delay: 0.6 + index * 0.1 }}
                         className='grid grid-cols-4 gap-2 text-sm py-2 border-b border-gray-100 last:border-0'
                       >
                         <motion.div
-                          initial={shouldAnimate ? { scale: 0 } : false}
-                          animate={shouldAnimate ? { scale: 1 } : false}
+                          initial={shouldAnimate ? { scale: 0 } : undefined}
+                          animate={shouldAnimate ? { scale: 1 } : undefined}
                           transition={{
                             delay: 0.7 + index * 0.1,
                             type: 'spring',
@@ -753,8 +760,8 @@ export function PokemonMemoryGame() {
                           #{index + 1}
                         </motion.div>
                         <motion.div
-                          initial={shouldAnimate ? { scale: 0 } : false}
-                          animate={shouldAnimate ? { scale: 1 } : false}
+                          initial={shouldAnimate ? { scale: 0 } : undefined}
+                          animate={shouldAnimate ? { scale: 1 } : undefined}
                           transition={{
                             delay: 0.8 + index * 0.1,
                             type: 'spring',
@@ -763,8 +770,8 @@ export function PokemonMemoryGame() {
                           {score.moves}
                         </motion.div>
                         <motion.div
-                          initial={shouldAnimate ? { scale: 0 } : false}
-                          animate={shouldAnimate ? { scale: 1 } : false}
+                          initial={shouldAnimate ? { scale: 0 } : undefined}
+                          animate={shouldAnimate ? { scale: 1 } : undefined}
                           transition={{
                             delay: 0.9 + index * 0.1,
                             type: 'spring',
@@ -773,8 +780,8 @@ export function PokemonMemoryGame() {
                           {formatTime(score.time)}
                         </motion.div>
                         <motion.div
-                          initial={shouldAnimate ? { scale: 0 } : false}
-                          animate={shouldAnimate ? { scale: 1 } : false}
+                          initial={shouldAnimate ? { scale: 0 } : undefined}
+                          animate={shouldAnimate ? { scale: 1 } : undefined}
                           transition={{
                             delay: 1 + index * 0.1,
                             type: 'spring',
@@ -789,8 +796,8 @@ export function PokemonMemoryGame() {
             </motion.div>
 
             <motion.div
-              initial={shouldAnimate ? { y: 20, opacity: 0 } : false}
-              animate={shouldAnimate ? { y: 0, opacity: 1 } : false}
+              initial={shouldAnimate ? { y: 20, opacity: 0 } : undefined}
+              animate={shouldAnimate ? { y: 0, opacity: 1 } : undefined}
               transition={{ delay: 1.2 }}
               className='flex justify-center'
             >
