@@ -7,9 +7,17 @@ import { Button } from '@/components/ui/button';
 import { ChevronRight, Star, Swords, BookOpen } from 'lucide-react';
 import Enhanced3DPokeball from '@/components/pokeball-three';
 
+type Pokeball = {
+  id: number;
+  top: string;
+  left: string;
+  right: string;
+  opacity: number;
+};
+
 // Client-side only component for background pokeballs
 function BackgroundPokeballs() {
-  const [pokeballs, setPokeballs] = useState([]);
+  const [pokeballs, setPokeballs] = useState<Pokeball[]>([]);
 
   useEffect(() => {
     // Generate random positions only on the client side
