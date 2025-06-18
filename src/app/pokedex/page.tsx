@@ -22,8 +22,7 @@ export default async function PokeDex() {
       <div className='max-w-7xl mx-auto'>
         <div className='mb-6'>
           <Link
-            className={buttonVariants({ variant: 'outline' })}
-            size='lg'
+            className={buttonVariants({ variant: 'outline', size: 'lg' })}
             href='/'
           >
             <ChevronLeft className='h-4 w-4' />

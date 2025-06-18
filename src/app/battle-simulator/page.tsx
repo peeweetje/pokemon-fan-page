@@ -285,8 +285,7 @@ export default function BattleSimulator() {
         {/* Header */}
         <div className='flex justify-between items-center mb-8'>
           <Link
-            className={buttonVariants({ variant: 'outline' })}
-            size='lg'
+            className={buttonVariants({ variant: 'outline', size: 'lg' })}
             href='/'
           >
             <ChevronLeft className='h-4 w-4' />
@@ -483,15 +482,15 @@ export default function BattleSimulator() {
                   <div className='absolute top-0 right-0'>
                     <div className='relative w-32 h-32'>
                       <Image
-                        src={battleState.opponentPokemon.sprite}
-                        alt={battleState.opponentPokemon.name}
+                        src={battleState.opponentPokemon?.sprite || ''}
+                        alt={battleState.opponentPokemon?.name || ''}
                         fill
                         className='object-contain'
                       />
                     </div>
                     <div className='text-right'>
                       <h3 className='font-semibold capitalize'>
-                        {battleState.opponentPokemon.name}
+                        {battleState.opponentPokemon?.name || ''}
                       </h3>
                       <Progress
                         value={battleState.opponentHP}
