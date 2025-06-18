@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Star, Swords, BookOpen } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
 import Enhanced3DPokeball from '@/components/pokeball-three';
 
 // Client-side only component for background pokeballs

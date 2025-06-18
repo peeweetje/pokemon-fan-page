@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useMemo } from 'react';
+import { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import {
   OrbitControls,
@@ -14,7 +14,6 @@ import * as THREE from 'three';
 
 function PokeBallThree({ onClick }: { onClick: () => void }) {
   const ballRef = useRef<THREE.Group>(null);
-  const { viewport } = useThree();
 
   // Create a more dynamic animation
   useFrame((state) => {
@@ -97,7 +96,7 @@ function PokeBallThree({ onClick }: { onClick: () => void }) {
 }
 
 export default function Enhanced3DPokeball() {
-  const [clicked, setClicked] = useState(false);
+  const [, setClicked] = useState(false);
   const [showFact, setShowFact] = useState(false);
   const [fact, setFact] = useState('');
 

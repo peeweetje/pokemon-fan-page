@@ -17,12 +17,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-interface Pokemon {
-  id: number;
-  name: string;
-  sprite: string;
-}
-
 interface CardState {
   id: number;
   pokemonId: number;
@@ -94,7 +88,7 @@ export function PokemonMemoryGame() {
     'pokemon-memory-difficulty',
     'medium'
   );
-  const [showSettings, setShowSettings] = useState(false);
+
   const [showConfetti, setShowConfetti] = useState(false);
 
   // Initialize audio
@@ -188,6 +182,7 @@ export function PokemonMemoryGame() {
 
   // Timer effect
   useEffect(() => {
+    /* eslint-disable-line react-hooks/exhaustive-deps */
     let interval: NodeJS.Timeout;
     if (isTimerRunning) {
       interval = setInterval(() => {

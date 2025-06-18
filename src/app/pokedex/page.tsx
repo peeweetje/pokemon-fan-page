@@ -4,11 +4,6 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import SecretPokeball from '@/components/secret-pokeball';
 
-interface Pokemon {
-  name: string;
-  url: string;
-}
-
 // Server Component for data fetching
 export default async function PokeDex() {
   // Fetch all Pokémon (898 total)

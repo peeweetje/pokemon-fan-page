@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-unescaped-entities */
 
 import useSWR from 'swr';
 import { PokemonCard } from './pokemon-card';
@@ -14,7 +15,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Pokemon {
   name: string;
