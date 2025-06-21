@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { ChevronRight, Star, Swords, BookOpen } from 'lucide-react';
 import Enhanced3DPokeball from '@/components/pokeball-three';
 
@@ -155,19 +154,18 @@ export default function Home() {
                   Your ultimate guide to the world of Pokémon
                 </p>
 
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <Link
+                  href='/pokedex'
+                  className='inline-flex items-center justify-center bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-base px-6 py-3 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2'
                 >
-                  <Link href='/pokedex'>
-                    <Button
-                      size='lg'
-                      className='bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6 rounded-full'
-                    >
-                      Open Pokédex <ChevronRight className='ml-2 h-5 w-5' />
-                    </Button>
-                  </Link>
-                </motion.div>
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className='inline-flex items-center'
+                  >
+                    {'Open Pokédex'} <ChevronRight className='ml-2 h-4 w-4' />
+                  </motion.span>
+                </Link>
               </motion.div>
             </div>
 
@@ -361,35 +359,31 @@ export default function Home() {
             </p>
 
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='inline-block'
+              <Link
+                href='/pokedex'
+                className='bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-4 rounded-full'
               >
-                <Link href='/pokedex'>
-                  <Button
-                    size='lg'
-                    className='bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-full'
-                  >
-                    Go to Pokédex <ChevronRight className='ml-2 h-5 w-5' />
-                  </Button>
-                </Link>
-              </motion.div>
+                <motion.span
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='inline-flex items-center'
+                >
+                  {'Open Pokédex'} <ChevronRight className='ml-2 h-4 w-4' />
+                </motion.span>
+              </Link>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='inline-block'
+              <Link
+                href='/game'
+                className='inline-flex items-center justify-center bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-base px-6 py-3 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2'
               >
-                <Link href='/game'>
-                  <Button
-                    size='lg'
-                    className='bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-lg px-8 py-6 rounded-full'
-                  >
-                    Play Memory Game <ChevronRight className='ml-2 h-5 w-5' />
-                  </Button>
-                </Link>
-              </motion.div>
+                <motion.span
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='inline-flex items-center'
+                >
+                  {'Play Memory Game'} <ChevronRight className='ml-2 h-4 w-4' />
+                </motion.span>
+              </Link>
             </div>
           </motion.div>
         </div>
