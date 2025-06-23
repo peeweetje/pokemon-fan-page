@@ -100,9 +100,9 @@ export function PokemonMemoryGame() {
   } | null>(null);
 
   useEffect(() => {
-    const flipSound = new Audio('/sounds/flip.mp3');
-    const matchSound = new Audio('/sounds/match.mp3');
-    const successSound = new Audio('/sounds/success.mp3');
+    const flipSound = new Audio('./sounds/flip.mp3');
+    const matchSound = new Audio('./sounds/match.mp3');
+    const successSound = new Audio('./sounds/success.mp3');
 
     // Preload audio
     flipSound.load();
