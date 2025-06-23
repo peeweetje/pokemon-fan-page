@@ -10,6 +10,7 @@ import {
   Sparkles,
   Zap,
   Target,
+  Menu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -27,16 +28,9 @@ import SecretPokeball from '@/components/secret-pokeball';
 
 export default function PokemonGuides() {
   const [activeSection, setActiveSection] = useState('tips');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [, setIsNavigating] = useState(false);
   const router = useRouter();
-
-  // if (isNavigating) {
-  //   return (
-  //     <div className='min-h-screen flex items-center justify-center'>
-  //       <Loading />
-  //     </div>
-  //   );
-  // }
 
   const sections = [
     {
@@ -203,9 +197,141 @@ export default function PokemonGuides() {
 
   return (
     <div className='min-h-screen bg-white'>
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className='fixed inset-0 z-50 bg-black/40 flex'
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className={`relative w-64 h-full shadow-xl p-4 flex flex-col
+                ${
+                  activeSection === 'tips'
+                    ? 'bg-gradient-to-b from-blue-50 via-purple-50 to-pink-50'
+                    : activeSection === 'walkthroughs'
+                    ? 'bg-gradient-to-b from-green-50 via-teal-50 to-emerald-50'
+                    : activeSection === 'training'
+                    ? 'bg-gradient-to-b from-yellow-50 via-orange-50 to-amber-50'
+                    : activeSection === 'competitive'
+                    ? 'bg-gradient-to-b from-red-50 via-pink-50 to-rose-50'
+                    : 'bg-gradient-to-b from-purple-50 via-indigo-50 to-violet-50'
+                }
+              `}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Animated background elements */}
+              <div className='absolute inset-0 opacity-10 overflow-hidden pointer-events-none'>
+                <div
+                  className={`absolute top-10 left-10 w-20 h-20 rounded-full ${
+                    activeSection === 'tips'
+                      ? 'bg-blue-400'
+                      : activeSection === 'walkthroughs'
+                      ? 'bg-green-400'
+                      : activeSection === 'training'
+                      ? 'bg-yellow-400'
+                      : activeSection === 'competitive'
+                      ? 'bg-red-400'
+                      : 'bg-purple-400'
+                  } animate-float`}
+                ></div>
+                <div
+                  className={`absolute bottom-20 right-10 w-16 h-16 rounded-full ${
+                    activeSection === 'tips'
+                      ? 'bg-purple-400'
+                      : activeSection === 'walkthroughs'
+                      ? 'bg-teal-400'
+                      : activeSection === 'training'
+                      ? 'bg-orange-400'
+                      : activeSection === 'competitive'
+                      ? 'bg-pink-400'
+                      : 'bg-indigo-400'
+                  } animate-float-delayed`}
+                ></div>
+                <div
+                  className={`absolute top-1/2 left-1/2 w-24 h-24 rounded-full ${
+                    activeSection === 'tips'
+                      ? 'bg-pink-400'
+                      : activeSection === 'walkthroughs'
+                      ? 'bg-emerald-400'
+                      : activeSection === 'training'
+                      ? 'bg-amber-400'
+                      : activeSection === 'competitive'
+                      ? 'bg-rose-400'
+                      : 'bg-violet-400'
+                  } animate-float-slow`}
+                ></div>
+              </div>
+              {/* Drawer content */}
+              <div className='flex items-center justify-between mb-6 relative z-10'>
+                <span className='font-bold text-lg'>Menu</span>
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label='Close menu'
+                >
+                  <ChevronLeft className='w-5 h-5' />
+                </Button>
+              </div>
+              <div className='flex flex-col gap-2 relative z-10'>
+                {sections.map((section) => (
+                  <Button
+                    key={section.id}
+                    variant={activeSection === section.id ? 'default' : 'ghost'}
+                    className={`justify-start gap-2 w-full ${
+                      activeSection === section.id
+                        ? `bg-gradient-to-r ${
+                            section.id === 'tips'
+                              ? 'from-blue-400 to-purple-400'
+                              : section.id === 'walkthroughs'
+                              ? 'from-green-400 to-teal-400'
+                              : section.id === 'training'
+                              ? 'from-yellow-400 to-orange-400'
+                              : section.id === 'competitive'
+                              ? 'from-red-400 to-pink-400'
+                              : 'from-purple-400 to-indigo-400'
+                          } text-white shadow-lg`
+                        : ''
+                    }`}
+                    onClick={() => {
+                      setActiveSection(section.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    {section.icon}
+                    <span className='font-medium'>{section.title}</span>
+                  </Button>
+                ))}
+              </div>
+              <div className='mt-auto pt-8 relative z-10'>
+                <Button
+                  variant='outline'
+                  className='w-full gap-1'
+                  onClick={() => {
+                    setIsNavigating(true);
+                    router.push('/');
+                  }}
+                >
+                  <ChevronLeft className='h-4 w-4' />
+                  Back to Home
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* Desktop Sidebar */}
       <SidebarProvider>
-        {/* Sidebar using shadcn/ui */}
-        <Sidebar className='border-r'>
+        <Sidebar className='border-r hidden md:flex'>
           <SidebarHeader className='p-0'>
             <div className='p-4 border-b border-gray-200/50'>
               <Button
@@ -371,9 +497,23 @@ export default function PokemonGuides() {
                 transition={{ duration: 0.3 }}
                 className='space-y-6'
               >
-                <h1 className='text-3xl font-bold text-gray-800 mb-8'>
-                  {sections.find((s) => s.id === activeSection)?.title}
-                </h1>
+                {/* Responsive header: menu button next to title on mobile */}
+                <div className='flex items-center mb-8'>
+                  <div className='md:hidden mr-2'>
+                    <Button
+                      variant='outline'
+                      size='icon'
+                      onClick={() => setIsMobileMenuOpen(true)}
+                      className='rounded-full shadow bg-white/90'
+                      aria-label='Open menu'
+                    >
+                      <Menu className='w-7 h-7' />
+                    </Button>
+                  </div>
+                  <h1 className='text-3xl font-bold text-gray-800'>
+                    {sections.find((s) => s.id === activeSection)?.title}
+                  </h1>
+                </div>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   {sections
