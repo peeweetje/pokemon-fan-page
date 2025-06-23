@@ -32,14 +32,6 @@ export default function PokemonGuides() {
   const [, setIsNavigating] = useState(false);
   const router = useRouter();
 
-  // if (isNavigating) {
-  //   return (
-  //     <div className='min-h-screen flex items-center justify-center'>
-  //       <Loading />
-  //     </div>
-  //   );
-  // }
-
   const sections = [
     {
       id: 'tips',
@@ -205,18 +197,6 @@ export default function PokemonGuides() {
 
   return (
     <div className='min-h-screen bg-white'>
-      {/* Mobile Hamburger Menu */}
-      <div className='md:hidden fixed top-4 left-4 z-50'>
-        <Button
-          variant='outline'
-          size='icon'
-          onClick={() => setIsMobileMenuOpen(true)}
-          className='rounded-full shadow-lg bg-white/90'
-          aria-label='Open menu'
-        >
-          <Menu className='w-7 h-7' />
-        </Button>
-      </div>
       {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
@@ -517,9 +497,23 @@ export default function PokemonGuides() {
                 transition={{ duration: 0.3 }}
                 className='space-y-6'
               >
-                <h1 className='text-3xl font-bold text-gray-800 mb-8'>
-                  {sections.find((s) => s.id === activeSection)?.title}
-                </h1>
+                {/* Responsive header: menu button next to title on mobile */}
+                <div className='flex items-center mb-8'>
+                  <div className='md:hidden mr-2'>
+                    <Button
+                      variant='outline'
+                      size='icon'
+                      onClick={() => setIsMobileMenuOpen(true)}
+                      className='rounded-full shadow bg-white/90'
+                      aria-label='Open menu'
+                    >
+                      <Menu className='w-7 h-7' />
+                    </Button>
+                  </div>
+                  <h1 className='text-3xl font-bold text-gray-800'>
+                    {sections.find((s) => s.id === activeSection)?.title}
+                  </h1>
+                </div>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   {sections
