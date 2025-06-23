@@ -329,7 +329,7 @@ export function PokemonMemoryGame() {
   }
 
   return (
-    <div className='max-w-6xl mx-auto p-4'>
+    <div className='max-w-6xl mx-auto p-2 sm:p-4'>
       {/* Confetti */}
       {showConfetti && shouldAnimate && (
         <div className='fixed inset-0 pointer-events-none z-[100] overflow-hidden'>
@@ -372,22 +372,25 @@ export function PokemonMemoryGame() {
         </div>
       )}
 
-      <div className='text-center mb-6'>
-        <div className='flex justify-between items-center mb-4'>
+      <div className='text-center mb-4 sm:mb-6'>
+        <div className='flex justify-between items-center mb-2 sm:mb-4'>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant='ghost' className='rounded-full p-4 h-16 w-16'>
-                <Settings className='h-12 w-12' />
+              <Button
+                variant='ghost'
+                className='rounded-full p-2 sm:p-4 h-12 w-12 sm:h-16 sm:w-16'
+              >
+                <Settings className='h-6 w-6 sm:h-12 sm:w-12' />
               </Button>
             </DialogTrigger>
-            <DialogContent className='sm:max-w-[425px]'>
+            <DialogContent className='sm:max-w-[425px] mx-4'>
               <DialogHeader>
                 <DialogTitle>Game Settings</DialogTitle>
               </DialogHeader>
               <div className='flex flex-col gap-6 py-4'>
                 <div className='space-y-4'>
                   <h4 className='text-sm font-medium'>Difficulty</h4>
-                  <div className='flex justify-center gap-4'>
+                  <div className='flex justify-center gap-2 sm:gap-4'>
                     {(['easy', 'medium', 'hard'] as const).map((level) => (
                       <Button
                         key={level}
@@ -396,6 +399,7 @@ export function PokemonMemoryGame() {
                           resetGame();
                         }}
                         variant={difficulty === level ? 'default' : 'outline'}
+                        className='text-xs sm:text-sm px-2 sm:px-4'
                       >
                         {level.charAt(0).toUpperCase() + level.slice(1)}
                       </Button>
@@ -437,21 +441,21 @@ export function PokemonMemoryGame() {
             </DialogContent>
           </Dialog>
 
-          <h2 className='text-2xl font-bold'>Pokemon Memory Game</h2>
+          <h2 className='text-lg sm:text-2xl font-bold'>Pokemon Memory Game</h2>
           <Button
             variant='ghost'
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className='rounded-full p-4 h-16 w-16'
+            className='rounded-full p-2 sm:p-4 h-12 w-12 sm:h-16 sm:w-16'
           >
             {soundEnabled ? (
-              <Volume2 className='h-12 w-12' />
+              <Volume2 className='h-6 w-6 sm:h-12 sm:w-12' />
             ) : (
-              <VolumeX className='h-12 w-12' />
+              <VolumeX className='h-6 w-6 sm:h-12 sm:w-12' />
             )}
           </Button>
         </div>
 
-        <div className='flex justify-center gap-8 text-gray-600'>
+        <div className='flex flex-col sm:flex-row justify-center gap-2 sm:gap-8 text-sm sm:text-base text-gray-600'>
           <p>Moves: {moves}</p>
           <p>Time: {formatTime(timer)}</p>
           <p>
@@ -463,16 +467,16 @@ export function PokemonMemoryGame() {
 
       <div
         key={`game-grid-${shouldAnimate}`}
-        className={`grid gap-4 ${
+        className={`grid gap-2 sm:gap-4 ${
           difficultySettings[difficulty].gridCols === 4
-            ? 'grid-cols-4'
-            : 'grid-cols-6'
-        }`}
+            ? 'grid-cols-2 sm:grid-cols-4'
+            : 'grid-cols-2 sm:grid-cols-4 md:grid-cols-6'
+        } max-w-sm sm:max-w-none mx-auto`}
       >
         {cards.map((card) => (
           <motion.div
             key={card.id}
-            className='aspect-square'
+            className='aspect-square min-h-[120px] sm:min-h-[100px]'
             whileHover={shouldAnimate ? { scale: 1.05 } : undefined}
             whileTap={shouldAnimate ? { scale: 0.95 } : undefined}
           >
@@ -496,7 +500,7 @@ export function PokemonMemoryGame() {
                       alt={`Pokemon ${card.pokemonId}`}
                       width={100}
                       height={100}
-                      className='object-contain'
+                      className='object-contain w-12 h-12 sm:w-20 sm:h-20 md:w-24 md:h-24'
                     />
                   </motion.div>
                 ) : (
@@ -520,7 +524,7 @@ export function PokemonMemoryGame() {
 
                     {/* Bouncy Pokeball */}
                     <motion.div
-                      className='relative w-16 h-16 flex items-center justify-center'
+                      className='relative w-10 h-10 sm:w-16 sm:h-16 flex items-center justify-center'
                       animate={
                         shouldAnimate
                           ? {
@@ -533,34 +537,34 @@ export function PokemonMemoryGame() {
                         shouldAnimate
                           ? {
                               duration: 2,
-                              repeat: Infinity,
+                              repeat: Number.POSITIVE_INFINITY,
                               ease: 'easeInOut',
                             }
                           : undefined
                       }
                     >
                       {/* Pokeball outer circle */}
-                      <div className='absolute w-full h-full rounded-full border-4 border-black shadow-[0_0_15px_rgba(0,0,0,0.3)]'></div>
+                      <div className='absolute w-full h-full rounded-full border-2 sm:border-4 border-black shadow-[0_0_15px_rgba(0,0,0,0.3)]'></div>
                       {/* Pokeball top half (white) */}
                       <div className='absolute w-full h-1/2 top-0 rounded-t-full bg-white'></div>
                       {/* Pokeball bottom half (red) */}
                       <div className='absolute w-full h-1/2 bottom-0 rounded-b-full bg-red-600'></div>
                       {/* Pokeball middle line */}
-                      <div className='absolute w-full h-1 top-1/2 -translate-y-1/2 bg-black'></div>
+                      <div className='absolute w-full h-0.5 sm:h-1 top-1/2 -translate-y-1/2 bg-black'></div>
                       {/* Pokeball center circle with playful shine */}
-                      <div className='absolute w-6 h-6 rounded-full border-4 border-black bg-white'>
-                        <div className='absolute top-1 left-1 w-1 h-1 rounded-full bg-white/50'></div>
+                      <div className='absolute w-3 h-3 sm:w-6 sm:h-6 rounded-full border-2 sm:border-4 border-black bg-white'>
+                        <div className='absolute top-0.5 left-0.5 sm:top-1 sm:left-1 w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full bg-white/50'></div>
                       </div>
                     </motion.div>
 
                     {/* Playful corner elements */}
                     <div
-                      className={`absolute top-3 left-3 w-4 h-4 rounded-full bg-white/30 ${
+                      className={`absolute top-1 left-1 sm:top-3 sm:left-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
                         shouldAnimate ? 'animate-pulse' : ''
                       }`}
                     ></div>
                     <div
-                      className={`absolute top-3 right-3 w-4 h-4 rounded-full bg-white/30 ${
+                      className={`absolute top-1 right-1 sm:top-3 sm:right-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
                         shouldAnimate ? 'animate-pulse' : ''
                       }`}
                       style={
@@ -568,7 +572,7 @@ export function PokemonMemoryGame() {
                       }
                     ></div>
                     <div
-                      className={`absolute bottom-3 left-3 w-4 h-4 rounded-full bg-white/30 ${
+                      className={`absolute bottom-1 left-1 sm:bottom-3 sm:left-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
                         shouldAnimate ? 'animate-pulse' : ''
                       }`}
                       style={
@@ -576,7 +580,7 @@ export function PokemonMemoryGame() {
                       }
                     ></div>
                     <div
-                      className={`absolute bottom-3 right-3 w-4 h-4 rounded-full bg-white/30 ${
+                      className={`absolute bottom-1 right-1 sm:bottom-3 sm:right-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
                         shouldAnimate ? 'animate-pulse' : ''
                       }`}
                       style={
@@ -586,12 +590,12 @@ export function PokemonMemoryGame() {
 
                     {/* Fun sparkle effects */}
                     <div
-                      className={`absolute top-1/4 left-1/4 w-2 h-2 rounded-full bg-white/40 ${
+                      className={`absolute top-1/4 left-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
                         shouldAnimate ? 'animate-ping' : ''
                       }`}
                     ></div>
                     <div
-                      className={`absolute top-1/4 right-1/4 w-2 h-2 rounded-full bg-white/40 ${
+                      className={`absolute top-1/4 right-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
                         shouldAnimate ? 'animate-ping' : ''
                       }`}
                       style={
@@ -599,7 +603,7 @@ export function PokemonMemoryGame() {
                       }
                     ></div>
                     <div
-                      className={`absolute bottom-1/4 left-1/4 w-2 h-2 rounded-full bg-white/40 ${
+                      className={`absolute bottom-1/4 left-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
                         shouldAnimate ? 'animate-ping' : ''
                       }`}
                       style={
@@ -607,7 +611,7 @@ export function PokemonMemoryGame() {
                       }
                     ></div>
                     <div
-                      className={`absolute bottom-1/4 right-1/4 w-2 h-2 rounded-full bg-white/40 ${
+                      className={`absolute bottom-1/4 right-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
                         shouldAnimate ? 'animate-ping' : ''
                       }`}
                       style={
@@ -623,14 +627,14 @@ export function PokemonMemoryGame() {
       </div>
 
       {gameOver && (
-        <div className='fixed inset-0 bg-black/50 flex items-center justify-center p-4'>
+        <div className='fixed inset-0 bg-black/50 flex items-center justify-center p-2 sm:p-4 z-50'>
           <motion.div
             initial={
               shouldAnimate ? { scale: 0.9, opacity: 0, y: 20 } : undefined
             }
             animate={shouldAnimate ? { scale: 1, opacity: 1, y: 0 } : undefined}
             transition={{ type: 'spring', duration: 0.5 }}
-            className='bg-white p-8 rounded-2xl text-center max-w-md w-full shadow-2xl relative overflow-hidden'
+            className='bg-white p-4 sm:p-8 rounded-2xl text-center max-w-sm sm:max-w-md w-full shadow-2xl relative overflow-hidden mx-2'
           >
             {/* Confetti container positioned relative to the modal */}
             {showConfetti && shouldAnimate && (
@@ -688,7 +692,7 @@ export function PokemonMemoryGame() {
                   transition={{
                     duration: 0.5,
                     delay: 0.2 + index * 0.05,
-                    repeat: Infinity,
+                    repeat: Number.POSITIVE_INFINITY,
                     repeatDelay: 2,
                   }}
                   className='inline-block'
