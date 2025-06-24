@@ -10,6 +10,7 @@ import { Progress } from '@/components/ui/progress';
 import { questions } from '@/data/quiz-questions';
 import Image from 'next/image';
 import SecretPokeball from '@/components/secret-pokeball';
+import { X, Check } from 'lucide-react';
 
 interface Question {
   question: string;
@@ -231,7 +232,23 @@ export default function PokemonQuiz() {
                       onClick={() => !showExplanation && handleAnswer(option)}
                       disabled={showExplanation}
                     >
-                      {option}
+                      <span className='flex w-full justify-between'>
+                        {option}
+                        <span>
+                          {showExplanation &&
+                            selectedAnswer === option &&
+                            (option ===
+                            selectedQuestions[currentQuestion].correctAnswer ? (
+                              <span aria-label='Correct answer'>
+                                <Check className='text-green-600 w-6 h-6' />
+                              </span>
+                            ) : (
+                              <span aria-label='Incorrect answer'>
+                                <X className='text-red-600 w-6 h-6' />
+                              </span>
+                            ))}
+                        </span>
+                      </span>
                     </motion.button>
                   ))}
                 </div>
