@@ -174,7 +174,7 @@ export function PokemonMemoryGame() {
     setGameOver(false);
     setIsLoading(false);
     setTimer(0);
-    setIsTimerRunning(true);
+    setIsTimerRunning(false);
   }, [generatePokemonIds]);
 
   useEffect(() => {
@@ -183,17 +183,24 @@ export function PokemonMemoryGame() {
 
   // Timer effect
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isTimerRunning) {
+    let interval: NodeJS.Timeout | undefined;
+    if (isTimerRunning && !gameOver) {
       interval = setInterval(() => {
         setTimer((prev) => prev + 1);
       }, 1000);
     }
-    return () => clearInterval(interval);
-  }, [isTimerRunning]);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isTimerRunning, gameOver]);
 
   // Handle card click
   const handleCardClick = (clickedId: number) => {
+    // Start timer on first card click
+    if (!isTimerRunning && flippedCards.length === 0 && timer === 0) {
+      setIsTimerRunning(true);
+    }
+
     // Don't allow clicking if:
     // - Two cards are already flipped
     // - The card is already matched
@@ -310,7 +317,7 @@ export function PokemonMemoryGame() {
     setCards(shuffledCards);
     setIsLoading(false);
     setTimer(0);
-    setIsTimerRunning(true);
+    setIsTimerRunning(false);
     setFlippedCards([]);
     setMoves(0);
     setGameOver(false);
