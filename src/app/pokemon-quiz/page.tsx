@@ -239,16 +239,13 @@ export default function PokemonQuiz() {
                             selectedAnswer === option &&
                             (option ===
                             selectedQuestions[currentQuestion].correctAnswer ? (
-                              <Check
-                                className='text-green-600 w-6 h-6'
-                                aria-label='Correct answer'
-                              />
-                              <span className="sr-only">Correct answer</span>
+                              <span aria-label='Correct answer'>
+                                <Check className='text-green-600 w-6 h-6' />
+                              </span>
                             ) : (
-                              <X
-                                className='text-red-600 w-6 h-6'
-                                aria-label='Incorrect answer'
-                              />
+                              <span aria-label='Incorrect answer'>
+                                <X className='text-red-600 w-6 h-6' />
+                              </span>
                             ))}
                         </span>
                       </span>
