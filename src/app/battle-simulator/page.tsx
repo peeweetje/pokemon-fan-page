@@ -1,7 +1,7 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -88,14 +88,17 @@ export default function BattleSimulator() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [showBattleFinishedModal, setShowBattleFinishedModal] = useState(false);
+  const [battleId, setBattleId] = useState(0);
   const itemsPerPage = 12;
+  const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetBattle = () => {
     setBattleState((prev) => ({
       ...prev,
       battleLog: [...prev.battleLog, 'Back to the Pokemons!'],
     }));
-    setTimeout(() => {
+    if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
+    resetTimeoutRef.current = setTimeout(() => {
       setBattleState({
         playerPokemon: null,
         opponentPokemon: null,
@@ -164,6 +167,14 @@ export default function BattleSimulator() {
   }, []);
 
   const startBattle = (pokemon: Pokemon) => {
+    // Clear any pending reset and close modal
+    if (resetTimeoutRef.current) {
+      clearTimeout(resetTimeoutRef.current);
+      resetTimeoutRef.current = null;
+    }
+    setShowBattleFinishedModal(false);
+    setBattleId((prev) => prev + 1); // increment battleId
+
     // Select a random opponent
     const randomIndex = Math.floor(Math.random() * pokemonList.length);
     const opponent = pokemonList[randomIndex];
@@ -219,10 +230,17 @@ export default function BattleSimulator() {
             'Battle finished!',
           ],
         }));
-        setShowBattleFinishedModal(true); // Show modal
-        setTimeout(() => {
-          setShowBattleFinishedModal(false);
-          resetBattle();
+        setShowBattleFinishedModal(true);
+        if (resetTimeoutRef.current) {
+          clearTimeout(resetTimeoutRef.current);
+          resetTimeoutRef.current = null;
+        }
+        const thisBattleId = battleId;
+        resetTimeoutRef.current = setTimeout(() => {
+          if (battleId === thisBattleId) {
+            setShowBattleFinishedModal(false);
+            resetBattle();
+          }
         }, 8000);
         return;
       }
@@ -257,10 +275,17 @@ export default function BattleSimulator() {
             'Battle finished!',
           ],
         }));
-        setShowBattleFinishedModal(true); // Show modal
-        setTimeout(() => {
-          setShowBattleFinishedModal(false);
-          resetBattle();
+        setShowBattleFinishedModal(true);
+        if (resetTimeoutRef.current) {
+          clearTimeout(resetTimeoutRef.current);
+          resetTimeoutRef.current = null;
+        }
+        const thisBattleId = battleId;
+        resetTimeoutRef.current = setTimeout(() => {
+          if (battleId === thisBattleId) {
+            setShowBattleFinishedModal(false);
+            resetBattle();
+          }
         }, 8000);
       }
     }, 1200);
@@ -298,6 +323,10 @@ export default function BattleSimulator() {
               className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition'
               onClick={() => {
                 setShowBattleFinishedModal(false);
+                if (resetTimeoutRef.current) {
+                  clearTimeout(resetTimeoutRef.current);
+                  resetTimeoutRef.current = null;
+                }
                 resetBattle();
               }}
             >
