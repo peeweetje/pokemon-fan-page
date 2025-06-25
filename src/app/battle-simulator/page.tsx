@@ -288,7 +288,7 @@ export default function BattleSimulator() {
           }
         }, 8000);
       }
-    }, 1200);
+    }, 1200); // Slight delay increase to improve battle pacing
   }
 
   // Filter Pokemon based on search query
