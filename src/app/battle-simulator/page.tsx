@@ -87,6 +87,7 @@ export default function BattleSimulator() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showBattleFinishedModal, setShowBattleFinishedModal] = useState(false);
   const itemsPerPage = 12;
 
   const resetBattle = () => {
@@ -218,8 +219,11 @@ export default function BattleSimulator() {
             'Battle finished!',
           ],
         }));
-        // Reset battle after a delay
-        setTimeout(resetBattle, 8000);
+        setShowBattleFinishedModal(true); // Show modal
+        setTimeout(() => {
+          setShowBattleFinishedModal(false);
+          resetBattle();
+        }, 8000);
         return;
       }
 
@@ -253,10 +257,13 @@ export default function BattleSimulator() {
             'Battle finished!',
           ],
         }));
-        // Reset battle after a delay
-        setTimeout(resetBattle, 8000);
+        setShowBattleFinishedModal(true); // Show modal
+        setTimeout(() => {
+          setShowBattleFinishedModal(false);
+          resetBattle();
+        }, 8000);
       }
-    }, 1000);
+    }, 1200);
   }
 
   // Filter Pokemon based on search query
@@ -281,6 +288,24 @@ export default function BattleSimulator() {
 
   return (
     <div className='min-h-screen bg-white p-6'>
+      {/* Battle Finished Modal */}
+      {showBattleFinishedModal && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'>
+          <div className='bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center'>
+            <h2 className='text-2xl font-bold mb-4'>Battle Finished!</h2>
+            <p className='mb-6'>Return to the Pokemons</p>
+            <button
+              className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition'
+              onClick={() => {
+                setShowBattleFinishedModal(false);
+                resetBattle();
+              }}
+            >
+              Back to Pokemons
+            </button>
+          </div>
+        </div>
+      )}
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <div className='flex justify-between items-center mb-8'>
