@@ -1,7 +1,7 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -87,14 +87,18 @@ export default function BattleSimulator() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showBattleFinishedModal, setShowBattleFinishedModal] = useState(false);
+  const [battleId, setBattleId] = useState(0);
   const itemsPerPage = 12;
+  const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetBattle = () => {
     setBattleState((prev) => ({
       ...prev,
       battleLog: [...prev.battleLog, 'Back to the Pokemons!'],
     }));
-    setTimeout(() => {
+    if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
+    resetTimeoutRef.current = setTimeout(() => {
       setBattleState({
         playerPokemon: null,
         opponentPokemon: null,
@@ -163,6 +167,14 @@ export default function BattleSimulator() {
   }, []);
 
   const startBattle = (pokemon: Pokemon) => {
+    // Clear any pending reset and close modal
+    if (resetTimeoutRef.current) {
+      clearTimeout(resetTimeoutRef.current);
+      resetTimeoutRef.current = null;
+    }
+    setShowBattleFinishedModal(false);
+    setBattleId((prev) => prev + 1); // increment battleId
+
     // Select a random opponent
     const randomIndex = Math.floor(Math.random() * pokemonList.length);
     const opponent = pokemonList[randomIndex];
@@ -218,8 +230,18 @@ export default function BattleSimulator() {
             'Battle finished!',
           ],
         }));
-        // Reset battle after a delay
-        setTimeout(resetBattle, 8000);
+        setShowBattleFinishedModal(true);
+        if (resetTimeoutRef.current) {
+          clearTimeout(resetTimeoutRef.current);
+          resetTimeoutRef.current = null;
+        }
+        const thisBattleId = battleId;
+        resetTimeoutRef.current = setTimeout(() => {
+          if (battleId === thisBattleId) {
+            setShowBattleFinishedModal(false);
+            resetBattle();
+          }
+        }, 8000);
         return;
       }
 
@@ -253,10 +275,20 @@ export default function BattleSimulator() {
             'Battle finished!',
           ],
         }));
-        // Reset battle after a delay
-        setTimeout(resetBattle, 8000);
+        setShowBattleFinishedModal(true);
+        if (resetTimeoutRef.current) {
+          clearTimeout(resetTimeoutRef.current);
+          resetTimeoutRef.current = null;
+        }
+        const thisBattleId = battleId;
+        resetTimeoutRef.current = setTimeout(() => {
+          if (battleId === thisBattleId) {
+            setShowBattleFinishedModal(false);
+            resetBattle();
+          }
+        }, 8000);
       }
-    }, 1000);
+    }, 1200); // Slight delay increase to improve battle pacing
   }
 
   // Filter Pokemon based on search query
@@ -281,6 +313,34 @@ export default function BattleSimulator() {
 
   return (
     <div className='min-h-screen bg-white p-6'>
+      {/* Battle Finished Modal */}
+      {showBattleFinishedModal && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'>
+          <div className='bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center'>
+            <h2 className='text-2xl font-bold mb-4'>Battle Finished!</h2>
+            <p className='mb-2 text-gray-600'>
+              {battleState.opponentHP <= 0 ? 'You won!' : 'You lost!'}
+            </p>
+            <p className='mb-6'>Return to the Pokemons</p>
+            <button
+              autoFocus
+              className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition'
+              onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                  setShowBattleFinishedModal(false);
+                  if (resetTimeoutRef.current) {
+                    clearTimeout(resetTimeoutRef.current);
+                    resetTimeoutRef.current = null;
+                  }
+                  resetBattle();
+                }
+              }}
+            >
+              Back to Pokemons
+            </button>
+          </div>
+        </div>
+      )}
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <div className='flex justify-between items-center mb-8'>
