@@ -318,16 +318,22 @@ export default function BattleSimulator() {
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'>
           <div className='bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center'>
             <h2 className='text-2xl font-bold mb-4'>Battle Finished!</h2>
+            <p className='mb-2 text-gray-600'>
+              {battleState.opponentHP <= 0 ? 'You won!' : 'You lost!'}
+            </p>
             <p className='mb-6'>Return to the Pokemons</p>
             <button
+              autoFocus
               className='bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition'
-              onClick={() => {
-                setShowBattleFinishedModal(false);
-                if (resetTimeoutRef.current) {
-                  clearTimeout(resetTimeoutRef.current);
-                  resetTimeoutRef.current = null;
+              onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                  setShowBattleFinishedModal(false);
+                  if (resetTimeoutRef.current) {
+                    clearTimeout(resetTimeoutRef.current);
+                    resetTimeoutRef.current = null;
+                  }
+                  resetBattle();
                 }
-                resetBattle();
               }}
             >
               Back to Pokemons
