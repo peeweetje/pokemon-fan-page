@@ -1,7 +1,5 @@
 import NextIntlConfig from 'next-intl/plugin';
 
-const config = NextIntlConfig({
-  defaultLocale: 'en',
-});
+const config = NextIntlConfig({});
 
 export default config;
