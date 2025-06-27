@@ -67,12 +67,6 @@ jobs:
         if: ${{ steps.detect-package-manager.outputs.manager == 'pnpm' }}
         run: pnpm --version
 
-      - name: List files in root
-        run: ls -l
-
-     - name: List files in pokemon-fan-page before build
-       run: ls -l pokemon-fan-page
-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.runner }} ${{ steps.detect-package-manager.outputs.command }}
 
