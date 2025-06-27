@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Star, Swords, BookOpen } from 'lucide-react';
 import Enhanced3DPokeball from '@/components/pokeball-three';
+import { useTranslations } from 'next-intl';
 
 type Pokeball = {
   id: number;
@@ -48,6 +49,7 @@ function BackgroundPokeballs() {
 }
 
 export default function Home() {
+  const t = useTranslations('HomePage');
   const [rotation, setRotation] = useState(0);
   const [isLoading] = useState(false);
 
@@ -148,10 +150,10 @@ export default function Home() {
                 transition={{ duration: 0.5 }}
               >
                 <h1 className='text-5xl md:text-7xl font-extrabold mb-4 tracking-tight'>
-                  Pokémon Explorer
+                  {t('hero-header')}
                 </h1>
                 <p className='text-xl md:text-2xl mb-8 text-red-100'>
-                  Your ultimate guide to the world of Pokémon
+                  {t('hero-title')}
                 </p>
 
                 <Link
@@ -163,7 +165,8 @@ export default function Home() {
                     whileTap={{ scale: 0.95 }}
                     className='inline-flex items-center'
                   >
-                    {'Open Pokédex'} <ChevronRight className='ml-2 h-4 w-4' />
+                    {t('hero-open-pokedex')}
+                    <ChevronRight className='ml-2 h-4 w-4' />
                   </motion.span>
                 </Link>
               </motion.div>
@@ -191,7 +194,7 @@ export default function Home() {
       <section className='bg-white text-gray-800 py-16'>
         <div className='container mx-auto px-6'>
           <h2 className='text-3xl md:text-4xl font-bold text-center mb-12'>
-            Explore the Pokémon World
+            {t('main-title')}
           </h2>
 
           <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>

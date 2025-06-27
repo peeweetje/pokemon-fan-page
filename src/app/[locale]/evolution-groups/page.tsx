@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
