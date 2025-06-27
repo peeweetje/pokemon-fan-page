@@ -1,4 +1,4 @@
-import type { NextIntlConfig } from 'next-intl/plugin';
+import type NextIntlConfig from 'next-intl/plugin';
 
 const config: NextIntlConfig = {
   locales: ['en', 'nl'],
