@@ -100,27 +100,30 @@ export function PokemonMemoryGame() {
   } | null>(null);
 
   useEffect(() => {
-    const flipSound = new Audio('./sounds/flip.mp3');
-    const matchSound = new Audio('./sounds/match.mp3');
-    const successSound = new Audio('./sounds/success.mp3');
+    // Only initialize audio on the client side
+    if (typeof window !== 'undefined') {
+      const flipSound = new Audio('../sounds/flip.mp3');
+      const matchSound = new Audio('../sounds/match.mp3');
+      const successSound = new Audio('../sounds/success.mp3');
 
-    // Preload audio
-    flipSound.load();
-    matchSound.load();
-    successSound.load();
+      // Preload audio
+      flipSound.load();
+      matchSound.load();
+      successSound.load();
 
-    setAudio({
-      flip: flipSound,
-      match: matchSound,
-      success: successSound,
-    });
+      setAudio({
+        flip: flipSound,
+        match: matchSound,
+        success: successSound,
+      });
 
-    return () => {
-      // Cleanup audio elements
-      flipSound.pause();
-      matchSound.pause();
-      successSound.pause();
-    };
+      return () => {
+        // Cleanup audio elements
+        flipSound.pause();
+        matchSound.pause();
+        successSound.pause();
+      };
+    }
   }, []);
 
   // Play sound if enabled
