@@ -42,7 +42,7 @@ interface PokemonDetails {
 export function PokemonCard({ name, url }: PokemonCardProps) {
   const [imageError, setImageError] = useState(false);
   const [pokemonData, setPokemonData] = useState<PokemonDetails | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
 

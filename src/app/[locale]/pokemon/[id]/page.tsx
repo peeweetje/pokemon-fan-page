@@ -97,9 +97,9 @@ export async function generateStaticParams() {
 export default async function PokemonDetailPage({
   params,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const { locale, id } = await params;
+  const { id } = await params;
   const pokemon = await getPokemonData(id);
   const species = await getPokemonSpecies(id);
 

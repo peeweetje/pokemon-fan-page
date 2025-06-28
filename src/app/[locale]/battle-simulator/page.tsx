@@ -11,6 +11,7 @@ interface Pokemon {
   name: string;
   sprite: string;
   types: string[];
+  url: string;
   stats: {
     hp: number;
     attack: number;
@@ -38,7 +39,7 @@ export default async function BattleSimulator() {
   }
 
   const pokemonDetails = await Promise.all(
-    data.results.map(async (pokemon: any) => {
+    data.results.map(async (pokemon: Pokemon) => {
       const detailsResponse = await fetch(pokemon.url);
       const details = await detailsResponse.json();
 

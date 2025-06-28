@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+
 import { Link } from '@/i18n/navigation';
 import {
   ChevronLeft,
@@ -31,7 +31,6 @@ export default function PokemonGuides() {
   const [activeSection, setActiveSection] = useState('tips');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [, setIsNavigating] = useState(false);
-  const router = useRouter();
 
   const sections = [
     {
