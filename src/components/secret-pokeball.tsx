@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { pokemonFacts } from '@/data/pokemon-facts';
 
-export default function SecretPokeball() {
+function SecretPokeballComponent() {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isClicked, setIsClicked] = useState(false);
@@ -134,4 +134,19 @@ export default function SecretPokeball() {
       )}
     </AnimatePresence>
   );
+}
+
+// Create a client-only wrapper that only renders on the client side
+export default function SecretPokeball() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Don't render anything on the server
+  }
+
+  return <SecretPokeballComponent />;
 }
