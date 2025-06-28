@@ -80,18 +80,26 @@ async function getPokemonSpecies(id: string) {
 }
 
 export async function generateStaticParams() {
-  // Generate static params for the first 100 Pokémon
+  // Generate static params for both locales and the first 100 Pokémon
+  const locales = ['en', 'nl'];
   const pokemonIds = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
 
-  return pokemonIds.map((id) => ({ id }));
+  const params = [];
+  for (const locale of locales) {
+    for (const id of pokemonIds) {
+      params.push({ locale, id });
+    }
+  }
+
+  return params;
 }
 
 export default async function PokemonDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
-  const { id } = await params;
+  const { locale, id } = await params;
   const pokemon = await getPokemonData(id);
   const species = await getPokemonSpecies(id);
 

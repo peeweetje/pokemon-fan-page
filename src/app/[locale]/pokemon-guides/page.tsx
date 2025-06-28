@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
 import {
   ChevronLeft,
   BookOpen,
@@ -313,17 +314,18 @@ export default function PokemonGuides() {
                 ))}
               </div>
               <div className='mt-auto pt-8 relative z-10'>
-                <Button
-                  variant='outline'
-                  className='w-full gap-1'
-                  onClick={() => {
-                    setIsNavigating(true);
-                    router.push('/');
-                  }}
-                >
-                  <ChevronLeft className='h-4 w-4' />
-                  Back to Home
-                </Button>
+                <Link href='/'>
+                  <Button
+                    variant='outline'
+                    className='w-full gap-1'
+                    onClick={() => {
+                      setIsNavigating(true);
+                    }}
+                  >
+                    <ChevronLeft className='h-4 w-4' />
+                    Back to Home
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </motion.div>
@@ -334,28 +336,29 @@ export default function PokemonGuides() {
         <Sidebar className='border-r hidden md:flex'>
           <SidebarHeader className='p-0'>
             <div className='p-4 border-b border-gray-200/50'>
-              <Button
-                variant='outline'
-                size='lg'
-                onClick={() => {
-                  setIsNavigating(true);
-                  router.push('/');
-                }}
-                className={`gap-1 w-full justify-start transition-all duration-300 hover:scale-105 cursor-pointer ${
-                  activeSection === 'tips'
-                    ? 'bg-gradient-to-r from-blue-400/80 to-purple-400/80 hover:from-blue-400 hover:to-purple-400 text-white'
-                    : activeSection === 'walkthroughs'
-                    ? 'bg-gradient-to-r from-green-400/80 to-teal-400/80 hover:from-green-400 hover:to-teal-400 text-white'
-                    : activeSection === 'training'
-                    ? 'bg-gradient-to-r from-yellow-400/80 to-orange-400/80 hover:from-yellow-400 hover:to-orange-400 text-white'
-                    : activeSection === 'competitive'
-                    ? 'bg-gradient-to-r from-red-400/80 to-pink-400/80 hover:from-red-400 hover:to-pink-400 text-white'
-                    : 'bg-gradient-to-r from-purple-400/80 to-indigo-400/80 hover:from-purple-400 hover:to-indigo-400 text-white'
-                }`}
-              >
-                <ChevronLeft className='h-4 w-4' />
-                Back to Home
-              </Button>
+              <Link href='/'>
+                <Button
+                  variant='outline'
+                  size='lg'
+                  onClick={() => {
+                    setIsNavigating(true);
+                  }}
+                  className={`gap-1 w-full justify-start transition-all duration-300 hover:scale-105 cursor-pointer ${
+                    activeSection === 'tips'
+                      ? 'bg-gradient-to-r from-blue-400/80 to-purple-400/80 hover:from-blue-400 hover:to-purple-400 text-white'
+                      : activeSection === 'walkthroughs'
+                      ? 'bg-gradient-to-r from-green-400/80 to-teal-400/80 hover:from-green-400 hover:to-teal-400 text-white'
+                      : activeSection === 'training'
+                      ? 'bg-gradient-to-r from-yellow-400/80 to-orange-400/80 hover:from-yellow-400 hover:to-orange-400 text-white'
+                      : activeSection === 'competitive'
+                      ? 'bg-gradient-to-r from-red-400/80 to-pink-400/80 hover:from-red-400 hover:to-pink-400 text-white'
+                      : 'bg-gradient-to-r from-purple-400/80 to-indigo-400/80 hover:from-purple-400 hover:to-indigo-400 text-white'
+                  }`}
+                >
+                  <ChevronLeft className='h-4 w-4' />
+                  Back to Home
+                </Button>
+              </Link>
             </div>
           </SidebarHeader>
 

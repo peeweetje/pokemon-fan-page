@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
 // Pokemon type colors
@@ -40,7 +40,6 @@ interface PokemonDetails {
 }
 
 export function PokemonCard({ name, url }: PokemonCardProps) {
-  const router = useRouter();
   const [imageError, setImageError] = useState(false);
   const [pokemonData, setPokemonData] = useState<PokemonDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -98,235 +97,121 @@ export function PokemonCard({ name, url }: PokemonCardProps) {
   const handleCardClick = () => {
     setIsClicked(true);
     setIsLoading(true);
-
-    // Navigate after animation completes
-    setTimeout(() => {
-      router.push(`/pokemon/${id}`);
-    }, 400);
   };
 
   return (
-    <motion.div
-      onClick={handleCardClick}
-      className='cursor-pointer'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        scale: isClicked ? [1, 1.1, 0.3] : 1,
-        transition: {
-          scale: isClicked
-            ? { duration: 0.4, times: [0, 0.2, 0.5] }
-            : { duration: 0.3 },
-        },
-      }}
-      whileHover={{
-        y: -10,
-        boxShadow:
-          '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <Card className='relative h-full overflow-hidden'>
-        {/* Background color div - separate from the card structure */}
-        <div
-          className='absolute inset-0 z-0'
-          style={{ backgroundColor: typeColor }}
-        ></div>
+    <Link href={`/pokemon/${id}`}>
+      <motion.div
+        onClick={handleCardClick}
+        className='cursor-pointer'
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          scale: isClicked ? [1, 1.1, 0.3] : 1,
+          transition: {
+            scale: isClicked
+              ? { duration: 0.4, times: [0, 0.2, 0.5] }
+              : { duration: 0.3 },
+          },
+        }}
+        whileHover={{
+          y: -10,
+          boxShadow:
+            '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Card className='relative h-full overflow-hidden'>
+          {/* Background color div - separate from the card structure */}
+          <div
+            className='absolute inset-0 z-0'
+            style={{ backgroundColor: typeColor }}
+          ></div>
 
-        {/* Pokeball background design */}
-        <div className='absolute top-0 right-0 w-16 h-16 opacity-10 z-0'>
-          <div className='w-full h-full rounded-full border-[6px] border-black relative'>
-            <div className='absolute top-0 left-0 w-full h-1/2 bg-red-600'></div>
-            <div className='absolute bottom-0 left-0 w-full h-1/2 bg-white'></div>
-            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black'></div>
+          {/* Pokeball background design */}
+          <div className='absolute top-0 right-0 w-16 h-16 opacity-10 z-0'>
+            <div className='w-full h-full rounded-full border-[6px] border-black relative'>
+              <div className='absolute top-0 left-0 w-full h-1/2 bg-red-600'></div>
+              <div className='absolute bottom-0 left-0 w-full h-1/2 bg-white'></div>
+              <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black'></div>
+            </div>
           </div>
-        </div>
 
-        {/* Pokemon ID */}
-        <div className='pt-2 px-2 relative z-10'>
-          <span className='text-xs font-mono text-gray-500 font-bold'>
-            {formatPokemonId(id)}
-          </span>
-        </div>
+          {/* Pokemon ID */}
+          <div className='pt-2 px-2 relative z-10'>
+            <span className='text-xs font-mono text-gray-500 font-bold'>
+              {formatPokemonId(id)}
+            </span>
+          </div>
 
-        <CardContent className='p-2'>
-          <motion.div
-            className='relative w-24 h-24 mx-auto'
-            animate={
-              isClicked
-                ? {
-                    scale: [1, 1.3, 1.3],
-                    y: [0, -20, -20],
-                    opacity: [1, 1, 0],
-                    transition: { duration: 0.4, times: [0, 0.2, 1] },
-                  }
-                : {}
-            }
-          >
-            {isImageLoading && (
-              <div className='absolute inset-0 flex items-center justify-center'>
-                <div className='w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin'></div>
-              </div>
-            )}
-            <Image
-              priority
-              src={imageError ? fallbackImageUrl : imageUrl}
-              alt={name}
-              fill
-              sizes='96px'
-              className='object-contain drop-shadow-md'
-              onError={() => setImageError(true)}
-              onLoad={() => setIsImageLoading(false)}
-            />
-          </motion.div>
-        </CardContent>
+          <CardContent className='p-2'>
+            <motion.div
+              className='relative w-24 h-24 mx-auto'
+              animate={
+                isClicked
+                  ? {
+                      scale: [1, 1.3, 1.3],
+                      y: [0, -20, -20],
+                      opacity: [1, 1, 0],
+                      transition: { duration: 0.4, times: [0, 0.2, 1] },
+                    }
+                  : {}
+              }
+            >
+              {isImageLoading && (
+                <div className='absolute inset-0 flex items-center justify-center'>
+                  <div className='w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin'></div>
+                </div>
+              )}
+              <Image
+                priority
+                src={imageError ? fallbackImageUrl : imageUrl}
+                alt={name}
+                fill
+                sizes='96px'
+                className='object-contain drop-shadow-md'
+                onError={() => setImageError(true)}
+                onLoad={() => setIsImageLoading(false)}
+              />
+            </motion.div>
+          </CardContent>
 
-        <CardFooter className='flex flex-col items-center p-2'>
-          <motion.h3
-            className='font-semibold capitalize text-neutral-800 text-center mb-1'
-            animate={
-              isClicked
-                ? {
-                    scale: [1, 1.1, 0],
-                    transition: { duration: 0.4, times: [0, 0.2, 1] },
-                  }
-                : {}
-            }
-          >
-            {name}
-          </motion.h3>
+          <CardFooter className='flex flex-col items-center p-2'>
+            <motion.h3
+              className='font-semibold capitalize text-neutral-800 text-center mb-1'
+              animate={
+                isClicked
+                  ? {
+                      scale: [1, 1.1, 0],
+                      transition: { duration: 0.4, times: [0, 0.2, 1] },
+                    }
+                  : {}
+              }
+            >
+              {name}
+            </motion.h3>
 
-          {/* Pokemon Types */}
-          <div className='flex justify-center gap-1 w-full'>
-            {isLoading ? (
-              <div className='flex justify-center py-1'>
-                <div className='w-12 h-4 bg-gray-200 rounded-full animate-pulse'></div>
-              </div>
-            ) : (
-              types.map((type, index) => (
-                <motion.span
-                  key={`${name}-${type}`}
-                  className='px-2 py-0.5 rounded-full text-xs font-medium text-white capitalize'
+            {/* Pokemon Types */}
+            <div className='flex gap-1'>
+              {types.slice(0, 2).map((type) => (
+                <span
+                  key={type}
+                  className='px-2 py-0.5 text-xs font-medium text-white rounded-full capitalize'
                   style={{
                     backgroundColor:
                       typeColors[type as keyof typeof typeColors] ||
                       typeColors.default,
                   }}
-                  animate={
-                    isClicked
-                      ? {
-                          scale: [1, 1.2, 0],
-                          x: index === 0 ? -20 : 20,
-                          transition: { duration: 0.4, times: [0, 0.2, 1] },
-                        }
-                      : {}
-                  }
                 >
                   {type}
-                </motion.span>
-              ))
-            )}
-          </div>
-
-          {/* Base Stats Preview */}
-          {pokemonData ? (
-            <motion.div
-              className='mt-1 grid grid-cols-3 gap-1 text-xs text-center w-full'
-              animate={
-                isClicked
-                  ? {
-                      opacity: [1, 0],
-                      transition: { duration: 0.2 },
-                    }
-                  : {}
-              }
-            >
-              <div>
-                <div className='font-bold'>
-                  {pokemonData.stats.find((s) => s.stat.name === 'hp')
-                    ?.base_stat || '?'}
-                </div>
-                <div className='text-gray-500 text-[10px]'>HP</div>
-              </div>
-              <div>
-                <div className='font-bold'>
-                  {pokemonData.stats.find((s) => s.stat.name === 'attack')
-                    ?.base_stat || '?'}
-                </div>
-                <div className='text-gray-500 text-[10px]'>ATK</div>
-              </div>
-              <div>
-                <div className='font-bold'>
-                  {pokemonData.stats.find((s) => s.stat.name === 'defense')
-                    ?.base_stat || '?'}
-                </div>
-                <div className='text-gray-500 text-[10px]'>DEF</div>
-              </div>
-            </motion.div>
-          ) : (
-            <div className='mt-1 grid grid-cols-3 gap-1 text-xs text-center w-full'>
-              <div>
-                <div className='w-8 h-4 bg-gray-200 rounded mx-auto animate-pulse'></div>
-                <div className='text-gray-500 text-[10px]'>HP</div>
-              </div>
-              <div>
-                <div className='w-8 h-4 bg-gray-200 rounded mx-auto animate-pulse'></div>
-                <div className='text-gray-500 text-[10px]'>ATK</div>
-              </div>
-              <div>
-                <div className='w-8 h-4 bg-gray-200 rounded mx-auto animate-pulse'></div>
-                <div className='text-gray-500 text-[10px]'>DEF</div>
-              </div>
+                </span>
+              ))}
             </div>
-          )}
-
-          {/* Loading overlay when clicked */}
-          {isClicked && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className='absolute inset-0 bg-white/90 flex items-center justify-center z-50'
-            >
-              <motion.div
-                className='relative w-16 h-16'
-                animate={{
-                  rotate: 360,
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  rotate: {
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  },
-                  scale: {
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  },
-                }}
-              >
-                {/* Pokeball outer circle */}
-                <div className='absolute w-full h-full rounded-full border-4 border-black shadow-[0_0_15px_rgba(0,0,0,0.3)]'></div>
-                {/* Pokeball top half (white) */}
-                <div className='absolute w-full h-1/2 top-0 rounded-t-full bg-white'></div>
-                {/* Pokeball bottom half (red) */}
-                <div className='absolute w-full h-1/2 bottom-0 rounded-b-full bg-red-600'></div>
-                {/* Pokeball middle line */}
-                <div className='absolute w-full h-1 top-1/2 -translate-y-1/2 bg-black'></div>
-                {/* Pokeball center circle with shine */}
-                <div className='absolute w-6 h-6 rounded-full border-4 border-black bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-                  <div className='absolute top-1 left-1 w-1 h-1 rounded-full bg-white/50'></div>
-                </div>
-                {/* Glowing effect */}
-                <div className='absolute inset-0 rounded-full animate-ping bg-red-500/20'></div>
-              </motion.div>
-            </motion.div>
-          )}
-        </CardFooter>
-      </Card>
-    </motion.div>
+          </CardFooter>
+        </Card>
+      </motion.div>
+    </Link>
   );
 }
 
