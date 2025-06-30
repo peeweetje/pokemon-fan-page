@@ -1,20 +1,11 @@
 'use client';
 
-// import { PokemonMemoryGame } from '@/components/pokemon-memory-game';
+import { PokemonMemoryGame } from '@/components/pokemon-memory-game';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
-// import SecretPokeball from '@/components/secret-pokeball';
-import dynamic from 'next/dynamic';
-
-const PokemonMemoryGame = dynamic(
-  () => import('@/components/pokemon-memory-game'),
-  { ssr: false }
-);
-const SecretPokeball = dynamic(() => import('@/components/secret-pokeball'), {
-  ssr: false,
-});
+import SecretPokeball from '@/components/secret-pokeball';
 
 export default function GamePage() {
   const prefersReducedMotion = useReducedMotion();
