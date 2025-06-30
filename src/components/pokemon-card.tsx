@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
 // Pokemon type colors

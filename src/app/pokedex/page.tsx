@@ -1,7 +1,7 @@
 import { PokemonGrid } from '@/components/pokemon-grid';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import SecretPokeball from '@/components/secret-pokeball';
 
 // Server Component for data fetching

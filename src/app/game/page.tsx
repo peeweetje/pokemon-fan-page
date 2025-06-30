@@ -3,7 +3,7 @@
 import { PokemonMemoryGame } from '@/components/pokemon-memory-game';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import SecretPokeball from '@/components/secret-pokeball';
 

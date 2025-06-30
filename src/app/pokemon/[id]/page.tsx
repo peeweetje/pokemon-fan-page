@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
@@ -77,21 +77,6 @@ async function getPokemonSpecies(id: string) {
     console.error('Error fetching Pokemon species data:', error);
     return null;
   }
-}
-
-export async function generateStaticParams() {
-  // Generate static params for both locales and the first 100 Pokémon
-  const locales = ['en', 'nl'];
-  const pokemonIds = Array.from({ length: 100 }, (_, i) => (i + 1).toString());
-
-  const params = [];
-  for (const locale of locales) {
-    for (const id of pokemonIds) {
-      params.push({ locale, id });
-    }
-  }
-
-  return params;
 }
 
 export default async function PokemonDetailPage({

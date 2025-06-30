@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 import { ChevronRight, Star, Swords, BookOpen } from 'lucide-react';
 import Enhanced3DPokeball from '@/components/pokeball-three';
-import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
 type Pokeball = {
   id: number;
@@ -49,9 +50,15 @@ function BackgroundPokeballs() {
 }
 
 export default function Home() {
-  const t = useTranslations('HomePage');
   const [rotation, setRotation] = useState(0);
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  // Helper for navigation with loading
+  const handleNavigate = (href: string) => {
+    setIsLoading(true);
+    router.push(href);
+  };
 
   // Slowly rotate the pokeball
   useEffect(() => {
@@ -64,8 +71,8 @@ export default function Home() {
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-red-500 to-red-600 text-white'>
-      <AnimatePresence>
-        {isLoading && (
+      {isLoading && (
+        <AnimatePresence>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -136,8 +143,8 @@ export default function Home() {
               />
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>
+      )}
 
       <section className='relative overflow-hidden'>
         <BackgroundPokeballs />
@@ -150,25 +157,23 @@ export default function Home() {
                 transition={{ duration: 0.5 }}
               >
                 <h1 className='text-5xl md:text-7xl font-extrabold mb-4 tracking-tight'>
-                  {t('hero-header')}
+                  Pokémon Explorer
                 </h1>
                 <p className='text-xl md:text-2xl mb-8 text-red-100'>
-                  {t('hero-title')}
+                  Your ultimate guide to the world of Pokémon
                 </p>
-
-                <Link
-                  href='/pokedex'
-                  className='inline-flex items-center justify-center bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-base px-6 py-3 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2'
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <motion.span
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className='inline-flex items-center'
+                  <Button
+                    size='lg'
+                    className='bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6 rounded-full'
+                    onClick={() => handleNavigate('/pokedex')}
                   >
-                    {t('hero-open-pokedex')}
-                    <ChevronRight className='ml-2 h-4 w-4' />
-                  </motion.span>
-                </Link>
+                    Open Pokédex <ChevronRight className='ml-2 h-5 w-5' />
+                  </Button>
+                </motion.div>
               </motion.div>
             </div>
 
@@ -194,7 +199,7 @@ export default function Home() {
       <section className='bg-white text-gray-800 py-16'>
         <div className='container mx-auto px-6'>
           <h2 className='text-3xl md:text-4xl font-bold text-center mb-12'>
-            {t('main-title')}
+            Explore the Pokémon World
           </h2>
 
           <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
@@ -362,31 +367,35 @@ export default function Home() {
             </p>
 
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <Link
-                href='/pokedex'
-                className='bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-4 rounded-full'
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='inline-block'
               >
-                <motion.span
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className='inline-flex items-center'
-                >
-                  {'Open Pokédex'} <ChevronRight className='ml-2 h-4 w-4' />
-                </motion.span>
-              </Link>
+                <Link href='/pokedex'>
+                  <Button
+                    size='lg'
+                    className='bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-full'
+                  >
+                    Go to Pokédex <ChevronRight className='ml-2 h-5 w-5' />
+                  </Button>
+                </Link>
+              </motion.div>
 
-              <Link
-                href='/game'
-                className='inline-flex items-center justify-center bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-base px-6 py-3 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-2'
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='inline-block'
               >
-                <motion.span
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className='inline-flex items-center'
-                >
-                  {'Play Memory Game'} <ChevronRight className='ml-2 h-4 w-4' />
-                </motion.span>
-              </Link>
+                <Link href='/game'>
+                  <Button
+                    size='lg'
+                    className='bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-lg px-8 py-6 rounded-full'
+                  >
+                    Play Memory Game <ChevronRight className='ml-2 h-5 w-5' />
+                  </Button>
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         </div>
