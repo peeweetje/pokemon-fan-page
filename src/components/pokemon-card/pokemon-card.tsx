@@ -1,13 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { typeColors } from '@/utils/pokemon-type-colors';
 import { PokeballBackgroundDesign } from './pokeball-background-design';
-import { PokemonId, formatPokemonId } from './pokemon-id';
+import { PokemonId } from './pokemon-id';
 import { PokemonTypes, getTypeColor } from './pokemon-types';
 
 interface PokemonCardProps {
