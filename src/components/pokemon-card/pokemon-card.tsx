@@ -92,7 +92,7 @@ export function PokemonCard({ name, url }: PokemonCardProps) {
             style={{ backgroundColor: typeColor }}
           ></div>
           <PokeballBackgroundDesign />
-          <PokemonId />
+          <PokemonId id={id} />
           <CardContent className='p-2'>
             <motion.div
               className='relative w-24 h-24 mx-auto'

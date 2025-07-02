@@ -1,6 +1,6 @@
 // Format Pokemon ID to #001 format
 export const formatPokemonId = (id: string) => {
-  const numId = Number.parseInt(id);
+  const numId = Number.parseInt(id, 10);
   return `#${numId.toString().padStart(3, '0')}`;
 };
 

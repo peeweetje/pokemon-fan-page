@@ -4,14 +4,21 @@ interface PokemonTypesProps {
   types: string[];
 }
 
-export const getTypeColor = (types: string[]) => {
+/**
+ * Gets the background color for a Pokemon based on its types.
+ * Returns a valid CSS color string.
+ * @param types The types of the Pokemon. Must be an array of strings.
+ * @returns A CSS color string. The return value is a string that can be used
+ *          directly in a CSS style. The color is a valid CSS color string.
+ */
+export function getTypeColor(types: Array<string>): string {
   if (!types || types.length === 0) return '#f5f5f5';
 
   const type = types[0];
   return `${
     typeColors[type as keyof typeof typeColors] || typeColors.default
-  }15`; // 15 is hex for 10% opacity
-};
+  }15`; // 15 is hex for 8% opacity
+}
 
 export function PokemonTypes({ types }: PokemonTypesProps) {
   return (
