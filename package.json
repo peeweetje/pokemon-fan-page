@@ -10,9 +10,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix"
-    ]
+    "*.{ts,tsx}": "eslint --max-warnings=0"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.10",
