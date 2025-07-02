@@ -1,7 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
-import { PokemonCard } from './pokemon-card';
+import { PokemonCard } from './pokemon-card/pokemon-card';
 import { PokemonSearch } from './pokemon-search';
 import { PokemonCardSkeleton } from './loading/pokemon-card-skeleton';
 import { useState, useCallback } from 'react';
