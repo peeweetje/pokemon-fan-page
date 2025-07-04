@@ -35,9 +35,14 @@ export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
         sizes="96px"
         className="object-contain drop-shadow-md"
         onError={() => {
-          setImageError(true);
-          setIsImageLoading(false);
+          if (!imageError) {
+            setImageError(true);
+            setIsImageLoading(true);
+          } else {
+            setIsImageLoading(false);
+          }
         }}
+        onLoad={() => setIsImageLoading(false)}
         animate={
           isClicked
             ? {
