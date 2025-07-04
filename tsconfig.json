@@ -22,7 +22,6 @@
       "@lib/*": ["./lib/*"]
     },
     "resolveJsonModule": true,
-    "noEmit": true,
     "incremental": true
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],

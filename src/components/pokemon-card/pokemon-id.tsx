@@ -10,8 +10,8 @@ export function PokemonId({ id }: { id: string | null }) {
   }
 
   return (
-    <div className='pt-2 px-2 relative z-10'>
-      <span className='text-xs font-mono text-gray-500 font-bold'>
+    <div className="pt-2 px-2 relative z-10">
+      <span className="text-xs font-mono text-gray-500 font-bold">
         {formatPokemonId(id)}
       </span>
     </div>
