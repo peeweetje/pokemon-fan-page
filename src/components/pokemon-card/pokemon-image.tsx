@@ -34,8 +34,10 @@ export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
         fill
         sizes="96px"
         className="object-contain drop-shadow-md"
-        onError={() => setImageError(true)}
-        onLoad={() => setIsImageLoading(false)}
+        onError={() => {
+          setImageError(true);
+          setIsImageLoading(false);
+        }}
         animate={
           isClicked
             ? {
@@ -44,9 +46,8 @@ export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
                 opacity: [1, 1, 0],
                 transition: { duration: 0.4, times: [0, 0.2, 1] },
               }
-            : {}
+            : { opacity: isImageLoading ? 0 : 1 }
         }
-        style={{ opacity: isImageLoading ? 0 : 1 }}
       />
     </div>
   );
