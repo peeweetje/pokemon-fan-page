@@ -21,7 +21,7 @@ export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
   const fallbackImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
   return (
-    <div className="relative w-24 h-24 mx-auto overflow-hidden rounded-full bg-white shadow-lg">
+    <div className="relative w-24 h-24 mx-auto">
       {(isImageLoading || isClicked) && (
         <div className="absolute inset-0 flex items-center justify-center">
           <LoadingSpinner variant="pokeball" size="md" showText={false} />
