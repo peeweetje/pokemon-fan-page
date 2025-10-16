@@ -22,9 +22,9 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "@react-three/drei": "^10.0.7",
-    "@react-three/fiber": "^9.1.2",
-    "@types/three": "^0.176.0",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.4.0",
+    "@types/three": "^0.180.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.9.2",
@@ -34,7 +34,7 @@
     "react-dom": "^19.0.0",
     "swr": "^2.3.3",
     "tailwind-merge": "^3.2.0",
-    "three": "^0.176.0"
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
