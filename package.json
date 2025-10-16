@@ -27,13 +27,13 @@
     "@types/three": "^0.180.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.9.2",
-    "lucide-react": "^0.503.0",
+    "framer-motion": "^12.23.24",
+    "lucide-react": "^0.546.0",
     "next": "15.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "swr": "^2.3.3",
-    "tailwind-merge": "^3.2.0",
+    "swr": "^2.3.6",
+    "tailwind-merge": "^3.3.1",
     "three": "^0.180.0"
   },
   "devDependencies": {
