@@ -19,4 +19,5 @@ Create a pokemon fan page for the purpose of making cool animations.
 > - `Tailwind`
 > - `Shadcn`
 > - `Framer-motion`
+> - `Three.js`
 > - `Pokemon-api`
