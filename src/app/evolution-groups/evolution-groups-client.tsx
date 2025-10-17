@@ -1,12 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ChevronRight, Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import {
   Pagination,
   PaginationContent,
@@ -14,8 +9,13 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
+  PaginationPrevious
 } from '@/components/ui/pagination';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronRight, Search } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
 interface Pokemon {
   id: number;
@@ -105,7 +105,7 @@ export function EvolutionGroupsClient({
 
       {/* Evolution Groups Grid */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        <AnimatePresence mode='wait'>
+        <AnimatePresence mode='sync'>
           {currentGroups.map((group) => {
             const gradientClass = getTypeColor(group.pokemon[0].types);
 
@@ -150,6 +150,7 @@ export function EvolutionGroupsClient({
                           <Link href={`/pokemon/${pokemon.id}`}>
                             <div className='relative w-24 h-24'>
                               <Image
+                                priority
                                 src={pokemon.sprite}
                                 alt={pokemon.name}
                                 fill
