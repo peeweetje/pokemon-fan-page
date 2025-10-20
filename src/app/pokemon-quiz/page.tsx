@@ -1,16 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
+import SecretPokeball from '@/components/secret-pokeball';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { questions } from '@/data/quiz-questions';
+import { motion } from 'framer-motion';
+import { Check, ChevronLeft, X } from 'lucide-react';
 import Image from 'next/image';
-import SecretPokeball from '@/components/secret-pokeball';
-import { X, Check } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface Question {
   question: string;
@@ -281,15 +280,16 @@ export default function PokemonQuiz() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className='w-full h-full'
+                  className='w-full h-full relative'
                 >
                   <Image
+                    priority
                     src={getPokemonImage(
                       selectedQuestions[currentQuestion].category
                     )}
                     alt='Pokemon'
                     fill
-                    className='object-contain drop-shadow-2xl'
+                    className='object-contain drop-shadow-2xl absolute'
                   />
                 </motion.div>
               </div>
