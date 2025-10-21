@@ -17,9 +17,9 @@ export default function BackButton({
 }: BackButtonProps) {
   return (
     <Link
-      className={
-        className || buttonVariants({ variant: 'outline', size: 'lg' })
-      }
+      className={`${buttonVariants({ variant: 'outline', size: 'lg' })} ${
+        className || ''
+      }`}
       href={href}
       onClick={onClick}
     >
