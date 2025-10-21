@@ -1,4 +1,5 @@
 export interface Question {
+  index: number;
   question: string;
   options: string[];
   correctAnswer: string;
@@ -6,7 +7,7 @@ export interface Question {
   category: string;
 }
 
-export const questions: Question[] = [
+const rawQuestions: Omit<Question, 'index'>[] = [
   // Basic Pokemon Knowledge (40 questions)
   {
     question: "Which Pokemon is known as the 'Electric Mouse Pokemon'?",
@@ -975,3 +976,20 @@ export const questions: Question[] = [
     category: 'Game Mechanics',
   },
 ];
+
+export const questions: Question[] = rawQuestions.map((q, index) => {
+  // Shuffle the options for each question to randomize correct answer position
+  const shuffledOptions = [...q.options];
+  for (let i = shuffledOptions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledOptions[i], shuffledOptions[j]] = [
+      shuffledOptions[j],
+      shuffledOptions[i],
+    ];
+  }
+  return {
+    ...q,
+    options: shuffledOptions,
+    index,
+  };
+});

@@ -3,14 +3,15 @@
 import SecretPokeball from '@/components/secret-pokeball';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { QuizDialog } from '@/components/quiz-dialog';
+import { QuizDialog } from './quiz-dialog';
+import QuizProgress from './quiz-progress';
 import { questions } from '@/data/quiz-questions';
 import { motion } from 'framer-motion';
 import { Check, ChevronLeft, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { getPokemonImage } from '@/utils/get-pokemon-images';
 
 interface Question {
   question: string;
@@ -28,10 +29,14 @@ export default function PokemonQuiz() {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
 
-  // Function to randomly select 10 questions
+  // Function to randomly select 10 questions using Fisher-Yates shuffle
   const selectRandomQuestions = () => {
-    const shuffled = [...questions].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 10);
+    const array = [...questions];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array.slice(0, 10);
   };
 
   // Initialize quiz with random questions
@@ -65,26 +70,6 @@ export default function PokemonQuiz() {
     setSelectedAnswer(null);
     setQuizCompleted(false);
     setSelectedQuestions(selectRandomQuestions());
-  };
-
-  // Add this function at the top level of the component
-  const getPokemonImage = (category: string) => {
-    switch (category) {
-      case 'Basic Knowledge':
-        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'; // Pikachu
-      case 'Types':
-        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png'; // Charizard
-      case 'Evolutions':
-        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png'; // Dragonite
-      case 'Legendary Pokemon':
-        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png'; // Mewtwo
-      case 'Abilities and Moves':
-        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png'; // Lucario
-      case 'Game Mechanics':
-        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png'; // Snorlax
-      default:
-        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'; // Default to Pikachu
-    }
   };
 
   // Don't render anything until questions are selected
@@ -192,22 +177,11 @@ export default function PokemonQuiz() {
 
             <div className="flex gap-8 relative z-10">
               <div className="flex-1">
-                {/* Progress */}
-                <div className="mb-6">
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-600">
-                      Question {currentQuestion + 1} of{' '}
-                      {selectedQuestions.length}
-                    </span>
-                    <span className="text-sm font-medium text-gray-600">
-                      Score: {score}
-                    </span>
-                  </div>
-                  <Progress
-                    value={(currentQuestion / selectedQuestions.length) * 100}
-                    className="bg-gray-200 [&>div]:bg-green-500"
-                  />
-                </div>
+                <QuizProgress
+                  currentQuestion={currentQuestion}
+                  totalQuestions={selectedQuestions.length}
+                  score={score}
+                />
 
                 {/* Question */}
                 <h2 className="text-xl font-semibold mb-6 text-gray-800">
