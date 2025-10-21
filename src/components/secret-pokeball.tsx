@@ -149,8 +149,20 @@ function SecretPokeballComponent() {
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 1, repeat: 4 }}
               >
-                <h4 className="font-bold text-blue-600 mb-2">Pokémon Fact!</h4>
-                <p className="text-gray-700">{pokemonFact}</p>
+                <h4
+                  className={`font-bold text-blue-600 mb-2 ${
+                    isMobile ? 'text-lg' : 'text-base'
+                  }`}
+                >
+                  Pokémon Fact!
+                </h4>
+                <p
+                  className={`text-gray-700 leading-relaxed ${
+                    isMobile ? 'text-base' : 'text-sm'
+                  }`}
+                >
+                  {pokemonFact}
+                </p>
               </motion.div>
               <div className="flex justify-center mt-3">
                 <motion.div
