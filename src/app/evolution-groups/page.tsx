@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
-import { buttonVariants } from '@/components/ui/button';
+import BackButton from '@/components/back-button';
 import SecretPokeball from '@/components/secret-pokeball';
 import { EvolutionGroupsClient } from './evolution-groups-client';
 
@@ -37,7 +35,7 @@ export default async function EvolutionGroups() {
   for (const pokemon of data.results) {
     const id = pokemon.url.split('/').filter(Boolean).pop();
     const detailsResponse = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${id}`
+      `https://pokeapi.co/api/v2/pokemon/${id}`,
     );
     const details = await detailsResponse.json();
 
@@ -60,21 +58,15 @@ export default async function EvolutionGroups() {
   }
 
   return (
-    <div className='min-h-screen bg-white p-6'>
-      <div className='max-w-7xl mx-auto'>
+    <div className="min-h-screen bg-white p-6">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className='flex justify-between items-center mb-8'>
-          <Link
-            className={buttonVariants({ variant: 'outline', size: 'lg' })}
-            href='/'
-          >
-            <ChevronLeft className='h-4 w-4' />
-            Back to Home
-          </Link>
-          <h1 className='text-4xl font-bold text-gray-800 text-center'>
+        <div className="flex justify-between items-center mb-8">
+          <BackButton />
+          <h1 className="text-4xl font-bold text-gray-800 text-center">
             Evolution Groups
           </h1>
-          <div className='w-[100px]'></div> {/* Spacer for alignment */}
+          <div className="w-[100px]"></div> {/* Spacer for alignment */}
         </div>
 
         <EvolutionGroupsClient evolutionGroups={groups} />

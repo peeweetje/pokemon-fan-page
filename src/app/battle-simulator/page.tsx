@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
-import { buttonVariants } from '@/components/ui/button';
+import BackButton from '@/components/back-button';
 import SecretPokeball from '@/components/secret-pokeball';
 import { BattleSimulatorClient } from './battle-simulator-client';
 
@@ -54,7 +52,7 @@ export default async function BattleSimulator() {
             power: moveData.power || 0,
             accuracy: moveData.accuracy || 100,
           };
-        })
+        }),
       );
 
       return {
@@ -72,22 +70,16 @@ export default async function BattleSimulator() {
         },
         moves,
       };
-    })
+    }),
   );
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-6'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='mb-6'>
-          <Link
-            className={buttonVariants({ variant: 'outline', size: 'lg' })}
-            href='/'
-          >
-            <ChevronLeft className='h-4 w-4' />
-            Back to Home
-          </Link>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6">
+          <BackButton />
         </div>
-        <h1 className='text-4xl font-bold text-center text-gray-800 mb-8'>
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
           Battle Simulator
         </h1>
         <BattleSimulatorClient pokemonList={pokemonDetails} />

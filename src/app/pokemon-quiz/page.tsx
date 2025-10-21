@@ -1,15 +1,15 @@
 'use client';
 
 import SecretPokeball from '@/components/secret-pokeball';
-import { Button, buttonVariants } from '@/components/ui/button';
+import BackButton from '@/components/back-button';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { QuizDialog } from './quiz-dialog';
 import QuizProgress from './quiz-progress';
 import { questions } from '@/data/quiz-questions';
 import { motion } from 'framer-motion';
-import { Check, ChevronLeft, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getPokemonImage } from '@/utils/get-pokemon-images';
 
@@ -148,13 +148,7 @@ export default function PokemonQuiz() {
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <Link
-            className={buttonVariants({ variant: 'outline', size: 'lg' })}
-            href="/"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            Back to Home
-          </Link>
+          <BackButton />
           <h1 className="text-4xl font-bold text-gray-800 text-center">
             Pokemon Quiz
           </h1>
