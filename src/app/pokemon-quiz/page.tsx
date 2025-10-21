@@ -4,6 +4,7 @@ import SecretPokeball from '@/components/secret-pokeball';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { QuizDialog } from '@/components/quiz-dialog';
 import { questions } from '@/data/quiz-questions';
 import { motion } from 'framer-motion';
 import { Check, ChevronLeft, X } from 'lucide-react';
@@ -89,9 +90,9 @@ export default function PokemonQuiz() {
   // Don't render anything until questions are selected
   if (selectedQuestions.length === 0) {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-white'>
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <motion.div
-          className='relative w-24 h-24'
+          className="relative w-24 h-24"
           animate={{
             rotate: 360,
             y: [0, -20, 0],
@@ -110,14 +111,14 @@ export default function PokemonQuiz() {
           }}
         >
           {/* Outer Pokeball */}
-          <div className='absolute inset-0 rounded-full border-8 border-black overflow-hidden'>
-            <div className='absolute top-0 left-0 w-full h-1/2 bg-red-600'></div>
-            <div className='absolute bottom-0 left-0 w-full h-1/2 bg-white'></div>
+          <div className="absolute inset-0 rounded-full border-8 border-black overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white"></div>
           </div>
 
           {/* Center Button */}
           <motion.div
-            className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full border-4 border-black z-10'
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full border-4 border-black z-10"
             animate={{
               scale: [1, 1.1, 1],
               boxShadow: [
@@ -133,12 +134,12 @@ export default function PokemonQuiz() {
             }}
           >
             {/* Button Shine */}
-            <div className='absolute top-1 left-1 w-2 h-2 bg-gray-200 rounded-full'></div>
+            <div className="absolute top-1 left-1 w-2 h-2 bg-gray-200 rounded-full"></div>
           </motion.div>
 
           {/* Glow Effect */}
           <motion.div
-            className='absolute inset-0 rounded-full'
+            className="absolute inset-0 rounded-full"
             animate={{
               boxShadow: [
                 '0 0 0 0 rgba(255,0,0,0.2)',
@@ -158,63 +159,63 @@ export default function PokemonQuiz() {
   }
 
   return (
-    <div className='min-h-screen bg-white p-6'>
-      <div className='max-w-3xl mx-auto'>
+    <div className="min-h-screen bg-white p-6">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className='flex justify-between items-center mb-8'>
+        <div className="flex justify-between items-center mb-8">
           <Link
             className={buttonVariants({ variant: 'outline', size: 'lg' })}
-            href='/'
+            href="/"
           >
-            <ChevronLeft className='h-4 w-4' />
+            <ChevronLeft className="h-4 w-4" />
             Back to Home
           </Link>
-          <h1 className='text-4xl font-bold text-gray-800 text-center'>
+          <h1 className="text-4xl font-bold text-gray-800 text-center">
             Pokemon Quiz
           </h1>
-          <div className='w-[100px]'></div>
+          <div className="w-[100px]"></div>
         </div>
 
         {!quizCompleted ? (
-          <Card className='p-6 relative overflow-hidden'>
+          <Card className="p-6 relative overflow-hidden">
             {/* Pokemon-themed background */}
-            <div className='absolute inset-0 bg-gradient-to-br from-blue-50 to-red-50 opacity-50'></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-red-50 opacity-50"></div>
 
             {/* Pokeball decoration */}
-            <div className='absolute top-4 right-4 w-16 h-16 opacity-10'>
-              <div className='w-full h-full rounded-full border-[6px] border-black relative'>
-                <div className='absolute top-0 left-0 w-full h-1/2 bg-red-600'></div>
-                <div className='absolute bottom-0 left-0 w-full h-1/2 bg-white'></div>
-                <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black'></div>
+            <div className="absolute top-4 right-4 w-16 h-16 opacity-10">
+              <div className="w-full h-full rounded-full border-[6px] border-black relative">
+                <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black"></div>
               </div>
             </div>
 
-            <div className='flex gap-8 relative z-10'>
-              <div className='flex-1'>
+            <div className="flex gap-8 relative z-10">
+              <div className="flex-1">
                 {/* Progress */}
-                <div className='mb-6'>
-                  <div className='flex justify-between mb-2'>
-                    <span className='text-sm font-medium text-gray-600'>
+                <div className="mb-6">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-600">
                       Question {currentQuestion + 1} of{' '}
                       {selectedQuestions.length}
                     </span>
-                    <span className='text-sm font-medium text-gray-600'>
+                    <span className="text-sm font-medium text-gray-600">
                       Score: {score}
                     </span>
                   </div>
                   <Progress
                     value={(currentQuestion / selectedQuestions.length) * 100}
-                    className='bg-gray-200 [&>div]:bg-green-500'
+                    className="bg-gray-200 [&>div]:bg-green-500"
                   />
                 </div>
 
                 {/* Question */}
-                <h2 className='text-xl font-semibold mb-6 text-gray-800'>
+                <h2 className="text-xl font-semibold mb-6 text-gray-800">
                   {selectedQuestions[currentQuestion].question}
                 </h2>
 
                 {/* Options */}
-                <div className='grid gap-4'>
+                <div className="grid gap-4">
                   {selectedQuestions[currentQuestion].options.map((option) => (
                     <motion.button
                       key={option}
@@ -231,19 +232,19 @@ export default function PokemonQuiz() {
                       onClick={() => !showExplanation && handleAnswer(option)}
                       disabled={showExplanation}
                     >
-                      <span className='flex w-full justify-between'>
+                      <span className="flex w-full justify-between">
                         {option}
                         <span>
                           {showExplanation &&
                             selectedAnswer === option &&
                             (option ===
                             selectedQuestions[currentQuestion].correctAnswer ? (
-                              <span aria-label='Correct answer'>
-                                <Check className='text-green-600 w-6 h-6' />
+                              <span aria-label="Correct answer">
+                                <Check className="text-green-600 w-6 h-6" />
                               </span>
                             ) : (
-                              <span aria-label='Incorrect answer'>
-                                <X className='text-red-600 w-6 h-6' />
+                              <span aria-label="Incorrect answer">
+                                <X className="text-red-600 w-6 h-6" />
                               </span>
                             ))}
                         </span>
@@ -257,13 +258,13 @@ export default function PokemonQuiz() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className='mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-200'
+                    className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-200"
                   >
-                    <p className='text-blue-800 font-medium'>
+                    <p className="text-blue-800 font-medium">
                       {selectedQuestions[currentQuestion].explanation}
                     </p>
                     <Button
-                      className='mt-4 w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200'
+                      className="mt-4 w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
                       onClick={handleNext}
                     >
                       {currentQuestion < selectedQuestions.length - 1
@@ -275,65 +276,33 @@ export default function PokemonQuiz() {
               </div>
 
               {/* Pokemon Image */}
-              <div className='hidden lg:block w-64 h-64 relative'>
+              <div className="hidden lg:block w-64 h-64 relative">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className='w-full h-full relative'
+                  className="w-full h-full relative"
                 >
                   <Image
                     priority
                     src={getPokemonImage(
-                      selectedQuestions[currentQuestion].category
+                      selectedQuestions[currentQuestion].category,
                     )}
-                    alt='Pokemon'
+                    alt="Pokemon"
                     fill
-                    className='object-contain drop-shadow-2xl absolute'
+                    className="object-contain drop-shadow-2xl absolute"
                   />
                 </motion.div>
               </div>
             </div>
           </Card>
         ) : (
-          <Card className='p-6 text-center relative overflow-hidden'>
-            {/* Pokemon-themed background */}
-            <div className='absolute inset-0 bg-gradient-to-br from-green-50 to-blue-50 opacity-50'></div>
-
-            {/* Pokeball decoration */}
-            <div className='absolute top-4 right-4 w-16 h-16 opacity-10'>
-              <div className='w-full h-full rounded-full border-[6px] border-black relative'>
-                <div className='absolute top-0 left-0 w-full h-1/2 bg-red-600'></div>
-                <div className='absolute bottom-0 left-0 w-full h-1/2 bg-white'></div>
-                <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black'></div>
-              </div>
-            </div>
-
-            <div className='relative z-10'>
-              <h2 className='text-2xl font-bold mb-4 text-gray-800'>
-                Quiz Completed!
-              </h2>
-              <p className='text-xl mb-6 text-gray-700'>
-                Your score: {score} out of {selectedQuestions.length}
-              </p>
-              <p className='text-gray-600 mb-8 font-medium'>
-                {score === selectedQuestions.length
-                  ? "Perfect score! You're a Pokemon Master! 🏆"
-                  : score >= selectedQuestions.length * 0.7
-                  ? 'Great job! You know your Pokemon! 🌟'
-                  : "Keep studying! You'll be a Pokemon Master soon! 💪"}
-              </p>
-              <div className='flex justify-center'>
-                <Button
-                  onClick={resetQuiz}
-                  className='w-40 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200'
-                  size='sm'
-                >
-                  Try Again
-                </Button>
-              </div>
-            </div>
-          </Card>
+          <QuizDialog
+            open={quizCompleted}
+            onOpenChange={resetQuiz}
+            score={score}
+            totalQuestions={selectedQuestions.length}
+          />
         )}
       </div>
       <SecretPokeball />
