@@ -1,6 +1,6 @@
 'use client';
 
-import { PokemonMemoryGame } from '@/components/pokemon-memory-game';
+import { PokemonMemoryGame } from '@/components/pokemon-memory-game/pokemon-memory-game';
 import BackButton from '@/components/back-button';
 import { motion, useReducedMotion } from 'framer-motion';
 import SecretPokeball from '@/components/secret-pokeball';
