@@ -1,14 +1,14 @@
 'use client';
 
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Volume2, VolumeX } from 'lucide-react';
-import { cardBacks, difficultySettings } from '@/utils/memory-game-helper';
+import { difficultySettings } from '@/utils/memory-game-helper';
 import { useMemoryGame } from '@/hooks/use-memory-game';
 import { ScoreDialog } from './score-dialog';
 import { SettingsDialog } from './settings-dialog';
+import { SoundToggle } from './sound-toggle';
+import { GameStats } from './game-stats';
+import { LoadingSpinner } from './loading-spinner';
+import { ConfettiEffect } from './confetti-effect';
+import { MemoryCard } from './memory-card';
 
 export function PokemonMemoryGame() {
   const {
@@ -40,56 +40,15 @@ export function PokemonMemoryGame() {
   } = useMemoryGame();
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
     <div className="max-w-6xl mx-auto p-2 sm:p-4">
-      {/* Confetti */}
-      {showConfetti && shouldAnimate && (
-        <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
-          {[...Array(100)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: -20,
-                width: Math.random() * 10 + 5,
-                height: Math.random() * 10 + 5,
-                backgroundColor: [
-                  '#FFD700',
-                  '#FF69B4',
-                  '#00BFFF',
-                  '#FF4500',
-                  '#32CD32',
-                  '#FF1493',
-                  '#00FF00',
-                  '#FFA500',
-                ][Math.floor(Math.random() * 8)],
-                borderRadius: Math.random() > 0.5 ? '50%' : '0%',
-                transform: `rotate(${Math.random() * 360}deg)`,
-              }}
-              initial={{ y: -20, x: 0, rotate: 0, opacity: 1 }}
-              animate={{
-                y: ['100vh'],
-                x: [0, Math.random() * 200 - 100],
-                rotate: [0, 360],
-                opacity: [1, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 3,
-                ease: 'linear',
-                repeat: 0,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      <ConfettiEffect
+        showConfetti={showConfetti}
+        shouldAnimate={shouldAnimate}
+      />
 
       <div className="text-center mb-4 sm:mb-6">
         <div className="flex justify-between items-center mb-2 sm:mb-4">
@@ -105,27 +64,17 @@ export function PokemonMemoryGame() {
           />
 
           <h2 className="text-lg sm:text-2xl font-bold">Pokemon Memory Game</h2>
-          <Button
-            variant="ghost"
-            onClick={() => setSoundEnabled(!soundEnabled)}
-            className="rounded-full p-2 sm:p-4 h-12 w-12 sm:h-16 sm:w-16"
-          >
-            {soundEnabled ? (
-              <Volume2 className="h-6 w-6 sm:h-12 sm:w-12" />
-            ) : (
-              <VolumeX className="h-6 w-6 sm:h-12 sm:w-12" />
-            )}
-          </Button>
+          <SoundToggle
+            soundEnabled={soundEnabled}
+            onToggle={() => setSoundEnabled(!soundEnabled)}
+          />
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-8 text-sm sm:text-base text-gray-600">
-          <p>Moves: {moves}</p>
-          <p>Time: {formattedTime}</p>
-          <p>
-            Difficulty:{' '}
-            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-          </p>
-        </div>
+        <GameStats
+          moves={moves}
+          formattedTime={formattedTime}
+          difficulty={difficulty}
+        />
       </div>
 
       <div
@@ -137,155 +86,14 @@ export function PokemonMemoryGame() {
         } max-w-sm sm:max-w-none mx-auto`}
       >
         {cards.map((card) => (
-          <motion.div
+          <MemoryCard
             key={card.id}
-            className="aspect-square min-h-[120px] sm:min-h-[100px]"
-            whileHover={shouldAnimate ? { scale: 1.05 } : undefined}
-            whileTap={shouldAnimate ? { scale: 0.95 } : undefined}
-          >
-            <Card
-              className={`h-full cursor-pointer relative ${
-                card.isMatched ? 'ring-4 ring-green-500 shadow-lg' : ''
-              }`}
-              onClick={() => handleCardClick(card.id)}
-            >
-              <AnimatePresence mode="wait">
-                {card.isFlipped || card.isMatched ? (
-                  <motion.div
-                    key="front"
-                    initial={shouldAnimate ? { rotateY: 90 } : undefined}
-                    animate={shouldAnimate ? { rotateY: 0 } : undefined}
-                    exit={shouldAnimate ? { rotateY: 90 } : undefined}
-                    className="w-full h-full flex items-center justify-center p-2 bg-white"
-                  >
-                    <Image
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${card.pokemonId}.png`}
-                      alt={`Pokemon ${card.pokemonId}`}
-                      width={100}
-                      height={100}
-                      className="object-contain w-20 h-20 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
-                    />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="back"
-                    initial={shouldAnimate ? { rotateY: 90 } : undefined}
-                    animate={shouldAnimate ? { rotateY: 0 } : undefined}
-                    exit={shouldAnimate ? { rotateY: 90 } : undefined}
-                    className={`w-full h-full ${cardBacks[difficulty][selectedCardBack]} rounded-3xl flex items-center justify-center relative overflow-hidden`}
-                  >
-                    {/* Fun star pattern */}
-                    <div className="absolute inset-0 opacity-20">
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 0l3.5 10.8h11.3l-9.1 6.6 3.5 10.8-9.1-6.6-9.1 6.6 3.5-10.8-9.1-6.6h11.3z' fill='%23ffffff'/%3E%3C/svg%3E")`,
-                          backgroundSize: '30px 30px',
-                        }}
-                      ></div>
-                    </div>
-
-                    {/* Bouncy Pokeball */}
-                    <motion.div
-                      className="relative w-10 h-10 sm:w-16 sm:h-16 flex items-center justify-center"
-                      animate={
-                        shouldAnimate
-                          ? {
-                              y: [0, -5, 0],
-                              scale: [1, 1.05, 1],
-                            }
-                          : undefined
-                      }
-                      transition={
-                        shouldAnimate
-                          ? {
-                              duration: 2,
-                              repeat: Number.POSITIVE_INFINITY,
-                              ease: 'easeInOut',
-                            }
-                          : undefined
-                      }
-                    >
-                      {/* Pokeball outer circle */}
-                      <div className="absolute w-full h-full rounded-full border-2 sm:border-4 border-black shadow-[0_0_15px_rgba(0,0,0,0.3)]"></div>
-                      {/* Pokeball top half (white) */}
-                      <div className="absolute w-full h-1/2 top-0 rounded-t-full bg-white"></div>
-                      {/* Pokeball bottom half (red) */}
-                      <div className="absolute w-full h-1/2 bottom-0 rounded-b-full bg-red-600"></div>
-                      {/* Pokeball middle line */}
-                      <div className="absolute w-full h-0.5 sm:h-1 top-1/2 -translate-y-1/2 bg-black"></div>
-                      {/* Pokeball center circle with playful shine */}
-                      <div className="absolute w-3 h-3 sm:w-6 sm:h-6 rounded-full border-2 sm:border-4 border-black bg-white">
-                        <div className="absolute top-0.5 left-0.5 sm:top-1 sm:left-1 w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full bg-white/50"></div>
-                      </div>
-                    </motion.div>
-
-                    {/* Playful corner elements */}
-                    <div
-                      className={`absolute top-1 left-1 sm:top-3 sm:left-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
-                        shouldAnimate ? 'animate-pulse' : ''
-                      }`}
-                    ></div>
-                    <div
-                      className={`absolute top-1 right-1 sm:top-3 sm:right-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
-                        shouldAnimate ? 'animate-pulse' : ''
-                      }`}
-                      style={
-                        shouldAnimate ? { animationDelay: '0.5s' } : undefined
-                      }
-                    ></div>
-                    <div
-                      className={`absolute bottom-1 left-1 sm:bottom-3 sm:left-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
-                        shouldAnimate ? 'animate-pulse' : ''
-                      }`}
-                      style={
-                        shouldAnimate ? { animationDelay: '1s' } : undefined
-                      }
-                    ></div>
-                    <div
-                      className={`absolute bottom-1 right-1 sm:bottom-3 sm:right-3 w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-white/30 ${
-                        shouldAnimate ? 'animate-pulse' : ''
-                      }`}
-                      style={
-                        shouldAnimate ? { animationDelay: '1.5s' } : undefined
-                      }
-                    ></div>
-
-                    {/* Fun sparkle effects */}
-                    <div
-                      className={`absolute top-1/4 left-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
-                        shouldAnimate ? 'animate-ping' : ''
-                      }`}
-                    ></div>
-                    <div
-                      className={`absolute top-1/4 right-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
-                        shouldAnimate ? 'animate-ping' : ''
-                      }`}
-                      style={
-                        shouldAnimate ? { animationDelay: '0.3s' } : undefined
-                      }
-                    ></div>
-                    <div
-                      className={`absolute bottom-1/4 left-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
-                        shouldAnimate ? 'animate-ping' : ''
-                      }`}
-                      style={
-                        shouldAnimate ? { animationDelay: '0.6s' } : undefined
-                      }
-                    ></div>
-                    <div
-                      className={`absolute bottom-1/4 right-1/4 w-1 h-1 sm:w-2 sm:h-2 rounded-full bg-white/40 ${
-                        shouldAnimate ? 'animate-ping' : ''
-                      }`}
-                      style={
-                        shouldAnimate ? { animationDelay: '0.9s' } : undefined
-                      }
-                    ></div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Card>
-          </motion.div>
+            card={card}
+            difficulty={difficulty}
+            selectedCardBack={selectedCardBack}
+            shouldAnimate={shouldAnimate}
+            onClick={handleCardClick}
+          />
         ))}
       </div>
 
