@@ -1,4 +1,4 @@
-import { PokemonGrid } from '@/components/pokemon-grid';
+import { PokemonGrid } from '@/components/pokemon-grid/pokemon-grid';
 import SecretPokeball from '@/components/secret-pokeball';
 import BackButton from '@/components/back-button';
 
