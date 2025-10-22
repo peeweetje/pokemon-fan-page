@@ -29,7 +29,7 @@ interface Pokemon {
 // Server Component for data fetching
 export default async function BattleSimulator() {
   // Fetch all Pokemon first
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100');
   const data = await response.json();
 
   if (!response.ok || data === null) {
