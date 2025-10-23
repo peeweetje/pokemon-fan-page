@@ -4,10 +4,10 @@ import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { PokemonSearch } from '@/components/pokemon-search';
 import { PokemonPagination } from '@/components/pokemon-grid/pokemon-pagination';
 import { BattleFinishedModal } from '@/app/battle-simulator/battle-finished-modal';
+import { PokemonBattleDetails } from '@/app/battle-simulator/pokemon-battle-details';
 import { typeColors } from '@/utils/pokemon-type-colors';
 import { useBattleSimulator } from '@/hooks/use-battle-simulator';
 import { Pokemon } from '@/utils/battle-simulator-utils';
@@ -152,41 +152,17 @@ export function BattleSimulatorClient({
 
             <div className="relative z-10">
               <div className="relative h-64 mb-4">
-                {/* Opponent Pokemon */}
-                <div className="absolute top-0 right-0">
-                  <div className="relative w-32 h-32">
-                    <Image
-                      src={battleState.opponentPokemon?.sprite || ''}
-                      alt={battleState.opponentPokemon?.name || ''}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <div className="text-right">
-                    <h3 className="font-semibold capitalize">
-                      {battleState.opponentPokemon?.name || ''}
-                    </h3>
-                    <Progress value={battleState.opponentHP} className="w-32" />
-                  </div>
-                </div>
+                <PokemonBattleDetails
+                  pokemon={battleState.opponentPokemon}
+                  hp={battleState.opponentHP}
+                  isOpponent={true}
+                />
 
-                {/* Player Pokemon */}
-                <div className="absolute bottom-0 left-0">
-                  <div className="relative w-32 h-32">
-                    <Image
-                      src={battleState.playerPokemon.sprite}
-                      alt={battleState.playerPokemon.name}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold capitalize">
-                      {battleState.playerPokemon.name}
-                    </h3>
-                    <Progress value={battleState.playerHP} className="w-32" />
-                  </div>
-                </div>
+                <PokemonBattleDetails
+                  pokemon={battleState.playerPokemon}
+                  hp={battleState.playerHP}
+                  isOpponent={false}
+                />
               </div>
 
               {/* Battle Log */}
