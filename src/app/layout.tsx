@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto, Roboto_Mono } from 'next/font/google';
 import './globals.css';
+import { PikachuLogger } from '../components/pikachu-logger';
 
 const robotoSans = Roboto({
   variable: '--font-roboto-sans',
@@ -23,10 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
       >
+        <PikachuLogger />
         {children}
       </body>
     </html>
