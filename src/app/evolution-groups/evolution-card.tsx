@@ -36,7 +36,7 @@ export function EvolutionCard({ group }: EvolutionCardProps) {
       >
         <div className="p-4">
           <div className="flex items-center gap-2 mb-4">
-            <h2 className="text-xl font-bold text-gray-800 capitalize">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-800 capitalize">
               {group.name} Evolution
             </h2>
             <span
@@ -60,7 +60,7 @@ export function EvolutionCard({ group }: EvolutionCardProps) {
                 transition={{ type: 'spring', stiffness: 300 }}
               >
                 <Link href={`/pokemon/${pokemon.id}`}>
-                  <div className="relative w-24 h-24">
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24">
                     <Image
                       priority
                       src={pokemon.sprite}
@@ -69,14 +69,14 @@ export function EvolutionCard({ group }: EvolutionCardProps) {
                       className="object-contain drop-shadow-lg"
                     />
                   </div>
-                  <p className="text-center text-gray-800 text-sm capitalize mt-2">
+                  <p className="text-center text-gray-800 text-xs sm:text-sm capitalize mt-2">
                     {pokemon.name}
                   </p>
-                  <div className="flex justify-center gap-1 mt-1">
+                  <div className="flex flex-col sm:flex-row justify-center gap-1 mt-1">
                     {pokemon.types.map((type) => (
                       <span
                         key={type}
-                        className="px-2 py-0.5 rounded-full text-xs font-medium text-white capitalize"
+                        className="px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full text-xs font-medium text-white capitalize text-center"
                         style={{
                           backgroundColor:
                             typeColors[type as keyof typeof typeColors] ||
