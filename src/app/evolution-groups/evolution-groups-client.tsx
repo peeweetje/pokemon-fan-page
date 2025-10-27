@@ -3,20 +3,8 @@
 import { PokemonPagination } from '@/components/pokemon-grid/pokemon-pagination';
 import { PokemonSearch } from '@/components/pokemon-search';
 import { EvolutionGroupGrid } from './evolution-group-grid';
+import { EvolutionGroup } from './evolution-types';
 import { useState } from 'react';
-
-interface Pokemon {
-  id: number;
-  name: string;
-  sprite: string;
-  types: string[];
-}
-
-interface EvolutionGroup {
-  id: number;
-  pokemon: Pokemon[];
-  name: string;
-}
 
 interface EvolutionGroupsClientProps {
   evolutionGroups: EvolutionGroup[];
