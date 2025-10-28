@@ -8,21 +8,14 @@ import { Progress } from '@/components/ui/progress';
 import SecretPokeball from '@/components/secret-pokeball';
 import BackButton from '@/components/back-button';
 import PokemonHeader from '@/app/pokemon/pokemon-header';
+import PokemonStats from '@/app/pokemon/pokemon-stats';
+import PokemonDescription from '@/app/pokemon/pokemon-description';
+import PokemonMoves from '@/app/pokemon/pokemon-moves';
 import { typeColors } from '@/utils/pokemon-type-colors';
 import {
   getPokemonData,
   getPokemonSpecies,
 } from '@/utils/pokemon-details-utils';
-
-// Stat names mapping for better display
-const statNames = {
-  hp: 'HP',
-  attack: 'Attack',
-  defense: 'Defense',
-  'special-attack': 'Sp. Atk',
-  'special-defense': 'Sp. Def',
-  speed: 'Speed',
-};
 
 export async function generateStaticParams() {
   // Generate params for the first 100 Pokémons
@@ -84,68 +77,9 @@ export default async function PokemonDetailPage({
           formattedId={formattedId}
           category={category}
         />
-
-        {/* Description */}
-        {flavorText && (
-          <Card className='p-4 mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}'>
-            <h2 className="text-xl font-bold mb-2">Description</h2>
-            <p className="italic">{flavorText}</p>
-          </Card>
-        )}
-
-        {/* Stats */}
-        <Card className='p-6 mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}'>
-          <h2 className="text-xl font-bold mb-4">Base Stats</h2>
-          <div className="space-y-3">
-            {pokemon.stats.map((stat: any) => (
-              <div
-                key={stat.stat.name}
-                className="grid grid-cols-8 gap-2 items-center"
-              >
-                <div className="col-span-2 font-medium capitalize">
-                  {statNames[stat.stat.name as keyof typeof statNames] ||
-                    stat.stat.name}
-                </div>
-                <div className="col-span-1 text-right font-mono">
-                  {stat.base_stat}
-                </div>
-                <div className="col-span-5">
-                  <Progress
-                    value={(stat.base_stat / maxStat) * 100}
-                    className="h-3"
-                    indicatorClassName={`${
-                      stat.base_stat < 50
-                        ? 'bg-red-500'
-                        : stat.base_stat < 80
-                        ? 'bg-yellow-500'
-                        : 'bg-green-500'
-                    }`}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Moves */}
-        <Card className="p-6">
-          <h2 className="text-xl font-bold mb-4">Moves</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-            {pokemon.moves.slice(0, 20).map((move: any) => (
-              <span
-                key={move.move.name}
-                className="px-3 py-1 bg-gray-100 rounded-md text-sm capitalize truncate"
-              >
-                {move.move.name.replace('-', ' ')}
-              </span>
-            ))}
-            {pokemon.moves.length > 20 && (
-              <span className="px-3 py-1 bg-gray-100 rounded-md text-sm text-gray-500">
-                +{pokemon.moves.length - 20} more
-              </span>
-            )}
-          </div>
-        </Card>
+        <PokemonDescription flavorText={flavorText} />
+        <PokemonStats pokemon={pokemon} maxStat={maxStat} />
+        <PokemonMoves moves={pokemon.moves} />
       </div>
       <SecretPokeball />
     </div>
