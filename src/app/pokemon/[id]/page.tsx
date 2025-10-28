@@ -7,29 +7,11 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import SecretPokeball from '@/components/secret-pokeball';
 import BackButton from '@/components/back-button';
-
-// Pokemon type colors
-const typeColors = {
-  normal: '#A8A878',
-  fire: '#F08030',
-  water: '#6890F0',
-  electric: '#F8D030',
-  grass: '#78C850',
-  ice: '#98D8D8',
-  fighting: '#C03028',
-  poison: '#A040A0',
-  ground: '#E0C068',
-  flying: '#A890F0',
-  psychic: '#F85888',
-  bug: '#A8B820',
-  rock: '#B8A038',
-  ghost: '#705898',
-  dragon: '#7038F8',
-  dark: '#705848',
-  steel: '#B8B8D0',
-  fairy: '#EE99AC',
-  default: '#68A090',
-};
+import { typeColors } from '@/utils/pokemon-type-colors';
+import {
+  getPokemonData,
+  getPokemonSpecies,
+} from '@/utils/pokemon-details-utils';
 
 // Stat names mapping for better display
 const statNames = {
@@ -40,43 +22,6 @@ const statNames = {
   'special-defense': 'Sp. Def',
   speed: 'Speed',
 };
-
-async function getPokemonData(id: string) {
-  try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Pokemon with ID ${id}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching Pokemon data:', error);
-    return null;
-  }
-}
-
-async function getPokemonSpecies(id: string) {
-  try {
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon-species/${id}`,
-      {
-        next: { revalidate: 3600 }, // Cache for 1 hour
-      },
-    );
-
-    if (!response.ok) {
-      return null;
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching Pokemon species data:', error);
-    return null;
-  }
-}
 
 export async function generateStaticParams() {
   // Generate params for the first 100 Pokémons
