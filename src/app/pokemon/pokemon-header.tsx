@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { typeColors } from '@/utils/pokemon-type-colors';
+import PokemonPhysicalAttributes from './pokemon-physical-attributes';
+import PokemonAbilities from './pokemon-abilities';
 
 interface PokemonHeaderProps {
   pokemon: any;
@@ -71,42 +73,8 @@ export default function PokemonHeader({
             </span>
           ))}
         </div>
-
-        {/* Physical attributes */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="bg-white p-3 rounded-lg shadow-sm">
-            <h3 className="text-sm text-gray-500 mb-1">Height</h3>
-            <p className="text-lg font-medium">
-              {(pokemon.height / 10).toFixed(1)} m
-            </p>
-          </div>
-          <div className="bg-white p-3 rounded-lg shadow-sm">
-            <h3 className="text-sm text-gray-500 mb-1">Weight</h3>
-            <p className="text-lg font-medium">
-              {(pokemon.weight / 10).toFixed(1)} kg
-            </p>
-          </div>
-        </div>
-
-        {/* Abilities */}
-        <div className="mb-6">
-          <h2 className="text-xl font-bold mb-2">Abilities</h2>
-          <div className="flex flex-wrap gap-2">
-            {pokemon.abilities.map((ability: any) => (
-              <span
-                key={ability.ability.name}
-                className={`px-3 py-1 rounded-md bg-white border capitalize ${
-                  ability.is_hidden ? 'border-dashed' : ''
-                }`}
-              >
-                {ability.ability.name.replace('-', ' ')}
-                {ability.is_hidden && (
-                  <span className="text-xs ml-1 text-gray-500">(Hidden)</span>
-                )}
-              </span>
-            ))}
-          </div>
-        </div>
+        <PokemonPhysicalAttributes pokemon={pokemon} />
+        <PokemonAbilities pokemon={pokemon} />
       </div>
     </div>
   );
