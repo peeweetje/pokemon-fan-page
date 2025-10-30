@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Trophy, Sparkles, Zap, Target } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import SecretPokeball from '@/components/secret-pokeball';
+import AnimatedPokeball from '@/app/pokemon-guides/animated-pokeball';
 import PokemonGuidesSidebar from '@/app/pokemon-guides/pokemon-guides-sidebar';
 import QuickTips from '@/app/pokemon-guides/quick-tips';
 import { pokemonGuideSections } from '@/data/pokemon-guides-sections';
@@ -89,31 +90,11 @@ export default function PokemonGuides() {
                       ></div>
 
                       {/* Animated Pokeball decoration */}
-                      <motion.div
-                        className="absolute top-4 right-4 w-16 h-16 opacity-10"
-                        animate={{
-                          rotate: 360,
-                          scale: [1, 1.1, 1],
-                        }}
-                        transition={{
-                          rotate: {
-                            duration: 20,
-                            repeat: Number.POSITIVE_INFINITY,
-                            ease: 'linear',
-                          },
-                          scale: {
-                            duration: 2,
-                            repeat: Number.POSITIVE_INFINITY,
-                            ease: 'easeInOut',
-                          },
-                        }}
-                      >
-                        <div className="w-full h-full rounded-full border-[4px] border-black relative">
-                          <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600"></div>
-                          <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white"></div>
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black"></div>
-                        </div>
-                      </motion.div>
+                      <AnimatedPokeball
+                        size="medium"
+                        className="absolute top-4 right-4 opacity-10"
+                        animationType="rotate-scale"
+                      />
 
                       {/* Floating particles */}
                       <div className="absolute inset-0 overflow-hidden">

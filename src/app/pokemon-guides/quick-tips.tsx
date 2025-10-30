@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
+import AnimatedPokeball from '@/app/pokemon-guides/animated-pokeball';
 
 const quickTips = [
   'Save your game frequently, especially before important battles.',
@@ -20,31 +21,11 @@ export default function QuickTips() {
         ></div>
 
         {/* Animated Pokeball */}
-        <motion.div
-          className="absolute top-4 right-4 w-20 h-20 opacity-10"
-          animate={{
-            rotate: 360,
-            y: [0, -10, 0],
-          }}
-          transition={{
-            rotate: {
-              duration: 20,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: 'linear',
-            },
-            y: {
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: 'easeInOut',
-            },
-          }}
-        >
-          <div className="w-full h-full rounded-full border-[4px] border-black relative">
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600"></div>
-            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full border-2 border-black"></div>
-          </div>
-        </motion.div>
+        <AnimatedPokeball
+          size="large"
+          className="absolute top-4 right-4 opacity-10"
+          animationType="combined"
+        />
 
         <div className="relative z-10">
           <h2 className="text-xl font-bold mb-4 text-gray-800 group-hover:text-green-600 transition-colors duration-300">

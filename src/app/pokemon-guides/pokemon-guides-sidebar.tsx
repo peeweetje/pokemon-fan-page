@@ -20,6 +20,7 @@ import {
   SidebarInset,
 } from '@/components/ui/sidebar';
 import BackButton from '@/components/back-button';
+import AnimatedPokeball from '@/app/pokemon-guides/animated-pokeball';
 
 const getIcon = (iconName: string) => {
   switch (iconName) {
@@ -318,25 +319,11 @@ export default function PokemonGuidesSidebar({
             </ScrollArea>
 
             {/* Decorative Pokeball */}
-            <div className="absolute bottom-4 right-4 w-12 h-12 opacity-20">
-              <motion.div
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: 'linear',
-                }}
-                className="w-full h-full"
-              >
-                <div className="w-full h-full rounded-full border-[3px] border-black relative">
-                  <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600"></div>
-                  <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white"></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full border-2 border-black"></div>
-                </div>
-              </motion.div>
-            </div>
+            <AnimatedPokeball
+              size="small"
+              className="absolute bottom-4 right-4 opacity-20"
+              animationType="rotate"
+            />
           </SidebarContent>
         </Sidebar>
 
