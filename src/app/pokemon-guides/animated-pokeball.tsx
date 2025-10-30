@@ -27,7 +27,7 @@ export default function AnimatedPokeball({
           transition: {
             duration: 2,
             repeat: Number.POSITIVE_INFINITY,
-            ease: 'easeInOut',
+            ease: 'easeInOut' as const,
           },
         };
       case 'scale':
@@ -38,7 +38,7 @@ export default function AnimatedPokeball({
           transition: {
             duration: 2,
             repeat: Number.POSITIVE_INFINITY,
-            ease: 'easeInOut',
+            ease: 'easeInOut' as const,
           },
         };
       case 'rotate-scale':
@@ -51,12 +51,12 @@ export default function AnimatedPokeball({
             rotate: {
               duration: 20,
               repeat: Number.POSITIVE_INFINITY,
-              ease: 'linear',
+              ease: 'linear' as const,
             },
             scale: {
               duration: 2,
               repeat: Number.POSITIVE_INFINITY,
-              ease: 'easeInOut',
+              ease: 'easeInOut' as const,
             },
           },
         };
@@ -70,12 +70,12 @@ export default function AnimatedPokeball({
             rotate: {
               duration: 20,
               repeat: Number.POSITIVE_INFINITY,
-              ease: 'linear',
+              ease: 'linear' as const,
             },
             y: {
               duration: 2,
               repeat: Number.POSITIVE_INFINITY,
-              ease: 'easeInOut',
+              ease: 'easeInOut' as const,
             },
           },
         };
@@ -88,7 +88,7 @@ export default function AnimatedPokeball({
           transition: {
             duration: 20,
             repeat: Number.POSITIVE_INFINITY,
-            ease: 'linear',
+            ease: 'linear' as const,
           },
         };
     }
