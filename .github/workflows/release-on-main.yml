@@ -52,6 +52,10 @@ jobs:
         run: |
           NEXT_TAG="${{ steps.compute_version.outputs.next_tag }}"
 
+          # Configure git identity for the GitHub Actions runner
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           # Check if tag already exists on remote to avoid failures (exit 128)
           if git ls-remote --exit-code --tags origin "$NEXT_TAG" >/dev/null 2>&1; then
             echo "Tag $NEXT_TAG already exists on origin. Skipping tag creation."
