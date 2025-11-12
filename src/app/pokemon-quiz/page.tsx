@@ -2,16 +2,11 @@
 
 import SecretPokeball from '@/components/secret-pokeball';
 import BackButton from '@/components/back-button';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { QuizDialog } from './quiz-dialog';
-import QuizProgress from './quiz-progress';
 import { questions } from '@/data/quiz-questions';
-import { motion } from 'framer-motion';
-import { Check, X } from 'lucide-react';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { getPokemonImage } from '@/utils/get-pokemon-images';
+import { PokemonQuizLoader } from './pokemon-quiz-loader';
+import { PokemonQuizQuestionCard } from './pokemon-quiz-question-card';
 
 interface Question {
   question: string;
@@ -74,73 +69,7 @@ export default function PokemonQuiz() {
 
   // Don't render anything until questions are selected
   if (selectedQuestions.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <motion.div
-          className="relative w-24 h-24"
-          animate={{
-            rotate: 360,
-            y: [0, -20, 0],
-          }}
-          transition={{
-            rotate: {
-              duration: 2,
-              repeat: Infinity,
-              ease: 'linear',
-            },
-            y: {
-              duration: 1.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            },
-          }}
-        >
-          {/* Outer Pokeball */}
-          <div className="absolute inset-0 rounded-full border-8 border-black overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600"></div>
-            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white"></div>
-          </div>
-
-          {/* Center Button */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full border-4 border-black z-10"
-            animate={{
-              scale: [1, 1.1, 1],
-              boxShadow: [
-                '0 0 0 0 rgba(0,0,0,0.1)',
-                '0 0 0 10px rgba(0,0,0,0.1)',
-                '0 0 0 0 rgba(0,0,0,0.1)',
-              ],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
-            {/* Button Shine */}
-            <div className="absolute top-1 left-1 w-2 h-2 bg-gray-200 rounded-full"></div>
-          </motion.div>
-
-          {/* Glow Effect */}
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            animate={{
-              boxShadow: [
-                '0 0 0 0 rgba(255,0,0,0.2)',
-                '0 0 20px 10px rgba(255,0,0,0.2)',
-                '0 0 0 0 rgba(255,0,0,0.2)',
-              ],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        </motion.div>
-      </div>
-    );
+    return <PokemonQuizLoader />;
   }
 
   return (
@@ -156,114 +85,21 @@ export default function PokemonQuiz() {
         </div>
 
         {!quizCompleted ? (
-          <Card className="p-6 relative overflow-hidden">
-            {/* Pokemon-themed background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-red-50 opacity-50"></div>
-
-            {/* Pokeball decoration */}
-            <div className="absolute top-4 right-4 w-16 h-16 opacity-10">
-              <div className="w-full h-full rounded-full border-[6px] border-black relative">
-                <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600"></div>
-                <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black"></div>
-              </div>
-            </div>
-
-            <div className="flex gap-8 relative z-10">
-              <div className="flex-1">
-                <QuizProgress
-                  currentQuestion={currentQuestion}
-                  totalQuestions={selectedQuestions.length}
-                  score={score}
-                />
-
-                {/* Question */}
-                <h2 className="text-xl font-semibold mb-6 text-gray-800">
-                  {selectedQuestions[currentQuestion].question}
-                </h2>
-
-                {/* Options */}
-                <div className="grid gap-4">
-                  {selectedQuestions[currentQuestion].options.map((option) => (
-                    <motion.button
-                      key={option}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={`p-4 rounded-lg text-left transition-all duration-200 ${
-                        selectedAnswer === option
-                          ? option ===
-                            selectedQuestions[currentQuestion].correctAnswer
-                            ? 'bg-green-100 border-green-500 shadow-lg shadow-green-200'
-                            : 'bg-red-100 border-red-500 shadow-lg shadow-red-200'
-                          : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md'
-                      } border-2`}
-                      onClick={() => !showExplanation && handleAnswer(option)}
-                      disabled={showExplanation}
-                    >
-                      <span className="flex w-full justify-between">
-                        {option}
-                        <span>
-                          {showExplanation &&
-                            selectedAnswer === option &&
-                            (option ===
-                            selectedQuestions[currentQuestion].correctAnswer ? (
-                              <span aria-label="Correct answer">
-                                <Check className="text-green-600 w-6 h-6" />
-                              </span>
-                            ) : (
-                              <span aria-label="Incorrect answer">
-                                <X className="text-red-600 w-6 h-6" />
-                              </span>
-                            ))}
-                        </span>
-                      </span>
-                    </motion.button>
-                  ))}
-                </div>
-
-                {/* Explanation */}
-                {showExplanation && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-200"
-                  >
-                    <p className="text-blue-800 font-medium">
-                      {selectedQuestions[currentQuestion].explanation}
-                    </p>
-                    <Button
-                      className="mt-4 w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-                      onClick={handleNext}
-                    >
-                      {currentQuestion < selectedQuestions.length - 1
-                        ? 'Next Question'
-                        : 'Finish Quiz'}
-                    </Button>
-                  </motion.div>
-                )}
-              </div>
-
-              {/* Pokemon Image */}
-              <div className="hidden lg:block w-64 h-64 relative">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full h-full relative"
-                >
-                  <Image
-                    priority
-                    src={getPokemonImage(
-                      selectedQuestions[currentQuestion].category,
-                    )}
-                    alt="Pokemon"
-                    fill
-                    className="object-contain drop-shadow-2xl absolute"
-                  />
-                </motion.div>
-              </div>
-            </div>
-          </Card>
+          <PokemonQuizQuestionCard
+            currentQuestionIndex={currentQuestion}
+            totalQuestions={selectedQuestions.length}
+            score={score}
+            question={selectedQuestions[currentQuestion].question}
+            options={selectedQuestions[currentQuestion].options}
+            correctAnswer={selectedQuestions[currentQuestion].correctAnswer}
+            explanation={selectedQuestions[currentQuestion].explanation}
+            category={selectedQuestions[currentQuestion].category}
+            selectedAnswer={selectedAnswer}
+            showExplanation={showExplanation}
+            onSelectAnswer={handleAnswer}
+            onNext={handleNext}
+            hasNext={currentQuestion < selectedQuestions.length - 1}
+          />
         ) : (
           <QuizDialog
             open={quizCompleted}
