@@ -1,0 +1,94 @@
+name: Release on main
+
+on:
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: write
+
+jobs:
+    tag-and-release:
+        name: Tag and create release
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Get latest tag
+              id: get_latest_tag
+              run: |
+                  # Get latest tag matching v*.*.* (semantic version)
+                  TAG=$(git tag --list "v*.*.*" --sort=-v:refname | head -n 1 || true)
+                  echo "latest_tag=$TAG" >> "$GITHUB_OUTPUT"
+
+            - name: Compute next version
+              id: compute_version
+              run: |
+                  LATEST_TAG="${{ steps.get_latest_tag.outputs.latest_tag }}"
+
+                  if [ -z "$LATEST_TAG" ]; then
+                    # No existing tags: start at v0.1.0 (adjust if you prefer v1.0.0)
+                    NEXT_TAG="v0.1.0"
+                  else
+                    VERSION="${LATEST_TAG#v}"
+                    IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+                    # Bump patch by default
+                    PATCH=$((PATCH + 1))
+                    NEXT_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+                  fi
+
+                  echo "next_tag=$NEXT_TAG" >> "$GITHUB_OUTPUT"
+
+            - name: Create tag
+              id: create_tag
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  NEXT_TAG="${{ steps.compute_version.outputs.next_tag }}"
+
+                  # Create an annotated tag on the pushed commit (HEAD of main)
+                  git tag -a "$NEXT_TAG" -m "Release $NEXT_TAG"
+                  git push origin "$NEXT_TAG"
+
+                  echo "tag=$NEXT_TAG" >> "$GITHUB_OUTPUT"
+
+            - name: Generate release notes
+              id: notes
+              run: |
+                  NEW_TAG="${{ steps.create_tag.outputs.tag }}"
+                  PREV_TAG="${{ steps.get_latest_tag.outputs.latest_tag }}"
+
+                  if [ -z "$PREV_TAG" ]; then
+                    # First release: use all commits on main
+                    NOTES=$(git log --pretty=format:'- %s' origin/main)
+                  else
+                    # Commits between previous and new tag
+                    NOTES=$(git log --pretty=format:'- %s' "${PREV_TAG}..HEAD")
+                  fi
+
+                  # Fallback if no commits detected (should be rare)
+                  if [ -z "$NOTES" ]; then
+                    NOTES="- Initial automated release."
+                  fi
+
+                  # Escape % for GitHub output
+                  NOTES="${NOTES//'%'/'%25'}"
+                  NOTES="${NOTES//$'\n'/'%0A'}"
+                  NOTES="${NOTES//$'\r'/'%0D'}"
+
+                  echo "body=$NOTES" >> "$GITHUB_OUTPUT"
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ steps.create_tag.outputs.tag }}
+                  name: ${{ steps.create_tag.outputs.tag }}
+                  body: ${{ steps.notes.outputs.body }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
