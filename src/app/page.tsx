@@ -16,7 +16,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-500 to-red-600 text-white">
+    <div className="min-h-screen bg-linear-to-br from-red-500 to-red-600 text-white">
       <HeroSection onNavigate={handleNavigate} />
       <CardSections title="Explore the Pokémon World" cards={featureCards} />
       <CTASection onNavigate={handleNavigate} />

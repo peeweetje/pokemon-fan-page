@@ -12,7 +12,7 @@ export function ConfettiEffect({
   if (!showConfetti || !shouldAnimate) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-100 overflow-hidden">
       {[...Array(100)].map((_, i) => (
         <motion.div
           key={i}

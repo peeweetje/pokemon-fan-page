@@ -42,7 +42,7 @@ export function ScoreDialog({
       >
         {/* Confetti container positioned relative to the modal */}
         {showConfetti && shouldAnimate && (
-          <div className="absolute inset-0 pointer-events-none z-[9999]">
+          <div className="absolute inset-0 pointer-events-none z-9999">
             {[...Array(100)].map((_, i) => (
               <motion.div
                 key={i}
