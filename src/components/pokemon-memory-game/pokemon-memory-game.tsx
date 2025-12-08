@@ -83,7 +83,7 @@ export function PokemonMemoryGame() {
           difficultySettings[difficulty].gridCols === 4
             ? 'grid-cols-2 sm:grid-cols-4'
             : 'grid-cols-2 sm:grid-cols-4 md:grid-cols-6'
-        } max-w-sm sm:max-w-none mx-auto`}
+        } w-full max-w-md sm:max-w-none mx-auto`}
       >
         {cards.map((card) => (
           <MemoryCard
