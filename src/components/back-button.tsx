@@ -17,7 +17,7 @@ export default function BackButton({
 }: BackButtonProps) {
   return (
     <Link
-      className={`${buttonVariants({ variant: 'outline', size: 'lg' })} ${
+      className={`${buttonVariants({ variant: 'primary', size: 'lg' })} ${
         className || ''
       }`}
       href={href}
