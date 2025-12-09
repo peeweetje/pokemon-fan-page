@@ -2,6 +2,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { formatTime } from '@/hooks/use-memory-game';
 
+const formatDate = (dateString: string) => {
+  const parts = dateString.split(/[-/.]/);
+  if (parts.length === 3) {
+    return `${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}-${parts[2]}`;
+  }
+  return dateString;
+};
+
 interface HighScore {
   moves: number;
   time: number;
@@ -189,7 +197,7 @@ export function ScoreDialog({
                         type: 'spring',
                       }}
                     >
-                      {score.date}
+                      {formatDate(score.date)}
                     </motion.div>
                   </motion.div>
                 ))}
