@@ -94,7 +94,7 @@ export function ScoreDialog({
           initial={shouldAnimate ? { scale: 0.5, opacity: 0 } : undefined}
           animate={shouldAnimate ? { scale: 1, opacity: 1 } : undefined}
           transition={{ delay: 0.2, type: 'spring' }}
-          className="text-3xl font-bold mb-6 text-blue-600 flex justify-center relative z-10"
+          className="text-3xl font-bold mb-6 text-red-600 flex justify-center relative z-10"
         >
           {'Congratulations!'.split('').map((char, index) => (
             <motion.span
@@ -213,7 +213,8 @@ export function ScoreDialog({
         >
           <Button
             onClick={onPlayAgain}
-            className="bg-blue-500 hover:bg-blue-600 text-lg px-8 py-2"
+            variant="primary"
+            className="text-lg px-8 py-2"
           >
             Play Again
           </Button>

@@ -42,13 +42,15 @@ export function SettingsDialog({
           <Settings className="h-6 w-6 sm:h-12 sm:w-12" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] mx-4">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Game Settings</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-6 py-4">
           <div className="space-y-4">
-            <h4 className="text-sm font-medium">Difficulty</h4>
+            <h4 className="text-sm font-medium flex justify-center">
+              Difficulty
+            </h4>
             <div className="flex justify-center gap-2 sm:gap-4">
               {(['easy', 'medium', 'hard'] as const).map((level) => (
                 <Button
@@ -57,7 +59,7 @@ export function SettingsDialog({
                     setDifficulty(level);
                     onDifficultyChange();
                   }}
-                  variant={difficulty === level ? 'default' : 'outline'}
+                  variant={difficulty === level ? 'primary' : 'outline'}
                   className="text-xs sm:text-sm px-2 sm:px-4"
                 >
                   {level.charAt(0).toUpperCase() + level.slice(1)}
@@ -74,6 +76,7 @@ export function SettingsDialog({
               id="sound-toggle"
               checked={soundEnabled}
               onCheckedChange={setSoundEnabled}
+              className="data-[state=checked]:bg-red-600"
             />
           </div>
 
@@ -86,6 +89,7 @@ export function SettingsDialog({
               checked={animationsEnabled}
               onCheckedChange={setAnimationsEnabled}
               disabled={prefersReducedMotion}
+              className="data-[state=checked]:bg-red-600"
             />
           </div>
           {prefersReducedMotion && (

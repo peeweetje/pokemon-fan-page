@@ -1,3 +1,4 @@
+import { cn } from '@lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -17,9 +18,11 @@ export default function BackButton({
 }: BackButtonProps) {
   return (
     <Link
-      className={`${buttonVariants({ variant: 'primary', size: 'lg' })} ${
-        className || ''
-      }`}
+      className={cn(
+        buttonVariants({ variant: 'primary', size: 'sm' }),
+        'md:h-10 md:px-6 md:gap-2 md:has-[>svg]:px-4',
+        className
+      )}
       href={href}
       onClick={onClick}
     >
