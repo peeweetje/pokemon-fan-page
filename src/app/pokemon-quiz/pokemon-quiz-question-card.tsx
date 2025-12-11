@@ -40,16 +40,7 @@ export function PokemonQuizQuestionCard({
   return (
     <Card className="p-6 relative overflow-hidden">
       {/* Pokemon-themed background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-red-50 opacity-50" />
-
-      {/* Pokeball decoration */}
-      <div className="absolute top-4 right-4 w-16 h-16 opacity-10">
-        <div className="w-full h-full rounded-full border-[6px] border-black relative">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600" />
-          <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-black" />
-        </div>
-      </div>
+      <div className="absolute inset-0 bg-linear-to-br from-red-300 to-yellow-50 opacity-50" />
 
       <div className="flex gap-8 relative z-10">
         <div className="flex-1">
