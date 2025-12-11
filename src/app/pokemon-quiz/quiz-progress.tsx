@@ -23,7 +23,7 @@ export default function QuizProgress({
       </div>
       <Progress
         value={(currentQuestion / totalQuestions) * 100}
-        className="bg-gray-200 [&>div]:bg-green-500"
+        className="bg-gray-300 [&>div]:bg-green-500"
       />
     </div>
   );

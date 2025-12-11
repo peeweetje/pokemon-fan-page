@@ -41,7 +41,7 @@ export function QuizDialog({
           </p>
           <Button
             onClick={onOpenChange}
-            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to--700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
           >
             Try Again
           </Button>
