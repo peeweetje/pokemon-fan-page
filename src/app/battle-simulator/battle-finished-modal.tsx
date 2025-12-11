@@ -57,7 +57,7 @@ export function BattleFinishedModal({
         <p className="mb-6">Return to the Pokemons</p>
         <button
           autoFocus
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
           onClick={handleClose}
         >
           Back to Pokemons
