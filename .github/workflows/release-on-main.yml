@@ -86,18 +86,23 @@ jobs:
             NOTES="- Initial automated release."
           fi
 
-          # Escape % for GitHub output
+          # Escape % for GitHub output, but keep newlines as actual newlines
           NOTES="${NOTES//'%'/'%25'}"
-          NOTES="${NOTES//$'\n'/'%0A'}"
-          NOTES="${NOTES//$'\r'/'%0D'}"
-
-          echo "body=$NOTES" >> "$GITHUB_OUTPUT"
+          # Use GitHub's multiline syntax instead of escaping newlines
+          echo "body<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$NOTES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.create_tag.outputs.tag }}
           name: ${{ steps.create_tag.outputs.tag }}
+          body: ${{ steps.notes.outputs.body }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        
           body: ${{ steps.notes.outputs.body }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
