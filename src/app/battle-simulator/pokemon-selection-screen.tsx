@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { PokemonSearch } from '@/components/pokemon-search';
 import { PokemonPagination } from '@/components/pokemon-grid/pokemon-pagination';
-import { typeColors } from '@/utils/pokemon-type-colors';
+
 import { Pokemon } from '@/utils/battle-simulator-utils';
 
 interface PokemonSelectionScreenProps {
@@ -58,13 +58,9 @@ export function PokemonSelectionScreen({
             >
               {/* Background color based on Pokemon type */}
               <div
-                className="absolute inset-0 z-0"
-                style={{
-                  backgroundColor: `${
-                    typeColors[pokemon.types[0] as keyof typeof typeColors] ||
-                    typeColors.default
-                  }15`,
-                }}
+                className={`absolute inset-0 z-0 bg-pokemon-${
+                  pokemon.types?.[0] || 'default'
+                }/15`}
               ></div>
 
               <div className="relative z-10">
@@ -81,19 +77,16 @@ export function PokemonSelectionScreen({
                   {pokemon.name}
                 </h3>
                 <div className="flex justify-center gap-2 mt-2">
-                  {pokemon.types.map((type) => (
+                  {pokemon.types?.map((type) => (
                     <span
                       key={type}
-                      className="px-2 py-1 text-xs font-medium text-white rounded-full capitalize"
-                      style={{
-                        backgroundColor:
-                          typeColors[type as keyof typeof typeColors] ||
-                          typeColors.default,
-                      }}
+                      className={`px-2 py-1 text-xs font-medium text-white rounded-full capitalize bg-pokemon-${
+                        type || 'default'
+                      }`}
                     >
                       {type}
                     </span>
-                  ))}
+                  )) || []}
                 </div>
               </div>
             </Card>
