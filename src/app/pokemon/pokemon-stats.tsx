@@ -18,7 +18,7 @@ interface PokemonStatsProps {
 
 export default function PokemonStats({ pokemon, maxStat }: PokemonStatsProps) {
   return (
-    <Card className='p-6 mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}'>
+    <Card className="p-6 mb-8 animate-slide-up delay-300">
       <h2 className="text-xl font-bold mb-4">Base Stats</h2>
       <div className="space-y-3">
         {pokemon.stats.map((stat: any) => (
@@ -37,13 +37,12 @@ export default function PokemonStats({ pokemon, maxStat }: PokemonStatsProps) {
               <Progress
                 value={(stat.base_stat / maxStat) * 100}
                 className="h-3"
-                indicatorClassName={`${
-                  stat.base_stat < 50
+                indicatorClassName={`${stat.base_stat < 50
                     ? 'bg-red-500'
                     : stat.base_stat < 80
-                    ? 'bg-yellow-500'
-                    : 'bg-green-500'
-                }`}
+                      ? 'bg-yellow-500'
+                      : 'bg-green-500'
+                  }`}
               />
             </div>
           </div>
