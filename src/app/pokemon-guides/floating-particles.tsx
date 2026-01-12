@@ -11,7 +11,7 @@ interface FloatingParticlesProps {
 export default function FloatingParticles({
   count = 3,
   className = '',
-  particleClassName = 'absolute w-2 h-2 rounded-full bg-white opacity-15',
+  particleClassName = 'absolute w-2 h-2 rounded-full bg-white opacity-40 z-10',
   animationDuration = 3,
   delayMultiplier = 0.5,
 }: FloatingParticlesProps) {
