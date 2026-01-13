@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PokemonQuizQuestionCard } from './pokemon-quiz-question-card';
-import { fn } from '@storybook/test';
+
 
 const meta = {
     title: 'Pokemon Quiz/PokemonQuizQuestionCard',
@@ -10,8 +10,8 @@ const meta = {
     },
     tags: ['autodocs'],
     args: {
-        onSelectAnswer: fn(),
-        onNext: fn(),
+        onSelectAnswer: () => { },
+        onNext: () => { },
     },
 } satisfies Meta<typeof PokemonQuizQuestionCard>;
 

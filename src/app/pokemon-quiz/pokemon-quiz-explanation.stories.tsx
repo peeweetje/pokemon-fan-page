@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PokemonQuizExplanation } from './pokemon-quiz-explanation';
-import { fn } from '@storybook/test';
+
 
 const meta = {
     title: 'Pokemon Quiz/PokemonQuizExplanation',
@@ -15,7 +15,7 @@ const meta = {
         hasNext: { control: 'boolean' },
     },
     args: {
-        onNext: fn(),
+        onNext: () => { },
     },
 } satisfies Meta<typeof PokemonQuizExplanation>;
 

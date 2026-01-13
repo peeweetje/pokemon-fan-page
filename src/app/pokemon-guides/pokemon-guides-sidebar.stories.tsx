@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import PokemonGuidesSidebar from './pokemon-guides-sidebar';
 import { BookOpen, Trophy, Zap, Target, Sparkles } from 'lucide-react';
-import { fn } from '@storybook/test';
+
 
 const mockSections = [
     { id: 'tips', title: 'Tips & Tricks', icon: <BookOpen className="w-6 h-6" /> },
@@ -21,10 +21,10 @@ const meta = {
     args: {
         sections: mockSections,
         activeSection: 'tips',
-        setActiveSection: fn(),
+        setActiveSection: () => { },
         isMobileMenuOpen: false,
-        setIsMobileMenuOpen: fn(),
-        setIsNavigating: fn(),
+        setIsMobileMenuOpen: () => { },
+        setIsNavigating: () => { },
         children: (
             <div className="p-4">
                 <h2 className="text-2xl font-bold">Default Content</h2>
