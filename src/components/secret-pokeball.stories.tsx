@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SecretPokeball from './secret-pokeball';
 
 const meta: Meta<typeof SecretPokeball> = {
-    title: 'Components/SecretPokeball',
+    title: 'Components/Secret Pokeball',
     component: SecretPokeball,
     parameters: {
         layout: 'fullscreen',

@@ -3,7 +3,7 @@ import PokemonPhysicalAttributes from './pokemon-physical-attributes';
 import { mockPokemon } from './fixtures';
 
 const meta: Meta<typeof PokemonPhysicalAttributes> = {
-    title: 'Pokemon/PokemonPhysicalAttributes',
+    title: 'Pokemon/Physical Attributes',
     component: PokemonPhysicalAttributes,
     parameters: {
         layout: 'padded',

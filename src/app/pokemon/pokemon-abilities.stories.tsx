@@ -3,7 +3,7 @@ import PokemonAbilities from './pokemon-abilities';
 import { mockPokemon } from './fixtures';
 
 const meta: Meta<typeof PokemonAbilities> = {
-    title: 'Pokemon/PokemonAbilities',
+    title: 'Pokemon/Abilities',
     component: PokemonAbilities,
     parameters: {
         layout: 'padded',

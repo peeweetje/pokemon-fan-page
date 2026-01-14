@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PokemonMemoryGame } from './pokemon-memory-game';
 
 const meta: Meta<typeof PokemonMemoryGame> = {
-    title: 'Components/PokemonMemoryGame',
+    title: 'Components/Pokemon Memory Game',
     component: PokemonMemoryGame,
     tags: ['autodocs'],
     parameters: {

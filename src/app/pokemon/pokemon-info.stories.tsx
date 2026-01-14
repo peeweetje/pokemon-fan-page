@@ -3,7 +3,7 @@ import PokemonInfo from './pokemon-info';
 import { mockPokemon } from './fixtures';
 
 const meta: Meta<typeof PokemonInfo> = {
-    title: 'Pokemon/PokemonInfo',
+    title: 'Pokemon/Info',
     component: PokemonInfo,
     parameters: {
         layout: 'padded',

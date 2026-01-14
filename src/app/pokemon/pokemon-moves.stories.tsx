@@ -3,7 +3,7 @@ import PokemonMoves from './pokemon-moves';
 import { mockPokemon } from './fixtures';
 
 const meta: Meta<typeof PokemonMoves> = {
-    title: 'Pokemon/PokemonMoves',
+    title: 'Pokemon/Moves',
     component: PokemonMoves,
     parameters: {
         layout: 'padded',

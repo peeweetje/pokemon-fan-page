@@ -3,7 +3,7 @@ import PokemonHeader from './pokemon-header';
 import { mockPokemon, mockSpecies } from './fixtures';
 
 const meta: Meta<typeof PokemonHeader> = {
-    title: 'Pokemon/PokemonHeader',
+    title: 'Pokemon/Header',
     component: PokemonHeader,
     parameters: {
         layout: 'padded',

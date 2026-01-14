@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PokemonGrid } from './pokemon-grid';
 
 const meta: Meta<typeof PokemonGrid> = {
-    title: 'Components/PokemonGrid',
+    title: 'Components/Pokemon Grid',
     component: PokemonGrid,
     tags: ['autodocs'],
     parameters: {

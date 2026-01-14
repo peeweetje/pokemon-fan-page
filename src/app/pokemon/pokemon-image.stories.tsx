@@ -3,7 +3,7 @@ import PokemonImage from './pokemon-image';
 import { mockPokemon } from './fixtures';
 
 const meta: Meta<typeof PokemonImage> = {
-    title: 'Pokemon/PokemonImage',
+    title: 'Pokemon/Image',
     component: PokemonImage,
     parameters: {
         layout: 'centered',

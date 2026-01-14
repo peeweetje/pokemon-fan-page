@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import PokemonDescription from './pokemon-description';
 
 const meta: Meta<typeof PokemonDescription> = {
-    title: 'Pokemon/PokemonDescription',
+    title: 'Pokemon/Description',
     component: PokemonDescription,
     parameters: {
         layout: 'padded',

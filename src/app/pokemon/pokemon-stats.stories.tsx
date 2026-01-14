@@ -3,7 +3,7 @@ import PokemonStats from './pokemon-stats';
 import { mockPokemon } from './fixtures';
 
 const meta: Meta<typeof PokemonStats> = {
-    title: 'Pokemon/PokemonStats',
+    title: 'Pokemon/Stats',
     component: PokemonStats,
     parameters: {
         layout: 'padded',

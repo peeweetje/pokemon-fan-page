@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import PokemonSearch from './pokemon-search';
 
 const meta: Meta<typeof PokemonSearch> = {
-    title: 'Components/PokemonSearch',
+    title: 'Components/Pokemon Search',
     component: PokemonSearch,
     tags: ['autodocs'],
     argTypes: {

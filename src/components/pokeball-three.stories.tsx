@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import PokeballThree from './pokeball-three';
 
 const meta: Meta<typeof PokeballThree> = {
-    title: 'Components/PokeballThree',
+    title: 'Components/Pokeball Three',
     component: PokeballThree,
     parameters: {
         layout: 'padded',
