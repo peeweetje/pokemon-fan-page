@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import QuickTips from './quick-tips';
 
 const meta = {
-    title: 'Pokemon Guides/QuickTips',
+    title: 'Pokemon Guides/Quick Tips',
     component: QuickTips,
     parameters: {
         layout: 'centered',

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PokemonQuizImage } from './pokemon-quiz-image';
 
 const meta = {
-    title: 'Pokemon Quiz/PokemonQuizImage',
+    title: 'Pokemon Quiz/Image',
     component: PokemonQuizImage,
     parameters: {
         layout: 'centered',

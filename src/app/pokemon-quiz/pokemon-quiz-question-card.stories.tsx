@@ -3,7 +3,7 @@ import { PokemonQuizQuestionCard } from './pokemon-quiz-question-card';
 
 
 const meta = {
-    title: 'Pokemon Quiz/PokemonQuizQuestionCard',
+    title: 'Pokemon Quiz/Question Card',
     component: PokemonQuizQuestionCard,
     parameters: {
         layout: 'centered',

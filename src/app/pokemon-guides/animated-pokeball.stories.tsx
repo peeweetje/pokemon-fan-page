@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import AnimatedPokeball from './animated-pokeball';
 
 const meta = {
-    title: 'Pokemon Guides/AnimatedPokeball',
+    title: 'Pokemon Guides/Animated Pokeball',
     component: AnimatedPokeball,
     parameters: {
         layout: 'centered',

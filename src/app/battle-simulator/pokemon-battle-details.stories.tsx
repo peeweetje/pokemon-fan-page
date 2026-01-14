@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PokemonBattleDetails } from './pokemon-battle-details';
 
 const meta: Meta<typeof PokemonBattleDetails> = {
-  title: 'BattleSimulator/PokemonBattleDetails',
+  title: 'Battle Simulator/Battle Details',
   component: PokemonBattleDetails,
   tags: ['autodocs'],
   argTypes: {

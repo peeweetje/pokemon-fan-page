@@ -3,7 +3,7 @@ import { PokemonSelectionScreen } from './pokemon-selection-screen';
 import { Pokemon } from '@/utils/battle-simulator-utils';
 
 const meta: Meta<typeof PokemonSelectionScreen> = {
-  title: 'BattleSimulator/PokemonSelectionScreen',
+  title: 'Battle Simulator/Selection Screen',
   component: PokemonSelectionScreen,
   tags: ['autodocs'],
   argTypes: {

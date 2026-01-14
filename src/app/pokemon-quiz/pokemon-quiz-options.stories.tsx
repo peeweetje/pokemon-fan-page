@@ -3,7 +3,7 @@ import { PokemonQuizOptions } from './pokemon-quiz-options';
 
 
 const meta = {
-    title: 'Pokemon Quiz/PokemonQuizOptions',
+    title: 'Pokemon Quiz/Options',
     component: PokemonQuizOptions,
     parameters: {
         layout: 'centered',

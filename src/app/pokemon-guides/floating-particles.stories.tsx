@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import FloatingParticles from './floating-particles';
 
 const meta = {
-    title: 'Pokemon Guides/FloatingParticles',
+    title: 'Pokemon Guides/Floating Particles',
     component: FloatingParticles,
     parameters: {
         layout: 'centered',

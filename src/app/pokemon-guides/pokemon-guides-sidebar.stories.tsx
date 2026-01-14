@@ -12,7 +12,7 @@ const mockSections = [
 ];
 
 const meta = {
-    title: 'Pokemon Guides/PokemonGuidesSidebar',
+    title: 'Pokemon Guides/Sidebar',
     component: PokemonGuidesSidebar,
     parameters: {
         layout: 'fullscreen',

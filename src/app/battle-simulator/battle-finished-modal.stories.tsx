@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { BattleFinishedModal } from './battle-finished-modal';
 
 const meta: Meta<typeof BattleFinishedModal> = {
-  title: 'BattleSimulator/BattleFinishedModal',
+  title: 'Battle Simulator/Battle Finished Modal',
   component: BattleFinishedModal,
   tags: ['autodocs'],
   argTypes: {

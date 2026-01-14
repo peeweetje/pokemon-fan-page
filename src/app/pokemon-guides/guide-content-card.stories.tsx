@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import GuideContentCard from './guide-content-card';
 
 const meta = {
-    title: 'Pokemon Guides/GuideContentCard',
+    title: 'Pokemon Guides/Content Card',
     component: GuideContentCard,
     parameters: {
         layout: 'centered',

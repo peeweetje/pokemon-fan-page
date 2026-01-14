@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import QuizProgress from './quiz-progress';
 
 const meta = {
-    title: 'Pokemon Quiz/QuizProgress',
+    title: 'Pokemon Quiz/Progress',
     component: QuizProgress,
     parameters: {
         layout: 'centered',

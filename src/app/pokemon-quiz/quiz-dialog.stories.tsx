@@ -3,7 +3,7 @@ import { QuizDialog } from './quiz-dialog';
 
 
 const meta = {
-    title: 'Pokemon Quiz/QuizDialog',
+    title: 'Pokemon Quiz/Dialog',
     component: QuizDialog,
     parameters: {
         layout: 'centered',

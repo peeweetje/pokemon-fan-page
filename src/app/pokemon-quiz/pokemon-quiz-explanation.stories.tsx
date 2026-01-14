@@ -3,7 +3,7 @@ import { PokemonQuizExplanation } from './pokemon-quiz-explanation';
 
 
 const meta = {
-    title: 'Pokemon Quiz/PokemonQuizExplanation',
+    title: 'Pokemon Quiz/Explanation',
     component: PokemonQuizExplanation,
     parameters: {
         layout: 'centered',
