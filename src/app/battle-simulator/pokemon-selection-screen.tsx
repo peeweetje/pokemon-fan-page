@@ -22,9 +22,10 @@ export function PokemonSelectionScreen({
   const [searchQuery, setSearchQuery] = useState('');
   const itemsPerPage = 12;
 
-  // Filter Pokemon based on search query
+  // Filter Pokemon based on search query (name or ID)
   const filteredPokemon = pokemonList.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    pokemon.id.toString().includes(searchQuery.toLowerCase()),
   );
 
   // Calculate pagination for filtered Pokemon
