@@ -16,10 +16,11 @@ export default function FloatingParticles({
   delayMultiplier = 0.5,
 }: FloatingParticlesProps) {
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`}>
+    <div data-testid="floating-particles" className={`absolute inset-0 overflow-hidden ${className}`}>
       {[...Array(count)].map((_, i) => (
         <motion.div
           key={i}
+          data-testid="floating-particle"
           className={particleClassName}
           animate={{
             y: [0, -20, 0],

@@ -96,6 +96,7 @@ export default function AnimatedPokeball({
 
   return (
     <motion.div
+      data-testid="animated-pokeball"
       className={`${sizeClasses[size]} ${className}`}
       {...getAnimationProps()}
     >

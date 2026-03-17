@@ -34,6 +34,7 @@ export default function CTASection({ onNavigate }: CTASectionProps) {
                 <Button
                   size="lg"
                   className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-full"
+                  onClick={() => onNavigate('/pokedex')}
                 >
                   Go to Pokédex <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -49,6 +50,7 @@ export default function CTASection({ onNavigate }: CTASectionProps) {
                 <Button
                   size="lg"
                   className="bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-lg px-8 py-6 rounded-full"
+                  onClick={() => onNavigate('/game')}
                 >
                   Play Memory Game <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
