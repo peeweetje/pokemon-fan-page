@@ -41,6 +41,12 @@ export function PokemonQuizOptions({
             whileTap={!showExplanation ? { scale: 0.98 } : undefined}
             className={`${baseClasses} ${stateClasses}`}
             onClick={() => !showExplanation && onSelectAnswer(option)}
+            onKeyDown={(event) => {
+              if (!showExplanation && (event.key === 'Enter' || event.key === ' ')) {
+                event.preventDefault();
+                onSelectAnswer(option);
+              }
+            }}
             disabled={showExplanation}
           >
             <span className="flex w-full justify-between">
