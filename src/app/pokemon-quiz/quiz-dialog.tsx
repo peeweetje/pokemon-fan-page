@@ -35,7 +35,7 @@ export function QuizDialog({
           <p className="text-gray-600 mb-6 font-medium">
             {score === totalQuestions
               ? "Perfect score! You're a Pokemon Master! 🏆"
-              : score >= totalQuestions * 0.7
+              : score >= totalQuestions * 0.5
               ? 'Great job! You know your Pokemon! 🌟'
               : "Keep studying! You'll be a Pokemon Master soon! 💪"}
           </p>
