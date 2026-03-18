@@ -32,7 +32,6 @@ Explore pokemon evolution chains and learn about different evolution types inclu
 
 ### Battle Simulator
 Challenge yourself in turn-based battles against random pokemon. Features include:
-- Real-time battle animations
 - Health tracking and damage calculations
 - Battle result summaries
 - Win/loss statistics
@@ -53,7 +52,7 @@ This project uses Vitest for component testing. The test suite includes:
 
 Run tests with:
 ```bash
-npm test
+pnpm test
 ```
 
 ## Component Development
@@ -62,12 +61,12 @@ This project uses Storybook for component development and documentation. Storybo
 
 Start Storybook with:
 ```bash
-npm run storybook
+pnpm run storybook
 ```
 
 Build Storybook for production:
 ```bash
-npm run build-storybook
+pnpm run build-storybook
 ```
 
 ### tech stack
