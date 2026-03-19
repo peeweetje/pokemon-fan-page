@@ -14,15 +14,21 @@ import * as THREE from 'three';
 
 function PokeBallThree({ onClick }: { onClick: () => void }) {
   const ballRef = useRef<THREE.Group>(null);
+  const timerRef = useRef<THREE.Timer>(new THREE.Timer());
 
   // Create a more dynamic animation
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (ballRef.current) {
+      // Update the timer
+      timerRef.current.update(delta);
+      
+      const elapsedTime = timerRef.current.getElapsed();
+      
       // Rotate the ball
-      ballRef.current.rotation.y = state.clock.getElapsedTime() * 0.5;
+      ballRef.current.rotation.y = elapsedTime * 0.5;
 
       // Add a gentle floating motion
-      ballRef.current.position.y = Math.sin(state.clock.getElapsedTime()) * 0.1;
+      ballRef.current.position.y = Math.sin(elapsedTime) * 0.1;
     }
   });
 
@@ -159,6 +165,7 @@ export default function Enhanced3DPokeball() {
               intensity={1}
               castShadow
               shadow-mapSize={[2048, 2048]}
+              shadow-mapType={THREE.PCFShadowMap}
             />
             <pointLight position={[-10, -10, -10]} intensity={0.5} />
 
