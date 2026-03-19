@@ -17,18 +17,13 @@ function PokeBallThree({ onClick }: { onClick: () => void }) {
   const timerRef = useRef<THREE.Timer>(new THREE.Timer());
 
   // Create a more dynamic animation
-  useFrame((state, delta) => {
+ useFrame((state) => {
     if (ballRef.current) {
-      // Update the timer
-      timerRef.current.update(delta);
-      
-      const elapsedTime = timerRef.current.getElapsed();
-      
       // Rotate the ball
-      ballRef.current.rotation.y = elapsedTime * 0.5;
+      ballRef.current.rotation.y = state.clock.getElapsedTime() * 0.5;
 
       // Add a gentle floating motion
-      ballRef.current.position.y = Math.sin(elapsedTime) * 0.1;
+      ballRef.current.position.y = Math.sin(state.clock.getElapsedTime()) * 0.1;
     }
   });
 
