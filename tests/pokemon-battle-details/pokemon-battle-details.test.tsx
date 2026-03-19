@@ -1,28 +1,11 @@
 import { describe, test, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import './setup';
 import { PokemonBattleDetails } from '@/app/battle-simulator/pokemon-battle-details';
-
-// Mock Image component
-vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }: any) => <img src={src} alt={alt} {...props} />,
-}));
-
-// Mock Progress component
-vi.mock('@/components/ui/progress', () => ({
-  Progress: ({ value }: any) => (
-    <div data-testid="progress-bar" style={{ width: `${value}%` }}>
-      {value}%
-    </div>
-  ),
-}));
+import { mockPokemon } from './setup';
 
 describe('PokemonBattleDetails', () => {
-  const mockPokemon = {
-    name: 'bulbasaur',
-    sprite: 'https://example.com/bulbasaur.png',
-  };
-
   test('renders Pokemon details when pokemon is provided', () => {
     render(
       <PokemonBattleDetails 
