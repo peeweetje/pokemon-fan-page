@@ -1,7 +1,4 @@
-import { describe, test, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { BattleSimulatorClient } from '@/app/battle-simulator/battle-simulator-client';
+import { vi } from 'vitest';
 
 // Mock the useBattleSimulator hook
 vi.mock('@/hooks/use-battle-simulator', () => ({
@@ -62,56 +59,42 @@ vi.mock('@/app/battle-simulator/pokemon-selection-screen', () => ({
   ),
 }));
 
-describe('BattleSimulatorClient', () => {
-  const mockPokemonList = [
-    {
-      id: 1,
-      name: 'bulbasaur',
-      sprite: 'https://example.com/bulbasaur.png',
-      types: ['grass', 'poison'],
-      stats: {
-        hp: 45,
-        attack: 49,
-        defense: 49,
-        'special-attack': 65,
-        'special-defense': 65,
-        speed: 45,
-      },
-      moves: [
-        { name: 'tackle', type: 'normal', power: 40, accuracy: 100 },
-        { name: 'vine-whip', type: 'grass', power: 45, accuracy: 100 },
-      ],
+// Shared test data
+export const mockPokemonList = [
+  {
+    id: 1,
+    name: 'bulbasaur',
+    sprite: 'https://example.com/bulbasaur.png',
+    types: ['grass', 'poison'],
+    stats: {
+      hp: 45,
+      attack: 49,
+      defense: 49,
+      'special-attack': 65,
+      'special-defense': 65,
+      speed: 45,
     },
-    {
-      id: 4,
-      name: 'charmander',
-      sprite: 'https://example.com/charmander.png',
-      types: ['fire'],
-      stats: {
-        hp: 39,
-        attack: 52,
-        defense: 43,
-        'special-attack': 60,
-        'special-defense': 50,
-        speed: 65,
-      },
-      moves: [
-        { name: 'scratch', type: 'normal', power: 40, accuracy: 100 },
-        { name: 'ember', type: 'fire', power: 40, accuracy: 100 },
-      ],
+    moves: [
+      { name: 'tackle', type: 'normal', power: 40, accuracy: 100 },
+      { name: 'vine-whip', type: 'grass', power: 45, accuracy: 100 },
+    ],
+  },
+  {
+    id: 4,
+    name: 'charmander',
+    sprite: 'https://example.com/charmander.png',
+    types: ['fire'],
+    stats: {
+      hp: 39,
+      attack: 52,
+      defense: 43,
+      'special-attack': 60,
+      'special-defense': 50,
+      speed: 65,
     },
-  ];
-
-  test('renders without crashing', () => {
-    render(<BattleSimulatorClient pokemonList={mockPokemonList} />);
-    
-    // Should render without errors
-    expect(screen.getByTestId('pokemon-selection-screen')).toBeInTheDocument();
-  });
-
-  test('renders PokemonSelectionScreen when no player Pokemon is selected', () => {
-    render(<BattleSimulatorClient pokemonList={mockPokemonList} />);
-    
-    expect(screen.getByTestId('pokemon-selection-screen')).toBeInTheDocument();
-  });
-});
+    moves: [
+      { name: 'scratch', type: 'normal', power: 40, accuracy: 100 },
+      { name: 'ember', type: 'fire', power: 40, accuracy: 100 },
+    ],
+  },
+];
