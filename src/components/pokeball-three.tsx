@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
   OrbitControls,
@@ -16,16 +16,19 @@ function PokeBallThree({ onClick }: { onClick: () => void }) {
   const ballRef = useRef<THREE.Group>(null);
   const timerRef = useRef<THREE.Timer>(new THREE.Timer());
 
-  // Create a more dynamic animation
- useFrame((state) => {
-    if (ballRef.current) {
-      // Rotate the ball
-      ballRef.current.rotation.y = state.clock.getElapsedTime() * 0.5;
+// Create a more dynamic animation
+ useFrame(() => {
+     const timer = timerRef.current;
+     timer.update();
+     
+     if (ballRef.current) {
+// Rotate the ball
+       ballRef.current.rotation.y = timer.getElapsed() * 0.5;
 
-      // Add a gentle floating motion
-      ballRef.current.position.y = Math.sin(state.clock.getElapsedTime()) * 0.1;
-    }
-  });
+       // Add a gentle floating motion
+       ballRef.current.position.y = Math.sin(timer.getElapsed()) * 0.1;
+     }
+   });
 
   return (
     <group ref={ballRef} onClick={onClick} scale={[1, 1, 1]}>
@@ -78,19 +81,19 @@ function PokeBallThree({ onClick }: { onClick: () => void }) {
       {/* Center button white part */}
       <mesh position={[0, 0, 1.002]} castShadow receiveShadow>
         <circleGeometry args={[0.2, 32]} />
-        <meshStandardMaterial color="#ffffff" roughness={0.1} metalness={0.5} />
+        <meshStandardMaterial color="#fff" roughness={0.1} metalness={0.5} />
       </mesh>
 
       {/* Center button inner part */}
       <mesh position={[0, 0, 1.003]} castShadow receiveShadow>
         <circleGeometry args={[0.08, 32]} />
-        <meshStandardMaterial color="#cccccc" roughness={0.3} metalness={0.7} />
+        <meshStandardMaterial color="#ccc" roughness={0.3} metalness={0.7} />
       </mesh>
 
       {/* Add highlights to enhance 3D effect */}
       <mesh position={[0.3, 0.3, 0.8]} castShadow receiveShadow>
         <sphereGeometry args={[0.1, 16, 16]} />
-        <meshBasicMaterial color="#ffffff" transparent opacity={0.4} />
+        <meshBasicMaterial color="#fff" transparent opacity={0.4} />
       </mesh>
     </group>
   );
@@ -103,7 +106,7 @@ export default function Enhanced3DPokeball() {
   const [isMobile, setIsMobile] = useState(false);
 
   // Track screen size changes
-  React.useEffect(() => {
+  useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
