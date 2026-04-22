@@ -9,6 +9,13 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    viteConfig: {
+      resolve: {
+        tsconfigPaths: true
+      }
+    }
+  }
 };
 
 export default nextConfig;

@@ -12,11 +12,12 @@ export default defineConfig({
     include: ['src/**/*.test.{ts,tsx}', 'src/**/*.spec.{ts,tsx}', 'tests/**/*.test.{ts,tsx}', 'tests/**/*.spec.{ts,tsx}'],
     exclude: ['**/node_modules/**', '**/dist/**'],
   },
-resolve: {
-  alias: {
-    '@': path.resolve(__dirname, './src'),
-    'components': path.resolve(__dirname, './src/components'),
-    '@lib': path.resolve(__dirname, './lib'),
-  },
-},
+ resolve: {
+   tsconfigPaths: true,
+   alias: {
+     '@': path.resolve(__dirname, './src'),
+     'components': path.resolve(__dirname, './src/components'),
+     '@lib': path.resolve(__dirname, './lib'),
+   },
+ },
 });
