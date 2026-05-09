@@ -37,16 +37,16 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.8.0",
-    "next": "16.2.4",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "swr": "^2.4.1",
     "tailwind-merge": "^3.5.0",
     "three": "^0.184.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.2",
-    "@next/eslint-plugin-next": "16.2.4",
+    "@next/eslint-plugin-next": "16.2.6",
     "@storybook/addon-a11y": "^10.3.5",
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/addon-onboarding": "^10.3.5",
@@ -63,7 +63,7 @@
     "@vitest/ui": "4.1.5",
     "baseline-browser-mapping": "^2.10.20",
     "eslint": "^10.2.1",
-    "eslint-config-next": "16.2.4",
+    "eslint-config-next": "16.2.6",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-storybook": "^10.3.1",
     "husky": "^9.1.7",
@@ -79,7 +79,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "19.2.7",
+      "@types/react": "19.2.14",
       "@types/react-dom": "19.2.3"
     }
   }
