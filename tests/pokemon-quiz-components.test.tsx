@@ -11,8 +11,8 @@ import { QuizDialog } from '@/app/pokemon-quiz/quiz-dialog';
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    div: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <div {...props}>{children}</div>,
+    button: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <button {...props}>{children}</button>,
   },
 }));
 
@@ -24,7 +24,7 @@ vi.mock('lucide-react', () => ({
 
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }: any) => <img src={src} alt={alt} data-testid="pokemon-image" {...props} />,
+  default: ({ src, alt, priority, fill, sizes, quality, ...props }: any) => <img src={src} alt={alt} data-testid="pokemon-image" {...props} />,
 }));
 
 // Mock get-pokemon-images utility

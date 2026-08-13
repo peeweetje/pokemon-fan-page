@@ -32,7 +32,7 @@ vi.mock('../src/hooks/use-memory-game', () => ({
 vi.mock('framer-motion', () => ({
   useReducedMotion: () => false,
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <div {...props}>{children}</div>,
   },
 }));
 

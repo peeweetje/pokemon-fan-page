@@ -6,13 +6,13 @@ import { PokemonSelectionScreen } from '@/app/battle-simulator/pokemon-selection
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <div {...props}>{children}</div>,
   },
 }));
 
 // Mock Image component
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }: any) => <img src={src} alt={alt} {...props} />,
+  default: ({ src, alt, priority, fill, sizes, quality, ...props }: any) => <img src={src} alt={alt} {...props} />,
 }));
 
 // Mock Card component
