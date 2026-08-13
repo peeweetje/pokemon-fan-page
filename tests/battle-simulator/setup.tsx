@@ -30,9 +30,15 @@ vi.mock('framer-motion', () => ({
 
 // Mock components
 vi.mock('@/app/battle-simulator/battle-finished-modal', () => ({
-  BattleFinishedModal: ({ isVisible, onClose, onReset }: any) => 
+  BattleFinishedModal: ({ isVisible, onClose, onReset, battleResult, battleId, currentBattleId }: any) =>
     isVisible ? (
-      <div data-testid="battle-finished-modal">
+      <div
+        data-testid="battle-finished-modal"
+        data-result={battleResult}
+        data-battle-id={battleId}
+        data-current-battle-id={currentBattleId}
+      >
+        <span>Result: {battleResult}</span>
         <button onClick={onClose}>Close</button>
         <button onClick={onReset}>Reset</button>
       </div>
