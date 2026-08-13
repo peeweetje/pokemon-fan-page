@@ -11,8 +11,6 @@ interface PokemonImageProps {
   isClicked: boolean;
 }
 
-const MotionImage = motion.create(Image);
-
 export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
   const [imageError, setImageError] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(true);
@@ -27,22 +25,12 @@ export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
           <LoadingSpinner variant="pokeball" size="md" showText={false} />
         </div>
       )}
-      <MotionImage
-        priority
-        src={imageError ? fallbackImageUrl : imageUrl}
-        alt={name}
-        fill
-        sizes="96px"
-        className="object-contain drop-shadow-md"
-        onError={() => {
-          if (!imageError) {
-            setImageError(true);
-            setIsImageLoading(true);
-          } else {
-            setIsImageLoading(false);
-          }
-        }}
-        onLoad={() => setIsImageLoading(false)}
+      {/* Animate a plain motion.div wrapper instead of wrapping Next's <Image>
+          in motion. Wrapping next/image with motion.create() bypasses Next's
+          special prop handling and leaks non-DOM props (e.g. `priority`) onto
+          the real <img> element, which triggers React warnings. */}
+      <motion.div
+        className="absolute inset-0"
         animate={
           isClicked
             ? {
@@ -53,7 +41,24 @@ export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
               }
             : { opacity: isImageLoading ? 0 : 1 }
         }
-      />
+      >
+        <Image
+          src={imageError ? fallbackImageUrl : imageUrl}
+          alt={name}
+          fill
+          sizes="96px"
+          className="object-contain drop-shadow-md"
+          onError={() => {
+            if (!imageError) {
+              setImageError(true);
+              setIsImageLoading(true);
+            } else {
+              setIsImageLoading(false);
+            }
+          }}
+          onLoad={() => setIsImageLoading(false)}
+        />
+      </motion.div>
     </div>
   );
 }
