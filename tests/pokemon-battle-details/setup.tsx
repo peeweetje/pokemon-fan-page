@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 
 // Mock Image component
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }: any) => <img src={src} alt={alt} {...props} />,
+  default: ({ src, alt, priority, fill, sizes, quality, ...props }: any) => <img src={src} alt={alt} {...props} />,
 }));
 
 // Mock Progress component

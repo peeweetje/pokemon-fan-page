@@ -3,7 +3,7 @@ import { vi } from 'vitest';
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <div {...props}>{children}</div>,
   },
 }));
 

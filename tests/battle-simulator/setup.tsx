@@ -23,8 +23,8 @@ vi.mock('@/hooks/use-battle-simulator', () => ({
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    div: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <div {...props}>{children}</div>,
+    button: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <button {...props}>{children}</button>,
   },
 }));
 
