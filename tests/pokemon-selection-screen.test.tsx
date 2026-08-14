@@ -379,4 +379,167 @@ describe('PokemonSelectionScreen', () => {
     // Should go back to page 1
     expect(screen.getByText('1 of 1')).toBeInTheDocument();
   });
+  test('renders default background when pokemon has no types', () => {
+    const pokemonListWithoutTypes = [
+      {
+        id: 1,
+        name: 'no-types-pokemon',
+        sprite: 'https://example.com.png',
+        types: [],
+        stats: { hp: 50, attack: 50, defense: 50, 'special-attack': 50, 'special-defense': 50, speed: 50 },
+        moves: [{ name: 'tackle', type: 'normal', power: 40, accuracy: 100 }],
+      },
+    ];
+
+    render(
+      <PokemonSelectionScreen
+        pokemonList={pokemonListWithoutTypes}
+        onPokemonSelect={mockOnPokemonSelect}
+      />
+    );
+
+    // Should render the Pokemon name - this triggers the types?.[0] || 'default' branch
+    expect(screen.getByText('no-types-pokemon')).toBeInTheDocument();
+    // Should have bg-pokemon-default class in the document ( Tailwind bg-pokemon-default/15)
+    const bgDivs = document.querySelectorAll('[class*="bg-pokemon-default"]');
+    expect(bgDivs.length).toBeGreaterThan(0);
+  });
+
+  test('renders type spans when pokemon has types', () => {
+    const pokemonListWithTypes = [
+      {
+        id: 1,
+        name: 'test-pokemon',
+        sprite: 'https://example.com.png',
+        types: ['fire', 'flying'],
+        stats: { hp: 50, attack: 50, defense: 50, 'special-attack': 50, 'special-defense': 50, speed: 50 },
+        moves: [{ name: 'tackle', type: 'normal', power: 40, accuracy: 100 }],
+      },
+    ];
+
+    render(
+      <PokemonSelectionScreen
+        pokemonList={pokemonListWithTypes}
+        onPokemonSelect={mockOnPokemonSelect}
+      />
+    );
+
+    // Should render type spans
+    expect(screen.getByText('fire')).toBeInTheDocument();
+    expect(screen.getByText('flying')).toBeInTheDocument();
+
+    // Should have bg-pokemon-fire and bg-pokemon-flying classes
+    const typeSpans = screen.getAllByText('fire').concat(screen.getAllByText('flying'));
+    expect(typeSpans.length).toBeGreaterThan(0);
+  });
+
+  test('renders empty type span when pokemon.types is empty array', () => {
+    const pokemonListWithEmptyTypes = [
+      {
+        id: 1,
+        name: 'empty-types-pokemon',
+        sprite: 'https://example.com.png',
+        types: [],
+        stats: { hp: 50, attack: 50, defense: 50, 'special-attack': 50, 'special-defense': 50, speed: 50 },
+        moves: [{ name: 'tackle', type: 'normal', power: 40, accuracy: 100 }],
+      },
+    ];
+
+    render(
+      <PokemonSelectionScreen
+        pokemonList={pokemonListWithEmptyTypes}
+        onPokemonSelect={mockOnPokemonSelect}
+      />
+    );
+
+    // Should render the Pokemon name - this triggers the types?.[0] || 'default' branch
+    expect(screen.getByText('empty-types-pokemon')).toBeInTheDocument();
+    // Should have bg-pokemon-default class in the document (empty types falls back to 'default')
+    const bgDivs = document.querySelectorAll('[class*="bg-pokemon-default"]');
+    expect(bgDivs.length).toBeGreaterThan(0);
+    // No type-specific spans should be rendered when types is empty array
+    expect(screen.queryAllByText(/^(grass|fire|water|electric|poison)$/i)).toHaveLength(0);
+  });
+
+  test('renders default type when pokemon type is empty string', () => {
+    const pokemonListWithEmptyType = [
+      {
+        id: 1,
+        name: 'empty-type-pokemon',
+        sprite: 'https://example.com.png',
+        types: [''],
+        stats: { hp: 50, attack: 50, defense: 50, 'special-attack': 50, 'special-defense': 50, speed: 50 },
+        moves: [{ name: 'tackle', type: 'normal', power: 40, accuracy: 100 }],
+      },
+    ];
+
+    render(
+      <PokemonSelectionScreen
+        pokemonList={pokemonListWithEmptyType}
+        onPokemonSelect={mockOnPokemonSelect}
+      />
+    );
+
+    // Should render the Pokemon name - triggers the type || 'default' branch
+    expect(screen.getByText('empty-type-pokemon')).toBeInTheDocument();
+    // Should have bg-pokemon-default class (empty type falls back to 'default')
+    const bgDivs = document.querySelectorAll('[class*="bg-pokemon-default"]');
+    expect(bgDivs.length).toBeGreaterThan(0);
+    // No type text should be rendered since type is empty string
+    expect(screen.queryAllByText(/^(grass|fire|water|electric|poison|default)$/i)).toHaveLength(0);
+  });
 });
+
+const mockOnPokemonSelect = vi.fn();
+
+test('renders nothing when pokemon.types is undefined', () => {
+    const pokemonListWithUndefinedType = [
+      {
+        id: 1,
+        name: 'undefined-types-pokemon',
+        sprite: 'https://example.com.png',
+        types:[''],
+        stats: { hp: 50, attack: 50, defense: 50, 'special-attack': 50, 'special-defense': 50, speed: 50 },
+        moves: [{ name: 'tackle', type: 'normal', power: 40, accuracy: 100 }],
+      },
+    ];
+
+    render(
+      <PokemonSelectionScreen
+        pokemonList={pokemonListWithUndefinedType}
+        onPokemonSelect={mockOnPokemonSelect}
+      />
+    );
+
+    // Should not render any type-specific spans when types is undefined
+    expect(screen.queryAllByText(/^(grass|fire|water|electric|poison|default)$/i)).toHaveLength(0);
+    // Should have bg-pokemon-default class since undefined types falls back to 'default'
+    const bgDivs = document.querySelectorAll('[class*="bg-pokemon-default"]');
+    expect(bgDivs.length).toBeGreaterThan(0);
+  });
+
+test('renders nothing when pokemon.types is undefined', () => {
+    const pokemonListWithUndefinedType = [
+      {
+        id: 1,
+        name: 'undefined-types-pokemon',
+        sprite: 'https://example.com.png',
+        types: [''],
+        stats: { hp: 50, attack: 50, defense: 50, 'special-attack': 50, 'special-defense': 50, speed: 50 },
+        moves: [{ name: 'tackle', type: 'normal', power: 40, accuracy: 100 }],
+      },
+    ];
+
+    render(
+      <PokemonSelectionScreen
+        pokemonList={pokemonListWithUndefinedType}
+        onPokemonSelect={mockOnPokemonSelect}
+      />
+    );
+
+    // Should not render any type-specific spans when types is undefined
+    expect(screen.queryAllByText(/^(grass|fire|water|electric|poison|default)$/i)).toHaveLength(0);
+    // Should have bg-pokemon-default class since undefined types falls back to 'default'
+    const bgDivs = document.querySelectorAll('[class*="bg-pokemon-default"]');
+    expect(bgDivs.length).toBeGreaterThan(0);
+  });
