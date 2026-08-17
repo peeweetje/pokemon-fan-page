@@ -17,4 +17,24 @@ describe('PokemonDescription', () => {
 
     expect(screen.getByText(species.flavor_text_entries[0].flavor_text)).toBeInTheDocument();
   });
+
+  test('renders the Description heading when flavor text is provided', () => {
+    render(<PokemonDescription flavorText="Some flavor text" />);
+
+    expect(screen.getByRole('heading', { name: 'Description' })).toBeInTheDocument();
+  });
+
+  test('renders nothing when flavorText is undefined', () => {
+    const { container } = render(<PokemonDescription />);
+
+    expect(container).toBeEmptyDOMElement();
+    expect(screen.queryByRole('heading', { name: 'Description' })).not.toBeInTheDocument();
+  });
+
+  test('renders nothing when flavorText is an empty string', () => {
+    const { container } = render(<PokemonDescription flavorText="" />);
+
+    expect(container).toBeEmptyDOMElement();
+    expect(screen.queryByRole('heading', { name: 'Description' })).not.toBeInTheDocument();
+  });
 });
