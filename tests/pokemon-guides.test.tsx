@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach, beforeAll } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AnimatedPokeball from '@/app/pokemon-guides/animated-pokeball';
 import FloatingParticles from '@/app/pokemon-guides/floating-particles';
@@ -105,57 +105,174 @@ describe('Pokemon Guides Components', () => {
       );
       expect(screen.getByText('Test Title')).toBeInTheDocument();
     });
+
+    test('renders the training section gradient', () => {
+      const { container } = render(
+        <GuideContentCard
+          title="Training Title"
+          content="Training Content"
+          activeSection="training"
+          index={0}
+        />
+      );
+      expect(screen.getByText('Training Content')).toBeInTheDocument();
+      expect(container.querySelector('.from-yellow-400')).not.toBeNull();
+    });
+
+    test('renders the competitive section gradient', () => {
+      const { container } = render(
+        <GuideContentCard
+          title="Comp Title"
+          content="Comp Content"
+          activeSection="competitive"
+          index={0}
+        />
+      );
+      expect(screen.getByText('Comp Content')).toBeInTheDocument();
+      expect(container.querySelector('.from-red-400')).not.toBeNull();
+    });
+
+    test('renders the default gradient for an unknown section', () => {
+      const { container } = render(
+        <GuideContentCard
+          title="Shiny Title"
+          content="Shiny Content"
+          activeSection="shiny"
+          index={0}
+        />
+      );
+      expect(screen.getByText('Shiny Content')).toBeInTheDocument();
+      expect(container.querySelector('.from-purple-400')).not.toBeNull();
+    });
   });
 
   describe('PokemonGuidesSidebar', () => {
-    test('renders with sections', () => {
-      const sections = [
-        { id: 'tips', title: 'Tips', icon: 'BookOpen' },
-        { id: 'walkthroughs', title: 'Walkthroughs', icon: 'Target' },
-      ];
+    const sections = [
+      { id: 'tips', title: 'Tips', icon: '📘' },
+      { id: 'walkthroughs', title: 'Walkthroughs', icon: '🎯' },
+      { id: 'training', title: 'Training', icon: '⚡' },
+      { id: 'competitive', title: 'Competitive', icon: '🏆' },
+      { id: 'shiny', title: 'Shiny', icon: '✨' },
+    ];
+
+    const renderSidebar = (overrides: any = {}) => {
       const setActiveSection = vi.fn();
       const setIsMobileMenuOpen = vi.fn();
       const setIsNavigating = vi.fn();
-
-      render(
+      const utils = render(
         <PokemonGuidesSidebar
           sections={sections}
-          activeSection="tips"
+          activeSection={overrides.activeSection ?? 'tips'}
           setActiveSection={setActiveSection}
-          isMobileMenuOpen={false}
+          isMobileMenuOpen={overrides.isMobileMenuOpen ?? false}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
           setIsNavigating={setIsNavigating}
           children={<div>Test Content</div>}
         />
       );
+      return { utils, setActiveSection, setIsMobileMenuOpen, setIsNavigating };
+    };
 
-      expect(screen.getByRole('button', { name: /Tips$/ })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /Walkthroughs$/ })).toBeInTheDocument();
+    test('renders all section buttons and the main content', () => {
+      renderSidebar({ activeSection: 'tips' });
+
+      expect(screen.getByRole('button', { name: /Tips/ })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Walkthroughs/ })).toBeInTheDocument();
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
     });
 
-    test('handles mobile menu close button', () => {
-      const sections = [
-        { id: 'tips', title: 'Tips', icon: 'BookOpen' },
-      ];
-      const setActiveSection = vi.fn();
-      const setIsMobileMenuOpen = vi.fn();
-      const setIsNavigating = vi.fn();
+    test('renders the desktop sidebar for every active section', () => {
+      ['tips', 'walkthroughs', 'training', 'competitive', 'shiny'].forEach((section) => {
+        const { utils } = renderSidebar({ activeSection: section });
+        expect(utils.container.querySelector('.fixed.inset-0')).toBeNull();
+        expect(within(utils.container).getByText('Test Content')).toBeInTheDocument();
+      });
+    });
 
-      render(
-        <PokemonGuidesSidebar
-          sections={sections}
-          activeSection="tips"
-          setActiveSection={setActiveSection}
-          isMobileMenuOpen={true}
-          setIsMobileMenuOpen={setIsMobileMenuOpen}
-          setIsNavigating={setIsNavigating}
-          children={<div>Test Content</div>}
-        />
-      );
+    test('renders the mobile drawer for every active section', () => {
+      ['tips', 'walkthroughs', 'training', 'competitive', 'shiny'].forEach((section) => {
+        const { utils, } = renderSidebar({
+          activeSection: section,
+          isMobileMenuOpen: true,
+        });
+        const drawer = utils.container.querySelector('.fixed.inset-0') as HTMLElement;
+        expect(drawer).not.toBeNull();
+        expect(within(drawer).getByText('Menu')).toBeInTheDocument();
+        expect(within(drawer).getByRole('button', { name: 'Close menu' })).toBeInTheDocument();
+        
+      });
+    });
 
-      const closeButton = screen.getByRole('button', { name: 'Close menu' });
+    test('clicking a desktop section button calls setActiveSection', () => {
+      const { setActiveSection } = renderSidebar({ activeSection: 'tips' });
+
+      fireEvent.click(screen.getByRole('button', { name: /Walkthroughs/ }));
+      expect(setActiveSection).toHaveBeenCalledWith('walkthroughs');
+    });
+
+    test('clicking a mobile drawer section button sets active and closes the menu', () => {
+      const { utils, setActiveSection, setIsMobileMenuOpen } = renderSidebar({
+        activeSection: 'tips',
+        isMobileMenuOpen: true,
+      });
+
+      const drawer = utils.container.querySelector('.fixed.inset-0') as HTMLElement;
+      const walkthroughsBtn = within(drawer).getByRole('button', { name: /Walkthroughs/ });
+      fireEvent.click(walkthroughsBtn);
+
+      expect(setActiveSection).toHaveBeenCalledWith('walkthroughs');
+      expect(setIsMobileMenuOpen).toHaveBeenCalledWith(false);
+    });
+
+    test('closing the mobile drawer via overlay click closes the menu', () => {
+      const { utils, setIsMobileMenuOpen } = renderSidebar({
+        activeSection: 'tips',
+        isMobileMenuOpen: true,
+      });
+
+      const overlay = utils.container.querySelector('.fixed.inset-0') as HTMLElement;
+      fireEvent.click(overlay);
+      expect(setIsMobileMenuOpen).toHaveBeenCalledWith(false);
+    });
+
+    test('clicking a back button calls setIsNavigating', () => {
+      const { utils, setIsNavigating } = renderSidebar({ activeSection: 'tips' });
+
+      const backLink = utils.container.querySelector('a[href="/"]') as HTMLElement;
+      fireEvent.click(backLink);
+      expect(setIsNavigating).toHaveBeenCalledWith(true);
+    });
+
+    test('clicking the Open menu button opens the mobile menu', () => {
+      const { setIsMobileMenuOpen } = renderSidebar({ activeSection: 'tips' });
+
+      const openMenuButton = screen.getByRole('button', { name: 'Open menu' });
+      fireEvent.click(openMenuButton);
+      expect(setIsMobileMenuOpen).toHaveBeenCalledWith(true);
+    });
+
+    test('clicking the mobile drawer Close menu button closes the menu', () => {
+      const { utils, setIsMobileMenuOpen } = renderSidebar({
+        activeSection: 'tips',
+        isMobileMenuOpen: true,
+      });
+
+      const drawer = utils.container.querySelector('.fixed.inset-0') as HTMLElement;
+      const closeButton = within(drawer).getByRole('button', { name: 'Close menu' });
       fireEvent.click(closeButton);
       expect(setIsMobileMenuOpen).toHaveBeenCalledWith(false);
+    });
+
+    test('clicking the mobile drawer back button calls setIsNavigating', () => {
+      const { utils, setIsNavigating } = renderSidebar({
+        activeSection: 'tips',
+        isMobileMenuOpen: true,
+      });
+
+      const drawer = utils.container.querySelector('.fixed.inset-0') as HTMLElement;
+      const drawerBack = within(drawer).getByRole('link', { name: 'Back to Home' });
+      fireEvent.click(drawerBack);
+      expect(setIsNavigating).toHaveBeenCalledWith(true);
     });
   });
 
