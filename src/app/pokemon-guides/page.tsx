@@ -10,7 +10,7 @@ import GuideContentCard from '@/app/pokemon-guides/guide-content-card';
 import QuickTips from '@/app/pokemon-guides/quick-tips';
 import { pokemonGuideSections } from '@/data/pokemon-guides-sections';
 
-const getIcon = (iconName: string) => {
+export const getIcon = (iconName: string) => {
   switch (iconName) {
     case 'BookOpen':
       return <BookOpen className="w-6 h-6" />;
