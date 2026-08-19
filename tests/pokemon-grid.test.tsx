@@ -1,7 +1,8 @@
-import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { PokemonGrid } from '../src/components/pokemon-grid/pokemon-grid';
+import useSWR from 'swr';
 
 // Mock SWR
 vi.mock('swr', () => ({
@@ -21,6 +22,8 @@ vi.mock('@/hooks/use-pokemon-details', () => ({
     },
   }),
 }));
+
+const originalFetch = global.fetch;
 
 describe('PokemonGrid', () => {
   const mockPokemon = [
@@ -50,6 +53,12 @@ describe('PokemonGrid', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+    global.fetch = originalFetch;
   });
 
   test('renders the pokemon grid with initial pokemon', () => {
@@ -121,5 +130,101 @@ describe('PokemonGrid', () => {
     expect(screen.queryByText('pikachu')).not.toBeInTheDocument();
     expect(screen.queryByText('bulbasaur')).not.toBeInTheDocument();
     expect(screen.queryByText('charmander')).not.toBeInTheDocument();
+  });
+
+  test('renders loading skeletons while loading without initial data', () => {
+    vi.mocked(useSWR).mockReturnValueOnce({
+      data: { results: [] },
+      error: null,
+      isLoading: true,
+    } as never);
+
+    const { container } = render(<PokemonGrid initialPokemon={mockPokemon} />);
+
+    // 10 skeleton cards are rendered (each card has placeholder divs)
+    const grid = container.querySelector('.grid.grid-cols-2');
+    expect(grid).not.toBeNull();
+    expect(container.querySelectorAll('.bg-gray-200').length).toBeGreaterThan(0);
+    expect(screen.queryByText('pikachu')).not.toBeInTheDocument();
+  });
+
+  test('renders an error message when the fetch fails', () => {
+    vi.mocked(useSWR).mockReturnValueOnce({
+      data: undefined,
+      error: new Error('boom'),
+      isLoading: false,
+    } as never);
+
+    render(<PokemonGrid initialPokemon={mockPokemon} />);
+    expect(screen.getByText('Error loading Pokémon data')).toBeInTheDocument();
+  });
+
+  test('renders the empty message when data has no results', () => {
+    vi.mocked(useSWR).mockReturnValueOnce({
+      data: {} as never,
+      error: null,
+      isLoading: false,
+    } as never);
+
+    render(<PokemonGrid initialPokemon={mockPokemon} />);
+    expect(screen.getByText(/No Pokémon found/)).toBeInTheDocument();
+  });
+
+  test('fetcher resolves with the parsed json for ok responses', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ count: 100 }),
+    } as never);
+
+    render(<PokemonGrid initialPokemon={mockPokemon} />);
+    const fetcher = vi.mocked(useSWR).mock.calls[0][1] as (
+      url: string
+    ) => Promise<unknown>;
+
+    await expect(
+      fetcher('https://pokeapi.co/api/v2/pokemon?limit=100')
+    ).resolves.toEqual({ count: 100 });
+  });
+
+  test('fetcher throws when the response is not ok', async () => {
+    global.fetch = vi.fn().mockResolvedValue({ ok: false } as never);
+
+    render(<PokemonGrid initialPokemon={mockPokemon} />);
+    const fetcher = vi.mocked(useSWR).mock.calls[0][1] as (
+      url: string
+    ) => Promise<unknown>;
+
+    await expect(
+      fetcher('https://pokeapi.co/api/v2/pokemon?limit=100')
+    ).rejects.toThrow('Failed to fetch');
+  });
+
+  test('changes to the next page with the next button', () => {
+    render(<PokemonGrid initialPokemon={mockPokemon} />);
+    expect(screen.getByText('pikachu')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText('Go to next page'));
+
+    // Page 2 shows the remaining pokemon.
+    expect(screen.getByText('meowth')).toBeInTheDocument();
+    expect(screen.queryByText('pikachu')).not.toBeInTheDocument();
+  });
+
+  test('goes back to the previous page with the previous button', () => {
+    render(<PokemonGrid initialPokemon={mockPokemon} />);
+    fireEvent.click(screen.getByLabelText('Go to next page'));
+    expect(screen.getByText('meowth')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText('Go to previous page'));
+    expect(screen.getByText('pikachu')).toBeInTheDocument();
+  });
+
+  test('navigates to a specific page by clicking a page number', () => {
+    render(<PokemonGrid initialPokemon={mockPokemon} />);
+
+    fireEvent.click(screen.getByText('2'));
+
+    expect(screen.getByText('meowth')).toBeInTheDocument();
+    expect(screen.queryByText('pikachu')).not.toBeInTheDocument();
   });
 });
