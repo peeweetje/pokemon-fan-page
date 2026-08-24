@@ -2,11 +2,6 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  BookOpen,
-  Trophy,
-  Sparkles,
-  Zap,
-  Target,
   Menu,
   ChevronLeft,
 } from 'lucide-react';
@@ -23,23 +18,6 @@ import {
 } from '@/components/ui/sidebar';
 import BackButton from '@/components/back-button';
 import AnimatedPokeball from '@/app/pokemon-guides/animated-pokeball';
-
-const getIcon = (iconName: string) => {
-  switch (iconName) {
-    case 'BookOpen':
-      return <BookOpen className="w-6 h-6" />;
-    case 'Target':
-      return <Target className="w-6 h-6" />;
-    case 'Zap':
-      return <Zap className="w-6 h-6" />;
-    case 'Trophy':
-      return <Trophy className="w-6 h-6" />;
-    case 'Sparkles':
-      return <Sparkles className="w-6 h-6" />;
-    default:
-      return <BookOpen className="w-6 h-6" />;
-  }
-};
 
 interface PokemonGuidesSidebarProps {
   sections: Array<{
