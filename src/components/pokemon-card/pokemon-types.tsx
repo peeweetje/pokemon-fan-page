@@ -17,7 +17,7 @@ export function getTypeColor(types: Array<string>): string {
   const type = types[0];
   return `${
     typeColors[type as keyof typeof typeColors] || typeColors.default
-  }15`; // 15 is hex for 8% opacity
+  }1F`; // 1F is hex for ~12% opacity (darker but still light card background)
 }
 
 export function PokemonTypes({ types }: PokemonTypesProps) {
