@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
@@ -8,6 +10,7 @@ interface Card {
   href: string;
   icon: LucideIcon;
   bgColor: string;
+  borderColor: string;
   iconBgColor: string;
   iconColor: string;
   delay: number;
@@ -30,7 +33,7 @@ export default function CardSections({ title, cards }: CardSectionsProps) {
           {cards.map((card, index) => (
             <motion.div
               key={card.title}
-              className={`${card.bgColor} p-6 rounded-xl shadow-lg`}
+              className={`${card.bgColor} ${card.borderColor} border p-6 rounded-xl shadow-lg`}
               whileHover={{ y: -10 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
