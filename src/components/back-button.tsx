@@ -2,7 +2,6 @@ import { cn } from '@lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
 
 interface BackButtonProps {
   href?: string;
@@ -17,8 +16,7 @@ export default function BackButton({
   onClick,
   className,
 }: BackButtonProps) {
-  const locale = useLocale();
-  const defaultHref = `/${locale}`;
+  const defaultHref = '/';
 
   return (
     <Link

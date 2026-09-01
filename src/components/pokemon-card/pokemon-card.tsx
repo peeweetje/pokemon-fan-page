@@ -4,7 +4,6 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { usePokemonDetails } from '@/hooks/use-pokemon-details';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
 import { useState } from 'react';
 import { PokeballBackgroundDesign } from './pokeball-background-design';
 import { PokemonId } from './pokemon-id';
@@ -19,7 +18,6 @@ interface PokemonCardProps {
 
 export function PokemonCard({ name, url }: PokemonCardProps) {
   const [isClicked, setIsClicked] = useState(false);
-  const locale = useLocale();
   const id = url.split('/').filter(Boolean).pop() || '1';
   const { pokemonData } = usePokemonDetails(id, name);
 
@@ -31,7 +29,7 @@ export function PokemonCard({ name, url }: PokemonCardProps) {
   };
 
   return (
-    <Link href={`/${locale}/pokemon/${id}`}>
+    <Link href={`/pokemon/${id}`}>
       <motion.div
         onClick={handleCardClick}
         className="cursor-pointer"

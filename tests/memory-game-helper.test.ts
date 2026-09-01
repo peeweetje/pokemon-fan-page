@@ -48,6 +48,24 @@ describe('memory-game-helper', () => {
       expect(play).toHaveBeenCalled();
     });
 
+    test('retries once when the first playback attempt is rejected', async () => {
+      const play = vi
+        .fn()
+        .mockRejectedValueOnce(new Error('play blocked'))
+        .mockResolvedValue(undefined);
+      const audio = {
+        flip: { play, currentTime: 0, volume: 1 },
+        match: { play, currentTime: 0, volume: 1 },
+        success: { play, currentTime: 0, volume: 1 },
+      } as any;
+
+      playSound('success', true, audio);
+
+      await vi.waitFor(() => {
+        expect(play).toHaveBeenCalledTimes(2);
+      });
+    });
+
     test('warns when playback is rejected', async () => {
       const warn = vi
         .spyOn(console, 'warn')

@@ -39,11 +39,30 @@ export const playSound = (
     success: HTMLAudioElement;
   } | null,
 ) => {
-  if (soundEnabled && audio) {
-    audio[soundType].play().catch((error) => {
+  if (!soundEnabled || !audio) {
+    return;
+  }
+
+  const sound = audio[soundType];
+
+  sound.volume = 0.7;
+
+  sound
+    .play()
+    .catch(() => {
+      try {
+        sound.currentTime = 0;
+      } catch {
+        // no-op: some browsers reject currentTime updates before the media is ready
+      }
+
+      return sound.play().catch((error) => {
+        console.warn('Failed to play sound:', error);
+      });
+    })
+    .catch((error) => {
       console.warn('Failed to play sound:', error);
     });
-  }
 };
 
 // Format time as MM:SS

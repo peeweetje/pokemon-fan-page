@@ -12,11 +12,15 @@ interface PokemonImageProps {
 }
 
 export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
-  const [imageError, setImageError] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(true);
 
-  const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-  const fallbackImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+  const imageSources = [
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`,
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+  ];
+  const currentImageUrl = imageSources[Math.min(imageIndex, imageSources.length - 1)];
 
   return (
     <div className="relative w-24 h-24 mx-auto">
@@ -43,18 +47,21 @@ export function PokemonImage({ id, name, isClicked }: PokemonImageProps) {
         }
       >
         <Image
-          src={imageError ? fallbackImageUrl : imageUrl}
+          src={currentImageUrl}
           alt={name}
           fill
           sizes="96px"
           className="object-contain drop-shadow-md"
           onError={() => {
-            if (!imageError) {
-              setImageError(true);
-              setIsImageLoading(true);
-            } else {
-              setIsImageLoading(false);
+            if (imageIndex < imageSources.length - 1) {
+              setImageIndex((current) => {
+                const nextIndex = current + 1;
+                setIsImageLoading(nextIndex < imageSources.length - 1);
+                return nextIndex;
+              });
+              return;
             }
+            setIsImageLoading(false);
           }}
           onLoad={() => setIsImageLoading(false)}
         />

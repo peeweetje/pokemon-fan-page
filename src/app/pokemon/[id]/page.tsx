@@ -6,7 +6,6 @@ import PokemonHeader from '../pokemon-header';
 import PokemonStats from '../pokemon-stats';
 import PokemonDescription from '../pokemon-description';
 import PokemonMoves from '../pokemon-moves';
-import { locales } from '@/i18n.config';
 import { typeColors } from '@/utils/pokemon-type-colors';
 import {
   getPokemonData,
@@ -37,30 +36,20 @@ export async function generateStaticParams() {
       throw new Error('No Pokémon IDs were returned by the API');
     }
 
-    return locales.flatMap((locale) =>
-      ids.map((id) => ({
-        locale,
-        id,
-      })),
-    );
+    return ids.map((id) => ({ id }));
   } catch (error) {
     console.error('Falling back to default static Pokemon params:', error);
 
-    return locales.flatMap((locale) =>
-      FALLBACK_STATIC_POKEMON_IDS.map((id) => ({
-        locale,
-        id,
-      })),
-    );
+    return FALLBACK_STATIC_POKEMON_IDS.map((id) => ({ id }));
   }
 }
 
 export default async function PokemonDetailPage({
   params,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const { locale, id } = await params;
+  const { id } = await params;
   const pokemon = await getPokemonData(id);
   const species = await getPokemonSpecies(id);
 
@@ -96,7 +85,7 @@ export default async function PokemonDetailPage({
     >
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <BackButton href={`/${locale}/pokedex`} text="Back to Pokédex" />
+          <BackButton href="/pokedex" text="Back to Pokédex" />
         </div>
 
         <PokemonHeader

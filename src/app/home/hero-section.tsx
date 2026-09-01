@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
 import BackgroundPokeballs from './background-pokeballs';
 
 interface HeroSectionProps {
@@ -11,9 +10,6 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ onNavigate }: HeroSectionProps) {
-  const locale = useLocale();
-  const t = useTranslations('home');
-
   return (
     <section className="relative overflow-hidden">
       <BackgroundPokeballs />
@@ -26,10 +22,10 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
               transition={{ duration: 0.5 }}
             >
               <h1 className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
-                {t('title')}
+                Pokémon Adventure
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-red-100">
-                {t('subtitle')}
+                Discover your next favorite Pokémon and explore the world of trainers.
               </p>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -38,9 +34,9 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                 <Button
                   size="lg"
                   className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6 rounded-full"
-                  onClick={() => onNavigate(`/${locale}/pokedex`)}
+                  onClick={() => onNavigate('/pokedex')}
                 >
-                  {t('viewPokedex')} <ChevronRight className="ml-2 h-5 w-5" />
+                  View Pokédex <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
               </motion.div>
             </motion.div>

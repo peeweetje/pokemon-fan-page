@@ -1,15 +1,12 @@
 import { Star, Swords, BookOpen } from 'lucide-react';
-import { useLocale } from 'next-intl';
 
 export function getFeatureCards() {
-  const locale = useLocale();
-
   return [
     {
       title: 'Complete Pokédex',
       description:
         'Browse through all Pokémon with detailed information about each species.',
-      href: `/${locale}/pokedex`,
+      href: '/pokedex',
       icon: Star,
       bgColor: 'bg-red-50',
       borderColor: 'border-red-200',
@@ -20,7 +17,7 @@ export function getFeatureCards() {
     {
       title: 'Memory Game',
       description: 'Test your memory with our fun Pokémon memory matching game.',
-      href: `/${locale}/game`,
+      href: '/game',
       icon: Star,
       bgColor: 'bg-blue-50',
       borderColor: 'border-blue-200',
@@ -32,7 +29,7 @@ export function getFeatureCards() {
       title: 'Evolution Groups',
       description:
         'Explore Pokemon evolution chains and discover how your favorite Pokemon evolve.',
-      href: `/${locale}/evolution-groups`,
+      href: '/evolution-groups',
       icon: Star,
       bgColor: 'bg-yellow-50',
       borderColor: 'border-yellow-200',
@@ -44,7 +41,7 @@ export function getFeatureCards() {
       title: 'Battle Simulator',
       description:
         'Experience Pokemon battles in real-time! Choose your Pokemon and battle against wild Pokemon.',
-      href: `/${locale}/battle-simulator`,
+      href: '/battle-simulator',
       icon: Swords,
       bgColor: 'bg-gradient-to-br from-green-50 to-green-100',
       borderColor: 'border-green-200',
@@ -56,7 +53,7 @@ export function getFeatureCards() {
       title: 'Pokemon Quiz',
       description:
         'Test your Pokemon knowledge with our interactive quiz! Answer questions about Pokemon types, evolutions, and more.',
-      href: `/${locale}/pokemon-quiz`,
+      href: '/pokemon-quiz',
       icon: Star,
       bgColor: 'bg-gradient-to-br from-purple-50 to-purple-100',
       borderColor: 'border-purple-200',
@@ -68,7 +65,7 @@ export function getFeatureCards() {
       title: 'Pokemon Guides',
       description:
         'Master Pokemon with our comprehensive guides! Learn about EV/IV training, competitive battling, shiny hunting, and more.',
-      href: `/${locale}/pokemon-guides`,
+      href: '/pokemon-guides',
       icon: BookOpen,
       bgColor: 'bg-gradient-to-br from-teal-50 to-teal-100',
       borderColor: 'border-teal-200',

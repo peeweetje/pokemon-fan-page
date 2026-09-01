@@ -4,16 +4,12 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
 
 interface CTASectionProps {
   onNavigate: (href: string) => void;
 }
 
 export default function CTASection({ onNavigate }: CTASectionProps) {
-  const locale = useLocale();
-  const t = useTranslations('home');
-
   return (
     <section className="bg-gradient-to-br from-blue-500 to-blue-600 py-16">
       <div className="container mx-auto px-6 text-center">
@@ -36,13 +32,13 @@ export default function CTASection({ onNavigate }: CTASectionProps) {
               whileTap={{ scale: 0.95 }}
               className="inline-block"
             >
-              <Link href={`/${locale}/pokedex`}>
+              <Link href="/pokedex">
                 <Button
                   size="lg"
                   className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-full"
-                  onClick={() => onNavigate(`/${locale}/pokedex`)}
+                  onClick={() => onNavigate('/pokedex')}
                 >
-                  {t('viewPokedex')} <ChevronRight className="ml-2 h-5 w-5" />
+                  View Pokédex <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </motion.div>
@@ -52,13 +48,13 @@ export default function CTASection({ onNavigate }: CTASectionProps) {
               whileTap={{ scale: 0.95 }}
               className="inline-block"
             >
-              <Link href={`/${locale}/game`}>
+              <Link href="/game">
                 <Button
                   size="lg"
                   className="bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-lg px-8 py-6 rounded-full"
-                  onClick={() => onNavigate(`/${locale}/game`)}
+                  onClick={() => onNavigate('/game')}
                 >
-                  {t('playMemory')} <ChevronRight className="ml-2 h-5 w-5" />
+                  Play Memory <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </motion.div>
