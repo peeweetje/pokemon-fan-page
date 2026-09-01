@@ -1,6 +1,8 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/i18n.config';
 
+export const dynamic = 'force-static';
+
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: Promise<{

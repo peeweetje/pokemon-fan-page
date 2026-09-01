@@ -13,11 +13,13 @@ import {
   getPokemonSpecies,
 } from '@/utils/pokemon-details-utils';
 
+export const dynamic = 'force-static';
+
 const FALLBACK_STATIC_POKEMON_IDS = ['1', '25'];
 
 export async function generateStaticParams() {
   try {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000');
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100');
 
     if (!response.ok) {
       throw new Error('Unable to load Pokémon list for static params');
