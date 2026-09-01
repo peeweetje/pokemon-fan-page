@@ -1,9 +1,14 @@
-const nextConfig = {
+import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./i18n.ts');
+
+const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: 'https' as const,
         hostname: 'raw.githubusercontent.com',
         pathname: '/PokeAPI/sprites/**',
       },
@@ -11,4 +16,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
