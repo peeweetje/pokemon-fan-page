@@ -17,7 +17,7 @@ import {
   SidebarInset,
 } from '@/components/ui/sidebar';
 import BackButton from '@/components/back-button';
-import AnimatedPokeball from '@/app/pokemon-guides/animated-pokeball';
+import AnimatedPokeball from './animated-pokeball';
 
 interface PokemonGuidesSidebarProps {
   sections: Array<{

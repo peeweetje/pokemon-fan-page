@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
-import AnimatedPokeball from '@/app/pokemon-guides/animated-pokeball';
-import FloatingParticles from '@/app/pokemon-guides/floating-particles';
+import AnimatedPokeball from './animated-pokeball';
+import FloatingParticles from './floating-particles';
 
 interface GuideContentCardProps {
   title: string;

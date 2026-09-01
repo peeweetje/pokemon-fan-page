@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 import { typeColors } from '@/utils/pokemon-type-colors';
 import { EvolutionGroup } from './evolution-types';
 
@@ -23,6 +24,7 @@ const getTypeColor = (types: string[]) => {
 };
 
 export function EvolutionCard({ group }: EvolutionCardProps) {
+  const locale = useLocale();
   const gradientClass = getTypeColor(group.pokemon[0].types);
 
   return (
@@ -61,7 +63,7 @@ export function EvolutionCard({ group }: EvolutionCardProps) {
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                <Link href={`/pokemon/${pokemon.id}`}>
+                <Link href={`/${locale}/pokemon/${pokemon.id}`}>
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24">
                     <Image
                       priority

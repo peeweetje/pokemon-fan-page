@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BattleFinishedModal } from '@/app/battle-simulator/battle-finished-modal';
-import { PokemonBattleDetails } from '@/app/battle-simulator/pokemon-battle-details';
-import { PokemonSelectionScreen } from '@/app/battle-simulator/pokemon-selection-screen';
+import { BattleFinishedModal } from './battle-finished-modal';
+import { PokemonBattleDetails } from './pokemon-battle-details';
+import { PokemonSelectionScreen } from './pokemon-selection-screen';
 import { typeColors } from '@/utils/pokemon-type-colors';
 import { useBattleSimulator } from '@/hooks/use-battle-simulator';
 import { Pokemon } from '@/utils/battle-simulator-utils';

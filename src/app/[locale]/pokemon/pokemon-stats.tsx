@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { typeColors } from '@/utils/pokemon-type-colors';
 
 // Stat names mapping for better display
 const statNames = {
@@ -14,34 +15,42 @@ const statNames = {
 interface PokemonStatsProps {
   pokemon: any;
   maxStat: number;
+  mainColor?: string;
 }
 
-export default function PokemonStats({ pokemon, maxStat }: PokemonStatsProps) {
+export default function PokemonStats({
+  pokemon,
+  maxStat,
+  mainColor = typeColors.default,
+}: PokemonStatsProps) {
   return (
-    <Card className="p-6 mb-8 animate-slide-up delay-300">
-      <h2 className="text-xl font-bold mb-4">Base Stats</h2>
+    <Card
+      className="mb-8 animate-slide-up delay-300 border bg-white/80 p-6 shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
+      style={{ borderColor: `${mainColor}66` }}
+    >
+      <h2 className="mb-4 text-xl font-bold text-slate-900">Base Stats</h2>
       <div className="space-y-3">
         {pokemon.stats.map((stat: any) => (
           <div
             key={stat.stat.name}
-            className="grid grid-cols-8 gap-2 items-center"
+            className="grid grid-cols-8 items-center gap-2"
           >
-            <div className="col-span-2 font-medium capitalize">
+            <div className="col-span-2 font-medium capitalize text-slate-700">
               {statNames[stat.stat.name as keyof typeof statNames] ||
                 stat.stat.name}
             </div>
-            <div className="col-span-1 text-right font-mono">
+            <div className="col-span-1 text-right font-mono text-slate-900">
               {stat.base_stat}
             </div>
             <div className="col-span-5">
               <Progress
                 value={(stat.base_stat / maxStat) * 100}
-                className="h-3"
+                className="h-3 rounded-full bg-slate-100"
                 indicatorClassName={`${stat.base_stat < 50
-                    ? 'bg-red-500'
+                    ? 'bg-gradient-to-r from-red-500 to-orange-400'
                     : stat.base_stat < 80
-                      ? 'bg-yellow-500'
-                      : 'bg-green-500'
+                      ? 'bg-gradient-to-r from-yellow-400 to-amber-500'
+                      : 'bg-gradient-to-r from-emerald-500 to-green-500'
                   }`}
               />
             </div>

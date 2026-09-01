@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 
 interface PokemonImageProps {
@@ -10,6 +13,13 @@ export default function PokemonImage({
   pokemon,
   mainColor,
 }: PokemonImageProps) {
+  const [imageIndex, setImageIndex] = useState(0);
+  const imageSources = [
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png`,
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`,
+  ];
+
   return (
     <Card className="relative w-64 h-64 p-6 flex items-center justify-center border-2 animate-slide-up">
       <div
@@ -24,12 +34,17 @@ export default function PokemonImage({
         </div>
       </div>
       <Image
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+        src={imageSources[Math.min(imageIndex, imageSources.length - 1)]}
         alt={pokemon.name}
         width={200}
         height={200}
         priority
         className="z-10 drop-shadow-md animate-bounce-in"
+        onError={() => {
+          if (imageIndex < imageSources.length - 1) {
+            setImageIndex((current) => current + 1);
+          }
+        }}
       />
     </Card>
   );

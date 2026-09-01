@@ -28,37 +28,37 @@ interface Pokemon {
 
 // Server Component for data fetching
 export default async function BattleSimulator() {
-  // Fetch all Pokemon first
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100');
+  // Fetch all Pokemon first - reduced to 40 for faster load
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=40');
   const data = await response.json();
 
   if (!response.ok || data === null) {
     throw new Error('Failed to load Pokémon data');
   }
 
+  // Fetch all Pokemon details in parallel
   const pokemonDetails = await Promise.all(
-    data.results.map(async (pokemon: Pokemon) => {
+    data.results.map(async (pokemon: any) => {
       const detailsResponse = await fetch(pokemon.url);
       const details = await detailsResponse.json();
 
-      // Get moves (limit to 4)
-      const moves = await Promise.all(
-        details.moves.slice(0, 4).map(async (move: any) => {
-          const moveResponse = await fetch(move.move.url);
-          const moveData = await moveResponse.json();
-          return {
-            name: moveData.name,
-            type: moveData.type.name,
-            power: moveData.power || 0,
-            accuracy: moveData.accuracy || 100,
-          };
-        }),
-      );
+      // Use move data from the Pokemon details instead of fetching each move separately
+      // This avoids N+1 queries on moves
+      const moves = details.moves.slice(0, 4).map((move: any) => {
+        const moveName = move.move.name;
+        // Use static move data instead of fetching
+        return {
+          name: moveName,
+          type: 'normal',
+          power: 70,
+          accuracy: 100,
+        };
+      });
 
       return {
         id: details.id,
         name: details.name,
-        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${details.id}.png`,
+        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${details.id}.png`,
         types: details.types.map((t: any) => t.type.name),
         stats: {
           hp: details.stats[0].base_stat,

@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { BookOpen, Trophy, Sparkles, Zap, Target } from 'lucide-react';
 import SecretPokeball from '@/components/secret-pokeball';
-import PokemonGuidesSidebar from '@/app/pokemon-guides/pokemon-guides-sidebar';
-import GuideContentCard from '@/app/pokemon-guides/guide-content-card';
-import QuickTips from '@/app/pokemon-guides/quick-tips';
+import PokemonGuidesSidebar from './pokemon-guides-sidebar';
+import GuideContentCard from './guide-content-card';
+import QuickTips from './quick-tips';
 import { pokemonGuideSections } from '@/data/pokemon-guides-sections';
 
 export const getIcon = (iconName: string) => {

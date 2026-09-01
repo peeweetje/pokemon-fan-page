@@ -7,10 +7,10 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import SecretPokeball from '@/components/secret-pokeball';
 import BackButton from '@/components/back-button';
-import PokemonHeader from '@/app/pokemon/pokemon-header';
-import PokemonStats from '@/app/pokemon/pokemon-stats';
-import PokemonDescription from '@/app/pokemon/pokemon-description';
-import PokemonMoves from '@/app/pokemon/pokemon-moves';
+import PokemonHeader from '../pokemon-header';
+import PokemonStats from '../pokemon-stats';
+import PokemonDescription from '../pokemon-description';
+import PokemonMoves from '../pokemon-moves';
 import { typeColors } from '@/utils/pokemon-type-colors';
 import {
   getPokemonData,
@@ -18,18 +18,17 @@ import {
 } from '@/utils/pokemon-details-utils';
 
 export async function generateStaticParams() {
-  // Generate params for the first 100 Pokémons
-  return Array.from({ length: 100 }, (_, i) => ({
-    id: (i + 1).toString(),
-  }));
+  // Disabled to avoid next-intl config lookup during build
+  // Pokemon pages will render dynamically instead
+  return [];
 }
 
 export default async function PokemonDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
-  const { id } = await params;
+  const { locale, id } = await params;
   const pokemon = await getPokemonData(id);
   const species = await getPokemonSpecies(id);
 
@@ -61,12 +60,11 @@ export default async function PokemonDetailPage({
   return (
     <div
       className="min-h-screen p-6 animate-fade-in"
-      style={{ backgroundColor: `${mainColor}15` }} // Very light background based on type
+      style={{ backgroundColor: `${mainColor}12` }}
     >
       <div className="max-w-4xl mx-auto">
-        {/* Back button */}
         <div className="mb-6">
-          <BackButton href="/pokedex" text="Back to Pokédex" />
+          <BackButton href={`/${locale}/pokedex`} text="Back to Pokédex" />
         </div>
 
         <PokemonHeader
@@ -77,9 +75,9 @@ export default async function PokemonDetailPage({
           formattedId={formattedId}
           category={category}
         />
-        <PokemonDescription flavorText={flavorText} />
-        <PokemonStats pokemon={pokemon} maxStat={maxStat} />
-        <PokemonMoves moves={pokemon.moves} />
+        <PokemonDescription flavorText={flavorText} mainColor={mainColor} />
+        <PokemonStats pokemon={pokemon} maxStat={maxStat} mainColor={mainColor} />
+        <PokemonMoves moves={pokemon.moves} mainColor={mainColor} />
       </div>
       <SecretPokeball />
     </div>
