@@ -1,0 +1,84 @@
+{
+  "nav": {
+    "home": "Home",
+    "pokedex": "Pokédex",
+    "memory": "Memory Game",
+    "quiz": "Quiz",
+    "guides": "Guides",
+    "evolution": "Evolution Groups",
+    "battle": "Battle Simulator"
+  },
+  "home": {
+    "title": "Pokémon",
+    "subtitle": "Explore the world of Pokémon",
+    "startBattle": "Start Battle",
+    "playMemory": "Play Memory Game",
+    "viewPokedex": "View Pokédex",
+    "explore": "Explore"
+  },
+  "pokemon": {
+    "id": "ID",
+    "name": "Name",
+    "type": "Type",
+    "height": "Height",
+    "weight": "Weight",
+    "stats": "Stats",
+    "moves": "Moves",
+    "abilities": "Abilities",
+    "hp": "HP",
+    "attack": "Attack",
+    "defense": "Defense",
+    "spAtk": "Sp. Atk",
+    "spDef": "Sp. Def",
+    "speed": "Speed"
+  },
+  "memory": {
+    "title": "Memory Game",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "moves": "Moves",
+    "time": "Time",
+    "gameOver": "Game Over!",
+    "newGame": "New Game",
+    "highScores": "High Scores"
+  },
+  "quiz": {
+    "title": "Pokémon Quiz",
+    "question": "Question",
+    "of": "of",
+    "submit": "Submit Answer",
+    "next": "Next Question",
+    "score": "Score",
+    "correct": "Correct!",
+    "incorrect": "Incorrect",
+    "finished": "Quiz Finished!"
+  },
+  "battle": {
+    "title": "Battle Simulator",
+    "selectPokemon": "Select Your Pokémon",
+    "opponent": "Opponent",
+    "attack": "Attack",
+    "defend": "Defend",
+    "battleStats": "Battle Stats",
+    "hp": "HP",
+    "victory": "Victory!",
+    "defeat": "Defeat",
+    "draw": "Draw"
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "search": "Search Pokémon...",
+    "filter": "Filter by Type",
+    "results": "Results"
+  },
+  "common": {
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "tryAgain": "Try Again",
+    "language": "Language"
+  }
+}
