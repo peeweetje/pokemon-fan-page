@@ -1,26 +1,21 @@
-'use client';
+import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 
-import { useRouter } from 'next/navigation';
-import HeroSection from './home/hero-section';
-import CardSections from './home/card-sections';
-import { featureCards } from './home/feature-cards';
-import CTASection from './home/cta-section';
-import FooterSection from './home/footer-section';
+import { defaultLocale, locales } from '@/i18n.config';
 
-export default function Home() {
-  const router = useRouter();
+export default async function RootPage() {
+  const acceptLanguage = (await headers()).get('accept-language') ?? '';
 
-  // Helper for navigation
-  const handleNavigate = (href: string) => {
-    router.push(href);
-  };
+  const detectedLocale = acceptLanguage
+    .split(',')
+    .map((entry) => entry.split(';')[0].trim().toLowerCase())
+    .find((entry) => {
+      const normalized = entry.split('-')[0];
+      return locales.some((locale) => locale.toLowerCase() === normalized);
+    })
+    ?.
+    split('-')[0]
+    ?.toLowerCase();
 
-  return (
-    <div className="min-h-screen bg-linear-to-br from-red-500 to-red-600 text-white">
-      <HeroSection onNavigate={handleNavigate} />
-      <CardSections title="Explore the Pokémon World" cards={featureCards} />
-      <CTASection onNavigate={handleNavigate} />
-      <FooterSection />
-    </div>
-  );
+  redirect(`/${detectedLocale && locales.includes(detectedLocale as any) ? detectedLocale : defaultLocale}`);
 }
