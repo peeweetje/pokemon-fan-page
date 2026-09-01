@@ -69,9 +69,9 @@ export function useMemoryGame() {
   // Initialize audio
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const flipSound = new Audio('./sounds/flip.mp3');
-      const matchSound = new Audio('./sounds/match.mp3');
-      const successSound = new Audio('./sounds/success.mp3');
+      const flipSound = new Audio('/sounds/flip.mp3');
+      const matchSound = new Audio('/sounds/match.mp3');
+      const successSound = new Audio('/sounds/success.mp3');
 
       // Preload audio
       flipSound.load();
@@ -215,6 +215,7 @@ export function useMemoryGame() {
         }
       } else {
         // No match - flip back after delay
+        // Allow time for image loading in production
         setTimeout(() => {
           setCards(
             newCards.map((card) =>
@@ -224,7 +225,7 @@ export function useMemoryGame() {
             ),
           );
           setFlippedCards([]);
-        }, 1000);
+        }, 2000);
       }
     }
   };

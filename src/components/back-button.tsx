@@ -2,6 +2,7 @@ import { cn } from '@lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 
 interface BackButtonProps {
   href?: string;
@@ -11,11 +12,14 @@ interface BackButtonProps {
 }
 
 export default function BackButton({
-  href = '/',
+  href,
   text = 'Back to Home',
   onClick,
   className,
 }: BackButtonProps) {
+  const locale = useLocale();
+  const defaultHref = `/${locale}`;
+
   return (
     <Link
       className={cn(
@@ -23,7 +27,7 @@ export default function BackButton({
         'md:h-10 md:px-6 md:gap-2 md:has-[>svg]:px-4',
         className
       )}
-      href={href}
+      href={href || defaultHref}
       onClick={onClick}
     >
       <ChevronLeft className="h-4 w-4" />
