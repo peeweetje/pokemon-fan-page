@@ -1,26 +1,56 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import SecretPokeball from '@/components/secret-pokeball';
 import BackButton from '@/components/back-button';
 import PokemonHeader from '../pokemon-header';
 import PokemonStats from '../pokemon-stats';
 import PokemonDescription from '../pokemon-description';
 import PokemonMoves from '../pokemon-moves';
+import { locales } from '@/i18n.config';
 import { typeColors } from '@/utils/pokemon-type-colors';
 import {
   getPokemonData,
   getPokemonSpecies,
 } from '@/utils/pokemon-details-utils';
 
+const FALLBACK_STATIC_POKEMON_IDS = ['1', '25'];
+
 export async function generateStaticParams() {
-  // Disabled to avoid next-intl config lookup during build
-  // Pokemon pages will render dynamically instead
-  return [];
+  try {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000');
+
+    if (!response.ok) {
+      throw new Error('Unable to load Pokémon list for static params');
+    }
+
+    const data = (await response.json()) as {
+      results?: Array<{ url?: string; name?: string }>;
+    };
+
+    const ids = (data.results ?? [])
+      .map((pokemon) => pokemon.url?.split('/').filter(Boolean).at(-1))
+      .filter((id): id is string => typeof id === 'string' && id.length > 0);
+
+    if (ids.length === 0) {
+      throw new Error('No Pokémon IDs were returned by the API');
+    }
+
+    return locales.flatMap((locale) =>
+      ids.map((id) => ({
+        locale,
+        id,
+      })),
+    );
+  } catch (error) {
+    console.error('Falling back to default static Pokemon params:', error);
+
+    return locales.flatMap((locale) =>
+      FALLBACK_STATIC_POKEMON_IDS.map((id) => ({
+        locale,
+        id,
+      })),
+    );
+  }
 }
 
 export default async function PokemonDetailPage({
