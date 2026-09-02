@@ -21,7 +21,7 @@ describe('CTASection', () => {
     const mockOnNavigate = vi.fn();
     render(<CTASection onNavigate={mockOnNavigate} />);
 
-    const pokedexButton = screen.getByText('Go to Pokédex');
+    const pokedexButton = screen.getByText('View Pokédex');
     expect(pokedexButton).toBeInTheDocument();
   });
 
@@ -29,7 +29,7 @@ describe('CTASection', () => {
     const mockOnNavigate = vi.fn();
     render(<CTASection onNavigate={mockOnNavigate} />);
 
-    const gameButton = screen.getByText('Play Memory Game');
+    const gameButton = screen.getByText('Play Memory');
     expect(gameButton).toBeInTheDocument();
   });
 
@@ -37,7 +37,7 @@ describe('CTASection', () => {
     const mockOnNavigate = vi.fn();
     render(<CTASection onNavigate={mockOnNavigate} />);
 
-    const pokedexButton = screen.getByText('Go to Pokédex');
+    const pokedexButton = screen.getByText('View Pokédex');
     fireEvent.click(pokedexButton);
 
     expect(mockOnNavigate).toHaveBeenCalledWith('/pokedex');
@@ -47,7 +47,7 @@ describe('CTASection', () => {
     const mockOnNavigate = vi.fn();
     render(<CTASection onNavigate={mockOnNavigate} />);
 
-    const gameButton = screen.getByText('Play Memory Game');
+    const gameButton = screen.getByText('Play Memory');
     fireEvent.click(gameButton);
 
     expect(mockOnNavigate).toHaveBeenCalledWith('/game');
