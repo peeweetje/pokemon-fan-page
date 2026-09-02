@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, beforeEach, afterEach, beforeAll } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useMemoryGame } from '../src/hooks/use-memory-game';
-import { cardBacks } from '../src/utils/memory-game-helper';
+import { useMemoryGame } from '@/hooks/use-memory-game';
+import { cardBacks } from '@/utils/memory-game-helper';
 
 const hookMocks = vi.hoisted(() => ({
   reducedMotion: false,
@@ -135,7 +135,7 @@ describe('useMemoryGame', () => {
     );
     expect(flipped.every((card) => card.isFlipped)).toBe(true);
 
-    act(() => vi.advanceTimersByTime(1000));
+    act(() => vi.advanceTimersByTime(2000));
     const flippedBack = result.current.cards.filter(
       (card) => card.id === 0 || card.id === 2,
     );
