@@ -2,7 +2,7 @@ import { describe, test, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import './setup';
-import { MemoryCard } from '@/components/pokemon-memory-game/memory-card';
+import { MemoryCard } from '@/components/pokemon-memory-game/memory-card'
 import { cardBacks } from '@/utils/memory-game-helper';
 
 const makeCard = (overrides = {}) => ({
@@ -43,7 +43,7 @@ describe('MemoryCard', () => {
     const img = screen.getByRole('img', { name: 'Pokemon 25' });
     expect(img).toHaveAttribute(
       'src',
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
     );
   });
 
