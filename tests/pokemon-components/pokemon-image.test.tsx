@@ -18,8 +18,7 @@ describe('PokemonImage', () => {
 
     expect(screen.getByRole('img')).toHaveAttribute('src');
     const imageSrc = screen.getByRole('img').getAttribute('src');
-    expect(imageSrc).toContain('/_next/image?url=');
-    expect(imageSrc).toContain(encodeURIComponent(pokemon.sprites.other['official-artwork'].front_default));
+    expect(imageSrc).toContain(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png`);
   });
 
   test('renders PokemonImage with correct alt text', () => {

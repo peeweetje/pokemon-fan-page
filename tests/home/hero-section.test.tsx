@@ -13,15 +13,15 @@ describe('HeroSection', () => {
     const mockOnNavigate = vi.fn();
     render(<HeroSection onNavigate={mockOnNavigate} />);
 
-    expect(screen.getByText('Pokémon Explorer')).toBeInTheDocument();
-    expect(screen.getByText('Your ultimate guide to the world of Pokémon')).toBeInTheDocument();
+    expect(screen.getByText('Pokémon Adventure')).toBeInTheDocument();
+    expect(screen.getByText('Discover your next favorite Pokémon and explore the world of trainers.')).toBeInTheDocument();
   });
 
   test('renders Pokédex button', () => {
     const mockOnNavigate = vi.fn();
     render(<HeroSection onNavigate={mockOnNavigate} />);
 
-    const button = screen.getByText('Open Pokédex');
+    const button = screen.getByText('View Pokédex');
     expect(button).toBeInTheDocument();
   });
 
@@ -29,7 +29,7 @@ describe('HeroSection', () => {
     const mockOnNavigate = vi.fn();
     render(<HeroSection onNavigate={mockOnNavigate} />);
 
-    const button = screen.getByText('Open Pokédex');
+    const button = screen.getByText('View Pokédex');
     fireEvent.click(button);
 
     expect(mockOnNavigate).toHaveBeenCalledWith('/pokedex');
