@@ -73,14 +73,19 @@ export default function PokemonQuiz() {
   }
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen bg-linear-to-br from-rose-50 via-white to-amber-50 p-6">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <BackButton />
-          <h1 className="text-4xl font-bold text-gray-800 text-center">
-            Pokemon Quiz
-          </h1>
+          <div className="flex flex-col items-center">
+            <h1 className="text-4xl font-bold bg-linear-to-r from-red-500 via-orange-500 to-amber-500 bg-clip-text text-transparent text-center">
+              Pokemon Quiz
+            </h1>
+            <span className="text-sm font-medium text-gray-500 mt-1">
+              Test your Pokemon knowledge
+            </span>
+          </div>
           <div className="w-[100px]"></div>
         </div>
 
