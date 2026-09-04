@@ -25,19 +25,19 @@ export function PokemonQuizOptions({
         const isCorrect = option === correctAnswer;
 
         const baseClasses =
-          'p-4 rounded-lg text-left transition-all duration-200 border-2';
+          'p-5 rounded-xl text-left transition-all duration-200 border-2 cursor-pointer';
         const stateClasses = !showExplanation
-          ? 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md'
+          ? 'bg-white/80 border-gray-200 shadow-sm hover:border-amber-300 hover:bg-white hover:shadow-lg hover:shadow-amber-100/60'
           : isSelected && isCorrect
-          ? 'bg-green-100 border-green-500 shadow-lg shadow-green-200'
+          ? 'bg-gradient-to-br from-green-50 to-green-100 border-green-400 shadow-lg shadow-green-200/70'
           : isSelected && !isCorrect
-          ? 'bg-red-100 border-red-500 shadow-lg shadow-red-200'
-          : 'bg-white border-gray-200';
+          ? 'bg-gradient-to-br from-red-50 to-red-100 border-red-400 shadow-lg shadow-red-200/70'
+          : 'bg-white/60 border-gray-200 opacity-70';
 
         return (
           <motion.button
             key={option}
-            whileHover={!showExplanation ? { scale: 1.02 } : undefined}
+            whileHover={!showExplanation ? { scale: 1.02, y: -1 } : undefined}
             whileTap={!showExplanation ? { scale: 0.98 } : undefined}
             className={`${baseClasses} ${stateClasses}`}
             onClick={() => !showExplanation && onSelectAnswer(option)}
