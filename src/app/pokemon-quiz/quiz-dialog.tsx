@@ -22,7 +22,11 @@ export function QuizDialog({
 }: QuizDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md overflow-hidden">
+        {/* Decorative gradient banner */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-red-500 via-amber-400 to-green-500" />
+        <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-amber-100/60 blur-2xl" />
+
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold text-gray-800">
             Quiz Completed!
@@ -41,7 +45,7 @@ export function QuizDialog({
           </p>
           <Button
             onClick={onOpenChange}
-            className="w-full bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to--700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full bg-linear-to-r from-amber-400 via-orange-500 to-rose-500 hover:from-amber-500 hover:via-orange-600 hover:to-rose-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer"
           >
             Try Again
           </Button>
