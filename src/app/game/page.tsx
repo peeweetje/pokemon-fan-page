@@ -9,11 +9,11 @@ export default function GamePage() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <main className="max-w-6xl mx-auto p-4">
+    <main className="min-h-screen overflow-hidden bg-[#f5f7f2] px-3 py-4 text-slate-950 sm:px-6 sm:py-6">
       <motion.div
         initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
         animate={prefersReducedMotion ? false : { opacity: 1, x: 0 }}
-        className="mb-6"
+        className="mx-auto mb-4 max-w-7xl sm:mb-6"
       >
         <BackButton />
       </motion.div>

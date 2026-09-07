@@ -39,7 +39,7 @@ export function MemoryCard({
 
   return (
     <motion.div
-      className="aspect-square min-h-[120px] sm:min-h-[100px]"
+      className="aspect-square min-h-[112px] sm:min-h-[100px]"
       whileHover={shouldAnimate ? { scale: 1.04 } : undefined}
       whileTap={shouldAnimate ? { scale: 0.97 } : undefined}
       transition={{ type: 'spring', stiffness: 280, damping: 22 }}
@@ -47,7 +47,7 @@ export function MemoryCard({
       <Card
         className={`relative h-full cursor-pointer rounded-[1.25rem] border-0 bg-transparent p-0 shadow-none ${
           card.isMatched
-            ? 'ring-4 ring-green-500/80 ring-offset-2 ring-offset-slate-950 shadow-[0_0_0_3px_rgba(34,197,94,0.15)]'
+            ? 'ring-4 ring-green-500/80 ring-offset-2 ring-offset-white shadow-[0_0_28px_rgba(16,185,129,0.25)]'
             : ''
         }`}
         onClick={() => onClick(card.id)}
@@ -69,14 +69,14 @@ export function MemoryCard({
               <div
                 className={`absolute inset-0 [backface-visibility:hidden] ${
                   cardBacks[difficulty][selectedCardBack]
-                } overflow-hidden rounded-[1.25rem]`}
+                } overflow-hidden rounded-[1.25rem] border-4 border-white/40 shadow-[0_10px_20px_rgba(15,23,42,0.16)]`}
               >
                 <div className="absolute inset-0 opacity-20">
                   <div
                     className="absolute inset-0"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 0l3.5 10.8h11.3l-9.1 6.6 3.5 10.8-9.1-6.6-9.1 6.6 3.5-10.8-9.1-6.6h11.3z' fill='%23ffffff'/%3E%3C/svg%3E")`,
-                      backgroundSize: '30px 30px',
+                      backgroundSize: '28px 28px',
                     }}
                   ></div>
                 </div>
@@ -101,7 +101,7 @@ export function MemoryCard({
                       : undefined
                   }
                 >
-                  <div className="relative h-10 w-10 sm:h-16 sm:w-16">
+                  <div className="relative h-11 w-11 rotate-[-8deg] drop-shadow-[0_8px_8px_rgba(15,23,42,0.24)] transition-transform sm:h-16 sm:w-16">
                     <div className="absolute inset-0 rounded-full border-2 border-black shadow-[0_0_15px_rgba(0,0,0,0.3)] sm:border-4"></div>
                     <div className="absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-white"></div>
                     <div className="absolute inset-x-0 bottom-0 h-1/2 rounded-b-full bg-red-600"></div>
@@ -163,14 +163,17 @@ export function MemoryCard({
             )}
 
             {isShowingFront && (
-              <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-[1.25rem] bg-gradient-to-br from-white via-sky-50 to-indigo-100 p-2 shadow-inner shadow-slate-200/70">
-                <div className="flex h-full w-full items-center justify-center rounded-[1rem] border border-sky-200/80 bg-white/60 backdrop-blur-sm">
+              <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-[1.25rem] border border-slate-200 bg-gradient-to-br from-white via-sky-50 to-cyan-100 p-2 shadow-[0_12px_24px_rgba(14,116,144,0.16)]">
+                <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[1rem] border border-white/90 bg-white/55 backdrop-blur-sm">
+                  <span className="absolute left-2 top-2 text-[0.55rem] font-bold uppercase tracking-[0.18em] text-sky-600/60">
+                    #{String(card.pokemonId).padStart(3, '0')}
+                  </span>
                   <Image
                     src={currentPokemonImage}
                     alt={`Pokemon ${card.pokemonId}`}
                     width={100}
                     height={100}
-                    className="object-contain drop-shadow-[0_8px_18px_rgba(59,130,246,0.2)] w-28 h-28 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
+                    className="h-28 w-28 object-contain drop-shadow-[0_8px_18px_rgba(14,116,144,0.24)] sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24"
                     onError={() => {
                       setImageIndex((current) =>
                         current < pokemonImageSources.length - 1
