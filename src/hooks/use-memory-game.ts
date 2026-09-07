@@ -208,8 +208,7 @@ export function useMemoryGame() {
               (score) => score.difficulty !== difficulty,
             );
             const newScoresForDifficulty = [...scoresForDifficulty, newScore]
-              .sort((a, b) => a.moves - b.moves)
-              .slice(0, 5);
+              .sort((a, b) => a.moves - b.moves);
             return [...otherScores, ...newScoresForDifficulty];
           });
         }

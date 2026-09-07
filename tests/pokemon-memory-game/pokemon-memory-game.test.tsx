@@ -120,14 +120,12 @@ describe('PokemonMemoryGame', () => {
     expect(screen.getByText('Play Again')).toBeInTheDocument();
   });
 
-  test('renders confetti when showConfetti is enabled', () => {
+  test('does not render a page-level confetti layer', () => {
     hookMocks.useMemoryGame.mockReturnValue({
       ...baseGame(),
       showConfetti: true,
     });
     const { container } = render(<PokemonMemoryGame />);
-    expect(
-      container.querySelector('.fixed.inset-0.pointer-events-none'),
-    ).not.toBeNull();
+    expect(container.querySelector('.fixed.inset-0.pointer-events-none')).toBeNull();
   });
 });
