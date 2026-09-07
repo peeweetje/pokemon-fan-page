@@ -7,7 +7,6 @@ import { SettingsDialog } from './settings-dialog';
 import { SoundToggle } from './sound-toggle';
 import { GameStats } from './game-stats';
 import { LoadingSpinner } from './loading-spinner';
-import { ConfettiEffect } from './confetti-effect';
 import { MemoryCard } from './memory-card';
 
 export function PokemonMemoryGame() {
@@ -44,14 +43,9 @@ export function PokemonMemoryGame() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-2 sm:p-4">
-      <ConfettiEffect
-        showConfetti={showConfetti}
-        shouldAnimate={shouldAnimate}
-      />
-
-      <div className="text-center mb-4 sm:mb-6">
-        <div className="flex justify-between items-center mb-2 sm:mb-4">
+    <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white/80 px-3 py-5 shadow-[0_24px_80px_rgba(15,23,42,0.10)] backdrop-blur sm:px-7 sm:py-8">
+      <div className="relative z-10 mb-6 sm:mb-8">
+        <div className="mb-5 flex items-start justify-between gap-3">
           <SettingsDialog
             difficulty={difficulty}
             setDifficulty={setDifficulty}
@@ -63,18 +57,21 @@ export function PokemonMemoryGame() {
             onDifficultyChange={resetGame}
           />
 
-          <h2 className="text-lg sm:text-2xl font-bold">Pokemon Memory Game</h2>
+          <div className="text-center">
+            <h2 className="font-black tracking-tight text-2xl text-slate-950 sm:text-4xl">
+              Pokemon Memory Game
+            </h2>
+            <p className="mt-2 hidden text-sm text-slate-500 sm:block">
+              Match every pair before the timer catches you.
+            </p>
+          </div>
           <SoundToggle
             soundEnabled={soundEnabled}
             onToggle={() => setSoundEnabled(!soundEnabled)}
           />
         </div>
 
-        <GameStats
-          moves={moves}
-          formattedTime={formattedTime}
-          difficulty={difficulty}
-        />
+        <GameStats moves={moves} formattedTime={formattedTime} difficulty={difficulty} />
       </div>
 
       <div
@@ -83,7 +80,7 @@ export function PokemonMemoryGame() {
           difficultySettings[difficulty].gridCols === 4
             ? 'grid-cols-2 sm:grid-cols-4'
             : 'grid-cols-2 sm:grid-cols-4 md:grid-cols-6'
-        } w-full max-w-md sm:max-w-none mx-auto`}
+        } relative z-10 mx-auto w-full max-w-md sm:max-w-none`}
       >
         {cards.map((card) => (
           <MemoryCard
