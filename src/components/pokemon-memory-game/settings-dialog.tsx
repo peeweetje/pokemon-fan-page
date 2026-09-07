@@ -60,7 +60,13 @@ export function SettingsDialog({
                     onDifficultyChange();
                   }}
                   variant={difficulty === level ? 'primary' : 'outline'}
-                  className="text-xs sm:text-sm px-2 sm:px-4"
+                  className={`border-2 px-2 text-xs sm:px-4 sm:text-sm ${
+                    level === 'easy'
+                      ? '!border-green-400 !bg-green-100 !text-green-800 hover:!bg-green-200'
+                      : level === 'medium'
+                        ? '!border-orange-400 !bg-orange-100 !text-orange-800 hover:!bg-orange-200'
+                        : '!border-red-400 !bg-red-100 !text-red-800 hover:!bg-red-200'
+                  }`}
                 >
                   {level.charAt(0).toUpperCase() + level.slice(1)}
                 </Button>
@@ -76,7 +82,7 @@ export function SettingsDialog({
               id="sound-toggle"
               checked={soundEnabled}
               onCheckedChange={setSoundEnabled}
-              className="data-[state=checked]:bg-red-600"
+              className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-red-500"
             />
           </div>
 
@@ -89,7 +95,7 @@ export function SettingsDialog({
               checked={animationsEnabled}
               onCheckedChange={setAnimationsEnabled}
               disabled={prefersReducedMotion}
-              className="data-[state=checked]:bg-red-600"
+              className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-red-500"
             />
           </div>
           {prefersReducedMotion && (
