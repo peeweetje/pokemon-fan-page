@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { formatTime } from '@/hooks/use-memory-game';
+import { useEffect, useState } from 'react';
 
 const formatDate = (dateString: string) => {
   const parts = dateString.split(/[-/.]/);
@@ -40,7 +41,16 @@ export function ScoreDialog({
   shouldAnimate,
   onPlayAgain,
 }: ScoreDialogProps) {
+  const [scoreDifficulty, setScoreDifficulty] = useState(difficulty);
+  useEffect(() => {
+    if (isOpen) setScoreDifficulty(difficulty);
+  }, [difficulty, isOpen]);
+
   if (!isOpen) return null;
+
+  const displayedScores = highScores
+    .filter((score) => score.difficulty === scoreDifficulty)
+    .sort((a, b) => a.moves - b.moves);
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-2 sm:p-4 z-50">
@@ -48,18 +58,18 @@ export function ScoreDialog({
         initial={shouldAnimate ? { scale: 0.9, opacity: 0, y: 20 } : undefined}
         animate={shouldAnimate ? { scale: 1, opacity: 1, y: 0 } : undefined}
         transition={{ type: 'spring', duration: 0.5 }}
-        className="bg-white p-4 sm:p-8 rounded-2xl text-center max-w-sm sm:max-w-md w-full shadow-2xl relative overflow-hidden mx-2"
+          className="mx-2 flex h-[min(680px,calc(100vh-1rem))] w-full max-w-sm flex-col overflow-hidden rounded-2xl bg-white p-4 text-center shadow-2xl relative sm:max-w-md sm:p-8"
       >
-        {/* Confetti container positioned relative to the modal */}
+        {/* Keep the celebration inside the score dialog. */}
         {showConfetti && shouldAnimate && (
-          <div className="absolute inset-0 pointer-events-none z-9999">
+          <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden rounded-2xl">
             {[...Array(100)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute"
                 style={{
                   left: '50%',
-                  top: 200,
+                  top: 0,
                   width: Math.random() * 10 + 5,
                   height: Math.random() * 10 + 5,
                   backgroundColor: [
@@ -76,9 +86,9 @@ export function ScoreDialog({
                   transform: `rotate(${Math.random() * 360}deg)`,
                   boxShadow: '0 0 5px rgba(255,255,255,0.5)',
                 }}
-                initial={{ y: 200, x: 0, rotate: 0, opacity: 1 }}
+                initial={{ y: -32, x: 0, rotate: 0, opacity: 1 }}
                 animate={{
-                  y: [-400, 100],
+                  y: [-32, 700],
                   x: [0, Math.random() * 800 - 400],
                   rotate: [0, 1080],
                   opacity: [1, 1, 0],
@@ -129,18 +139,39 @@ export function ScoreDialog({
           initial={shouldAnimate ? { y: 20, opacity: 0 } : undefined}
           animate={shouldAnimate ? { y: 0, opacity: 1 } : undefined}
           transition={{ delay: 0.4 }}
-          className="mb-8"
+          className="mb-4 flex min-h-0 flex-1 flex-col"
         >
-          <h4 className="font-bold text-xl mb-4 text-gray-700">
-            High Scores -{' '}
-            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-          </h4>
-          <div className="space-y-3 bg-gray-50 p-4 rounded-xl">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h4 className="text-left text-xl font-bold text-gray-700">
+                High Scores -{' '}
+                {scoreDifficulty.charAt(0).toUpperCase() + scoreDifficulty.slice(1)}
+            </h4>
+            <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700">
+              {scoreDifficulty}
+            </span>
+          </div>
+          <div className="mb-4 grid grid-cols-3 gap-1 rounded-xl bg-gray-100 p-1">
+            {(['easy', 'medium', 'hard'] as const).map((level) => (
+              <button
+                key={level}
+                type="button"
+                onClick={() => setScoreDifficulty(level)}
+                className={`rounded-lg px-2 py-2 text-xs font-bold capitalize transition-colors ${
+                  scoreDifficulty === level
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
+              >
+                {level}
+              </button>
+            ))}
+          </div>
+          <div className="min-h-0 flex-1 space-y-3 overflow-x-hidden overflow-y-auto rounded-xl bg-gray-50 p-4">
             <motion.div
               initial={shouldAnimate ? { x: -20, opacity: 0 } : undefined}
               animate={shouldAnimate ? { x: 0, opacity: 1 } : undefined}
               transition={{ delay: 0.5 }}
-              className="grid grid-cols-4 gap-2 text-sm font-medium text-gray-500 mb-2"
+              className="grid min-w-0 grid-cols-4 gap-2 text-sm font-medium text-gray-500 mb-2"
             >
               <div>Rank</div>
               <div>Moves</div>
@@ -148,17 +179,14 @@ export function ScoreDialog({
               <div>Date</div>
             </motion.div>
             <AnimatePresence>
-              {highScores
-                .filter((score) => score.difficulty === difficulty)
-                .sort((a, b) => a.moves - b.moves)
-                .map((score, index) => (
+              {displayedScores.map((score, index) => (
                   <motion.div
                     key={`${score.difficulty}-${index}`}
                     initial={shouldAnimate ? { x: -20, opacity: 0 } : undefined}
                     animate={shouldAnimate ? { x: 0, opacity: 1 } : undefined}
                     exit={shouldAnimate ? { x: 20, opacity: 0 } : undefined}
                     transition={{ delay: 0.6 + index * 0.1 }}
-                    className="grid grid-cols-4 gap-2 text-sm py-2 border-b border-gray-100 last:border-0"
+                    className="grid min-w-0 grid-cols-4 gap-2 text-sm py-2 border-b border-gray-100 last:border-0"
                   >
                     <motion.div
                       initial={shouldAnimate ? { scale: 0 } : undefined}
@@ -198,6 +226,7 @@ export function ScoreDialog({
                         delay: 1 + index * 0.1,
                         type: 'spring',
                       }}
+                      className="min-w-0 break-words"
                     >
                       {formatDate(score.date)}
                     </motion.div>
@@ -211,7 +240,7 @@ export function ScoreDialog({
           initial={shouldAnimate ? { y: 20, opacity: 0 } : undefined}
           animate={shouldAnimate ? { y: 0, opacity: 1 } : undefined}
           transition={{ delay: 1.2 }}
-          className="flex justify-center"
+            className="mt-auto flex min-h-[52px] shrink-0 justify-center"
         >
           <Button
             onClick={onPlayAgain}
