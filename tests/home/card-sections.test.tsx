@@ -29,8 +29,21 @@ describe('CardSections', () => {
       />
     );
 
-    // Check that all cards are rendered
-    expect(screen.getAllByRole('link')).toHaveLength(featureCards.length);
+    // Each card renders 2 links: a clickable title and a CTA link
+    expect(screen.getAllByRole('link')).toHaveLength(featureCards.length * 2);
+  });
+
+  test('renders the linkText for each card', () => {
+    render(
+      <CardSections 
+        title="Explore the Pokémon World" 
+        cards={featureCards} 
+      />
+    );
+
+    expect(screen.getByText('Go to Pokédex →')).toBeInTheDocument();
+    expect(screen.getByText('Play Now →')).toBeInTheDocument();
+    expect(screen.getByText('View Evolutions →')).toBeInTheDocument();
   });
 
   test('renders card titles and descriptions', () => {
@@ -57,8 +70,8 @@ describe('CardSections', () => {
       />
     );
 
-    // Should render 6 cards
+    // Should render 6 cards (2 links each: title + CTA)
     const cardElements = screen.getAllByRole('link');
-    expect(cardElements).toHaveLength(6);
+    expect(cardElements).toHaveLength(12);
   });
 });
