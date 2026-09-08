@@ -8,6 +8,7 @@ interface Card {
   title: string;
   description: string;
   href: string;
+  linkText?: string;
   icon: LucideIcon;
   bgColor: string;
   borderColor: string;
@@ -30,10 +31,10 @@ export default function CardSections({ title, cards }: CardSectionsProps) {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <motion.div
               key={card.title}
-              className={`${card.bgColor} ${card.borderColor} border p-6 rounded-xl shadow-lg`}
+              className={`${card.bgColor} ${card.borderColor} border p-6 rounded-xl shadow-lg cursor-pointer transition-shadow hover:shadow-xl group`}
               whileHover={{ y: -10 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -44,23 +45,19 @@ export default function CardSections({ title, cards }: CardSectionsProps) {
               >
                 <card.icon className={`h-8 w-8 ${card.iconColor}`} />
               </div>
-              <h3 className="text-xl font-bold mb-2">{card.title}</h3>
+              <Link href={card.href}>
+                <h3
+                  className={`text-xl font-bold mb-2 ${card.iconColor} underline-offset-4 decoration-2 transition-all hover:underline group-hover:underline`}
+                >
+                  {card.title}
+                </h3>
+              </Link>
               <p className="text-gray-600">{card.description}</p>
               <Link
                 href={card.href}
-                className={`${card.iconColor} hover:opacity-80 font-medium mt-4 inline-block`}
+                className={`${card.iconColor} font-medium mt-4 inline-block transition-all group-hover:translate-x-1 hover:brightness-75`}
               >
-                {card.title.includes('Pokédex')
-                  ? 'Go to Pokédex →'
-                  : card.title.includes('Memory')
-                  ? 'Play Now →'
-                  : card.title.includes('Evolution')
-                  ? 'View Evolutions →'
-                  : card.title.includes('Battle')
-                  ? 'Start Battle →'
-                  : card.title.includes('Quiz')
-                  ? 'Take Quiz →'
-                  : 'Read Guides →'}
+                {card.linkText ?? 'Learn More →'}
               </Link>
             </motion.div>
           ))}
