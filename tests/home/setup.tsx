@@ -27,6 +27,10 @@ vi.mock('lucide-react', () => ({
   Star: ({ className }: any) => <svg className={className} />,
   Swords: ({ className }: any) => <svg className={className} />,
   BookOpen: ({ className }: any) => <svg className={className} />,
+  Cog: ({ className }: any) => <svg className={className} />,
+  Cpu: ({ className }: any) => <svg className={className} />,
+  Users: ({ className }: any) => <svg className={className} />,
+  GraduationCap: ({ className }: any) => <svg className={className} />,
 }));
 
 // Mock Enhanced3DPokeball component
