@@ -44,11 +44,11 @@ export function SettingsDialog({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Game Settings</DialogTitle>
+          <DialogTitle className="text-center text-gray-800/75">Game Settings</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-6 py-4">
           <div className="space-y-4">
-            <h4 className="text-sm font-medium flex justify-center">
+            <h4 className="text-gray-800/75 text-sm font-medium flex justify-center">
               Difficulty
             </h4>
             <div className="flex justify-center gap-2 sm:gap-4">
@@ -75,7 +75,7 @@ export function SettingsDialog({
           </div>
 
           <div className="flex items-center justify-between">
-            <Label htmlFor="sound-toggle" className="text-sm font-medium">
+            <Label htmlFor="sound-toggle" className="text-gray-800/75 text-sm font-medium">
               Sound Effects
             </Label>
             <Switch
@@ -87,7 +87,7 @@ export function SettingsDialog({
           </div>
 
           <div className="flex items-center justify-between">
-            <Label htmlFor="animations-toggle" className="text-sm font-medium">
+            <Label htmlFor="animations-toggle" className="text-gray-800/75 text-sm font-medium">
               Animations
             </Label>
             <Switch
