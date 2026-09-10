@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { useBattleScore } from '@/hooks/use-battle-score';
 import {
   Pokemon,
   BattleState,
@@ -19,6 +20,42 @@ export function useBattleSimulator(pokemonList: Pokemon[]) {
   const [showBattleFinishedModal, setShowBattleFinishedModal] = useState(false);
   const [battleId, setBattleId] = useState(0);
   const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { addScore } = useBattleScore();
+  const recordedBattleIdRef = useRef(0);
+
+  // Record the battle result once, when a finished battle's modal is shown
+  useEffect(() => {
+    if (
+      showBattleFinishedModal &&
+      battleId > 0 &&
+      recordedBattleIdRef.current !== battleId &&
+      battleState.playerPokemon &&
+      battleState.opponentPokemon
+    ) {
+      recordedBattleIdRef.current = battleId;
+      addScore({
+        result: battleState.opponentHP <= 0 ? 'win' : 'loss',
+        playerPokemon: {
+          name: battleState.playerPokemon.name,
+          sprite: battleState.playerPokemon.sprite,
+        },
+        opponentPokemon: {
+          name: battleState.opponentPokemon.name,
+          sprite: battleState.opponentPokemon.sprite,
+        },
+        playerHP: Math.max(0, battleState.playerHP),
+        opponentHP: Math.max(0, battleState.opponentHP),
+      });
+    }
+  }, [
+    showBattleFinishedModal,
+    battleId,
+    battleState.playerPokemon,
+    battleState.opponentPokemon,
+    battleState.playerHP,
+    battleState.opponentHP,
+    addScore,
+  ]);
 
   const setBattleLog = useCallback((log: string[]) => {
     setBattleState((prev) => ({ ...prev, battleLog: log }));
