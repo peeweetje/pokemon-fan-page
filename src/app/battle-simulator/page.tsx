@@ -3,6 +3,7 @@
 import BackButton from '@/components/back-button';
 import SecretPokeball from '@/components/secret-pokeball';
 import { Trophy } from 'lucide-react';
+import Link from 'next/link';
 import { BattleSimulatorClient } from './battle-simulator-client';
 
 interface Pokemon {
@@ -84,13 +85,13 @@ export default async function BattleSimulator() {
           Battle Simulator
         </h1>
         <div className="mb-6 text-center">
-          <a
+          <Link
             href="/battle-simulator/score"
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 px-5 py-2 font-semibold text-white shadow-md transition hover:scale-[1.03] hover:shadow-lg"
           >
             <Trophy className="h-4 w-4" />
             View Battle Scores
-          </a>
+          </Link>
         </div>
         <BattleSimulatorClient pokemonList={pokemonDetails} />
       </div>
