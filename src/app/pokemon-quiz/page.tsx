@@ -1,6 +1,5 @@
 'use client';
 
-import SecretPokeball from '@/components/secret-pokeball';
 import BackButton from '@/components/back-button';
 import { QuizDialog } from './quiz-dialog';
 import { questions } from '@/data/quiz-questions';
@@ -114,7 +113,6 @@ export default function PokemonQuiz() {
           />
         )}
       </div>
-      <SecretPokeball />
     </div>
   );
 }

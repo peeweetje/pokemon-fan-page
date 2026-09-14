@@ -1,5 +1,4 @@
 import BackButton from '@/components/back-button';
-import SecretPokeball from '@/components/secret-pokeball';
 import { BattleScoreClient } from './battle-score-client';
 
 export default function BattleScore() {
@@ -14,7 +13,6 @@ export default function BattleScore() {
         </h1>
         <BattleScoreClient />
       </div>
-      <SecretPokeball />
     </div>
   );
 }

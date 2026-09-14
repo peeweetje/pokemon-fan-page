@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { BookOpen, Trophy, Sparkles, Zap, Target } from 'lucide-react';
-import SecretPokeball from '@/components/secret-pokeball';
 import PokemonGuidesSidebar from './pokemon-guides-sidebar';
 import GuideContentCard from './guide-content-card';
 import QuickTips from './quick-tips';
@@ -74,7 +73,6 @@ export default function PokemonGuides() {
           </motion.div>
         </AnimatePresence>
       </PokemonGuidesSidebar>
-      <SecretPokeball />
     </>
   );
 }
