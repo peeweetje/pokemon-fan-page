@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 
 interface Card {
@@ -23,12 +23,54 @@ interface CardSectionsProps {
 }
 
 export default function CardSections({ title, cards }: CardSectionsProps) {
+  const reduceMotion = useReducedMotion();
+  const words = title.split(' ');
+
   return (
     <section className="bg-white text-gray-800 py-16">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          {title}
-        </h2>
+        <motion.h2
+          aria-label={title}
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-3xl md:text-4xl font-bold text-center mb-12"
+          data-testid="explore-section-title"
+        >
+          {words.map((word, i) => (
+            <motion.span
+              key={`${word}-${i}`}
+              aria-hidden="true"
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{
+                delay: reduceMotion ? 0 : 0.1 + i * 0.08,
+                duration: 0.5,
+                ease: 'easeOut',
+              }}
+              className="inline-block mr-3 last:mr-0"
+              data-testid={`explore-title-word-${i}`}
+            >
+              {word === 'Pokémon' ? (
+                <motion.span
+                  animate={
+                    reduceMotion
+                      ? undefined
+                      : { backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }
+                  }
+                  transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+                  className="bg-gradient-to-r from-red-500 via-yellow-500 to-red-500 bg-[length:200%_auto] bg-clip-text text-transparent"
+                >
+                  {word}
+                </motion.span>
+              ) : (
+                word
+              )}
+            </motion.span>
+          ))}
+        </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {cards.map((card) => (
