@@ -29,10 +29,6 @@ vi.mock('@/data/quiz-questions', () => {
   };
 });
 
-// Mock components
-vi.mock('@/components/secret-pokeball', () => ({
-  default: () => <div data-testid="secret-pokeball">Secret Pokeball</div>,
-}));
 
 vi.mock('@/components/back-button', () => ({
   default: () => <div data-testid="back-button">Back Button</div>,
