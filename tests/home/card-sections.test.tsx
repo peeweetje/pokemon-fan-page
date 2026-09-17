@@ -18,7 +18,24 @@ describe('CardSections', () => {
       />
     );
 
-    expect(screen.getByText('Explore the Pokémon World')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Explore the Pokémon World' })).toBeInTheDocument();
+  });
+
+  test('animates section title word by word with gradient highlight', () => {
+    render(
+      <CardSections
+        title="Explore the Pokémon World"
+        cards={featureCards}
+      />
+    );
+
+    expect(screen.getByTestId('explore-section-title')).toBeInTheDocument();
+    expect(screen.getByTestId('explore-title-word-0')).toHaveTextContent('Explore');
+    expect(screen.getByTestId('explore-title-word-2')).toHaveTextContent('Pokémon');
+
+    const highlight = screen.getByTestId('explore-title-word-2').firstChild as HTMLElement;
+    expect(highlight.className).toContain('bg-gradient-to-r');
+    expect(highlight.className).toContain('bg-clip-text');
   });
 
   test('renders all feature cards', () => {
