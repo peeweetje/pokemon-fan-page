@@ -4,7 +4,11 @@ import { vi } from 'vitest';
 vi.mock('framer-motion', () => ({
   motion: {
     div: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <div {...props}>{children}</div>,
+    span: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <span {...props}>{children}</span>,
+    p: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, ...props }: any) => <p {...props}>{children}</p>,
+    h2: ({ children, initial, animate, exit, transition, whileHover, whileTap, whileInView, variants, viewport, ...props }: any) => <h2 {...props}>{children}</h2>,
   },
+  useReducedMotion: () => false,
 }));
 
 // Mock Link component
