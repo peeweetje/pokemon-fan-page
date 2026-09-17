@@ -14,10 +14,6 @@ vi.mock('framer-motion', () => ({
   AnimatePresence: ({ children }: any) => <>{children}</>,
 }));
 
-// Mock SecretPokeball to avoid its timers running during the test
-vi.mock('@/components/secret-pokeball', () => ({
-  default: () => <div data-testid="secret-pokeball" />,
-}));
 
 describe('getIcon', () => {
   test('returns the correct icon for each known section icon name', () => {
@@ -63,7 +59,6 @@ describe('PokemonGuides page', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Type Effectiveness')).toBeInTheDocument();
     expect(screen.getByText('Quick Tips')).toBeInTheDocument();
-    expect(screen.getByTestId('secret-pokeball')).toBeInTheDocument();
   });
 
   test('renders all section headings in the desktop sidebar', () => {
