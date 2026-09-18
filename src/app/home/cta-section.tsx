@@ -1,13 +1,26 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import CTALinkButton from '@/app/home/cta-button';
 
 interface CTASectionProps {
   onNavigate: (href: string) => void;
 }
+
+const CTA_ACTIONS = [
+  {
+    href: '/pokedex',
+    label: 'View Pokédex',
+    className:
+      'bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-full',
+  },
+  {
+    href: '/game',
+    label: 'Play Memory',
+    className:
+      'bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-lg px-8 py-6 rounded-full',
+  },
+] as const;
 
 export default function CTASection({ onNavigate }: CTASectionProps) {
   return (
@@ -27,40 +40,25 @@ export default function CTASection({ onNavigate }: CTASectionProps) {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block"
-            >
-              <Link href="/pokedex">
-                <Button
-                  size="lg"
-                  className="bg-white text-blue-600 hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-full"
-                  onClick={() => onNavigate('/pokedex')}
-                >
-                  View Pokédex <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block"
-            >
-              <Link href="/game">
-                <Button
-                  size="lg"
-                  className="bg-yellow-500 text-black hover:bg-yellow-400 font-bold text-lg px-8 py-6 rounded-full"
-                  onClick={() => onNavigate('/game')}
-                >
-                  Play Memory <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </motion.div>
+            {CTA_ACTIONS.map(({ href, label, className }) => (
+              <motion.div
+                key={href}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-block"
+              >
+                <CTALinkButton
+                  href={href}
+                  label={label}
+                  className={className}
+                  onNavigate={onNavigate}
+                />
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+
