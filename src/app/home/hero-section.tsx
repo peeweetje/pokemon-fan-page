@@ -1,10 +1,15 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
-import BackgroundPokeballs from './background-pokeballs';
+import dynamic from 'next/dynamic';
 import HeroPokeball from './hero-pokeball';
+import CTALinkButton from '@/app/home/cta-button';
+
+// Background pokeballs use random positioning + animation: render them
+// client-only so they never participate in SSR/hydration.
+const BackgroundPokeballs = dynamic(() => import('./background-pokeballs'), {
+  ssr: false,
+});
 
 interface HeroSectionProps {
   onNavigate: (href: string) => void;
@@ -87,13 +92,12 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
                 className="inline-block rounded-full"
                 data-testid="hero-cta-pulse"
               >
-                <Button
-                  size="lg"
+                <CTALinkButton
+                  href="/pokedex"
+                  label="View Pokédex"
                   className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6 rounded-full"
-                  onClick={() => onNavigate('/pokedex')}
-                >
-                  View Pokédex <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
+                  onNavigate={onNavigate}
+                />
               </motion.div>
             </motion.div>
           </div>
