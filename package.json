@@ -32,7 +32,7 @@
     "@react-three/fiber": "^9.8.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
-    "@types/three": "^0.186.0",
+    "@types/three": "^0.187.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^14.2.0",
@@ -42,7 +42,7 @@
     "react-dom": "19.3.1",
     "swr": "^2.4.1",
     "tailwind-merge": "^3.7.0",
-    "three": "^0.186.1"
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.5.1",
