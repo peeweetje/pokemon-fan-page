@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { BattleFinishedModal } from './battle-finished-modal';
 
 const meta: Meta<typeof BattleFinishedModal> = {

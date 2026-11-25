@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { EvolutionCard } from './evolution-card';
 import type { EvolutionGroup } from './evolution-types';
 

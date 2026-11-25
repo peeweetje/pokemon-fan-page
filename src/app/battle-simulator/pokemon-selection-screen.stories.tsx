@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PokemonSelectionScreen } from './pokemon-selection-screen';
 import { Pokemon } from '@/utils/battle-simulator-utils';
 

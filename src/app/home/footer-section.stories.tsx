@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import FooterSection from './footer-section';
 
 const meta: Meta<typeof FooterSection> = {

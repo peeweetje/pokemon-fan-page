@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import HeroPokeball from './hero-pokeball';
 
 const meta: Meta<typeof HeroPokeball> = {

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import BackgroundPokeballs from './background-pokeballs';
 
 const meta: Meta<typeof BackgroundPokeballs> = {

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { BattleScoreClient } from './battle-score-client';
 import type { BattleScore } from '@/hooks/use-battle-score';
 
