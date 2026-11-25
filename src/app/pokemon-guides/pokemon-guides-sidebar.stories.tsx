@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import PokemonGuidesSidebar from './pokemon-guides-sidebar';
 import { BookOpen, Trophy, Zap, Target, Sparkles } from 'lucide-react';
 

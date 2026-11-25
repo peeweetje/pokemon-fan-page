@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import PokemonHeader from './pokemon-header';
 import { mockPokemon, mockSpecies } from './fixtures';
 
