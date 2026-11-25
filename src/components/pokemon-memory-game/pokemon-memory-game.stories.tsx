@@ -1,5 +1,5 @@
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PokemonMemoryGame } from './pokemon-memory-game';
 
 const meta: Meta<typeof PokemonMemoryGame> = {
